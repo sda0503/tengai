@@ -16,88 +16,153 @@ public class MapCreater : MonoBehaviour
 
     public GameObject mapObject;
 
-    List<int> maxRooms = new List<int>();
+    List<int[]> maxRooms = new List<int[]>();
     List<int> floorRooms = new List<int>();
 
-    int maxCount = 0;
 
     // Start is called before the first frame update
     void Start()
     {
 
-        //Ãþ ¸¶´Ù °¹¼ö ³Ö±â
-        for (int i = 0; i <= maxFloor; i++)
-        {
-            int setStageCount = Random.Range(3, 6);
-            maxCount += setStageCount;
-            maxRooms.Add(setStageCount);
-        }
-
-        for(int i=0; i< maxCount; i++)
+        //ÀüÃ¼ ¼ö
+        for (int i = 0; i < 84 + 12; i++)
         {
             float r = Random.Range(0f, 100f);
-            float[] p = { 1f, 5f, 12f, 16f, 22f, 45f};
+            float[] p = { 1f, 5f, 12f, 14f, 20f, 48f };
             float cumulative = 0f;
-            for (int j =0; j<6; j++)
+            for (int j = 0; j < 6; j++)
             {
                 cumulative += p[j];
-                if(r <= cumulative)
+                if (r <= cumulative)
                 {
                     floorRooms.Add(j);
                     break;
                 }
             }
         }
-        floorRooms.Add(0);
-        floorRooms.Add(0);
-        
+
+        for(int i =0; i <= maxFloor; i++)
+        {
+            int setStageCount = Random.Range(3, 6);
+            int[] arrayFloor = new int[7];
+            maxRooms.Add(arrayFloor);
+
+            int x = setStageCount;
+            int y = setStageCount;
+            //Debug.Log(y);
+            for (int j =0; j<7;j++)
+            {
+                switch(i)
+                {
+                    case 0:
+                        if (y != 0)
+                        {
+                            maxRooms[i][j] = 5;
+                            y--;
+                        }
+                        else maxRooms[i][j] = 7;
+                        break;
+                    case 1:
+                        if (y != 0)
+                        {
+                            if (floorRooms[i * x + j] == 3) maxRooms[i][j] = 5;
+                            else maxRooms[i][j] = floorRooms[i * x + j];
+                            y--;
+                        }
+                        else maxRooms[i][j] = 7;
+                        break;
+                    case 2:
+                        if (y != 0)
+                        {
+                            if(floorRooms[i * x + j] == 3) maxRooms[i][j] = 5;
+                            else maxRooms[i][j] = floorRooms[i * x + j];
+                            y--;
+                        }
+                        else maxRooms[i][j] = 7;
+                        break;
+                   
+                    case 9:
+                        if (y != 0)
+                        {
+                            maxRooms[i][j] = 0;
+                            y--;
+                        }
+                        else maxRooms[i][j] = 7;
+                        break;
+
+                    case 13:
+                        if (y != 0)
+                        {
+                            maxRooms[i][j] = 2;
+                            y--;
+                        }
+                        else maxRooms[i][j] = 7;
+                        break;
+
+                    default:
+                        if (y != 0)
+                        {
+                            maxRooms[i][j] = floorRooms[i * x + j];
+                            y--;
+                        }
+                        else maxRooms[i][j] = 7;
+                        break;
+
+                }
+
+                
+
+            }
+        }
+
+
         //Ãþ¸¶´Ù »ý¼º
         for (int i = 0; i <= maxFloor; i++)
         {
-            int y =  i * 100;
+            //¹è¿­ ¼¯±â
+            ShuffleArray(maxRooms[i]);
+            float y = i * 250 + 100+ Random.Range(-30f, 30f) ;
             // ¼ÂÆÃ
             for(int j=0; j< 7; j++) 
             {
-                int x = j * 100 + 560;
-                mapObject.GetComponent<Image>().sprite = mapSpriteIcon[MapSetting(i)];
-                if(maxRooms[i] > 0)
+                if(maxRooms[i][j] == 7)
                 {
-                    Instantiate(mapObject, new Vector3(x, y, 0), Quaternion.identity, gameObject.transform);
-                    maxRooms[i]--;
+                    continue;
                 }
+                else
+                {
+                    float x = j * 200 + 383 + Random.Range(-30f, 30f);
+                    //Debug.Log(maxRooms[i][j]);
+                    mapObject.GetComponent<Image>().sprite = mapSpriteIcon[maxRooms[i][j]];
+                    Instantiate(mapObject, new Vector3(x, y, 0), Quaternion.identity, gameObject.transform);
+                    //OnDrawGizmos(new Vector3(x, y, 0), new Vector3(x, i + 1 * 100, 0));
+                }
+                
             }
         }
     }
 
-    int MapSetting(int num)
+    void OnDrawGizmos(Vector3 obj1, Vector3 obj2)
     {
-        int rand = Random.Range(0, floorRooms.Count);
-        int x = 0;
-        x = floorRooms[rand];
-        floorRooms.Remove(rand);
-        switch (num)
+        Gizmos.color = Color.red;
+        Gizmos.DrawLine(obj1, obj2);
+    }
+
+    private T[] ShuffleArray<T>(T[] array)
+    {
+        int random1, random2;
+        T temp;
+
+        for (int i = 0; i < array.Length; ++i)
         {
-            case 0:
-                x = 5;
-                break;
-            case 1:
-                break;
-            case 2: break;
-            case 3: break;
-            case 4: break;
-            case 5: break;
-            case 6: break;
-            case 7: break;
-            case 8: break;
-            case 9:
-                x = 0;
-                break;
-            case 10: break;
-            case 11: break;
-            case 12: break;
-            case 13: break;
+            random1 = Random.Range(0, array.Length);
+            random2 = Random.Range(0, array.Length);
+
+            temp = array[random1];
+            array[random1] = array[random2];
+            array[random2] = temp;
         }
 
-        return x;
+        return array;
     }
 }
