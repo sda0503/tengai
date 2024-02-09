@@ -140,13 +140,9 @@ public class MapCreater : MonoBehaviour
                 
             }
         }
+
     }
 
-    void OnDrawGizmos(Vector3 obj1, Vector3 obj2)
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawLine(obj1, obj2);
-    }
 
     private T[] ShuffleArray<T>(T[] array)
     {
