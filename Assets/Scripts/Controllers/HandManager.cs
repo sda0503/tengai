@@ -31,7 +31,16 @@ public class HandManager : MonoBehaviour
     private Card curSelectedCard;
     private GameObject curSelectedCardGO;
 
+    private CardDisplay curMouseOverCard;
+
     public Canvas _mainCanvas;
+
+    private bool isDrag = false;
+    private bool isMouseOver = false;
+
+    [Header("Hightlight Card Value")]
+    public float AddScaleValueWhenHighlight;
+    public float AddYPosValue;
 
     private void Awake()
     {
@@ -57,6 +66,8 @@ public class HandManager : MonoBehaviour
     {
         _ped.position = Input.mousePosition;
         //Debug.Log(Input.mousePosition);
+        OnPointerOver();
+        OnPointerExit();
         OnPointerDown();
         OnPointerUp();
     }
@@ -72,6 +83,15 @@ public class HandManager : MonoBehaviour
         hands.Add(cardDisplay);
 
         SortAllCard();
+        SetAllCardIndex();
+    }
+
+    private void SetAllCardIndex()
+    {
+        for(int i = 0; i < hands.Count; i++)
+        {
+            hands[i].index = i;
+        }
     }
 
     public void SortAllCard()
@@ -142,11 +162,47 @@ public class HandManager : MonoBehaviour
 
         return _rrList[0].gameObject.GetComponent<T>();
     }
+    private void OnPointerOver()
+    {
+        if(!isMouseOver && !isDrag)
+        {
+            curMouseOverCard = GetClickedUIObjectComponent<CardDisplay>();
+
+            
+
+            if (curMouseOverCard != null)
+            {
+                Debug.Log("MouseOver");
+                isMouseOver = true;
+                HighlightCard();
+                curMouseOverCard.transform.SetAsLastSibling();
+
+            }
+        }
+    }
+
+    private void OnPointerExit()
+    {
+        if(isMouseOver && !isDrag && curMouseOverCard != null)
+        {
+            if (GetClickedUIObjectComponent<CardDisplay>() != null && GetClickedUIObjectComponent<CardDisplay>() == curMouseOverCard)
+                return;
+
+            curMouseOverCard.transform.localPosition = curMouseOverCard.targetPos;
+            curMouseOverCard.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, curMouseOverCard.angle));
+            curMouseOverCard.transform.localScale = new Vector3(1f, 1f, 0f);
+            curMouseOverCard.transform.SetSiblingIndex(curMouseOverCard.index);
+
+            isMouseOver = false;
+        }
+    }
 
     private void OnPointerDown()
     {
         if (Input.GetMouseButtonDown(0))
         {
+            isDrag = true;
+
             curSelectedCardDisplay = GetClickedUIObjectComponent<CardDisplay>();
             curSelectedCard = curSelectedCardDisplay?.GetCard();
             curSelectedCardGO = curSelectedCardDisplay?.gameObject;
@@ -164,12 +220,15 @@ public class HandManager : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
+            isDrag = false;
+
             if (curSelectedCard != null)
             {
                 Debug.Log("End Click");
                 if (IsMeetUseCondition(curSelectedCard.CardData.condition))
                 {
                     UseCard();
+                    isMouseOver = false;
                 }
             }
         }
@@ -205,6 +264,17 @@ public class HandManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void HighlightCard()
+    {
+        if(curMouseOverCard != null)
+        {
+            Debug.Log("highlight");
+            curMouseOverCard.transform.localRotation = Quaternion.identity;
+            curMouseOverCard.transform.localScale = new Vector3(1f + AddScaleValueWhenHighlight, 1f + AddScaleValueWhenHighlight, 0);
+            curMouseOverCard.transform.localPosition += new Vector3(0f, AddYPosValue, 0f);
+        }
     }
 
     public void ConnectCardManager(CardManager manager)
