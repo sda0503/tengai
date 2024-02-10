@@ -9,10 +9,9 @@ public class CardManager : MonoBehaviour
     // 카드 추가, 카드 제거, 드로우 
 
     public List<Card> deck;
-    public List<Card> hands;
     public List<Card> garbages;
 
-    [SerializeField] private Transform handParnet;
+    public HandManager _handManager;
 
     [SerializeField] private Card_Base[] cardDatas;
 
@@ -29,7 +28,6 @@ public class CardManager : MonoBehaviour
     private void Awake()
     {
         deck = new List<Card>();
-        hands = new List<Card>();
         garbages = new List<Card>();
         Init();
     }
@@ -43,6 +41,8 @@ public class CardManager : MonoBehaviour
                 AddCard(cardDatas[i].CreateCard());
             }
         }
+
+        _handManager.ConnectCardManager(this);
     }
 
     private void Init()
@@ -54,10 +54,7 @@ public class CardManager : MonoBehaviour
 
     private void Update()
     {
-        _ped.position = Input.mousePosition;
-        //Debug.Log(Input.mousePosition);
-        OnPointerDown();
-        OnPointerUp();
+        
     }
 
     private T GetClickedUIObjectComponent<T>() where T : Component
@@ -90,20 +87,20 @@ public class CardManager : MonoBehaviour
         }
     }
 
-    private void OnPointerUp()
-    {
-        if (Input.GetMouseButtonUp(0))
-        {
-            if(curSelectedCard != null)
-            {
-                Debug.Log("End Click");
-                if (IsMeetUseCondition(curSelectedCard))
-                {
-                    UseCard();
-                }
-            }
-        }
-    }
+    //private void OnPointerUp()
+    //{
+    //    if (Input.GetMouseButtonUp(0))
+    //    {
+    //        if(curSelectedCard != null)
+    //        {
+    //            Debug.Log("End Click");
+    //            if (IsMeetUseCondition(curSelectedCard))
+    //            {
+    //                UseCard();
+    //            }
+    //        }
+    //    }
+    //}
 
     public void AddCard(Card card)
     {
@@ -112,28 +109,17 @@ public class CardManager : MonoBehaviour
 
     public void DrawCard()
     {
-        if(deck.Count >= 1 && hands.Count < 10)
+        if(deck.Count >= 1 && _handManager.hands.Count < 10)
         {
             Card card = deck[Random.Range(0, deck.Count)];
 
-            GameObject go = Instantiate(cardPrefab, handParnet);
-
-            go.GetComponentInChildren<CardDisplay>().SetCard(card);
-
-            hands.Add(card);
+            _handManager.DrawCard(card);
             deck.Remove(card);
         }
     }
 
-    public void UseCard()
-    {
-        Debug.Log(curSelectedCard.CardData.name + " 사용");
-        DropCard(curSelectedCard);
-    }
-
     public void DropCard(Card card)
     {
-        hands.Remove(card);
         garbages.Add(card);
         Destroy(curSelectedCardUI);
     }

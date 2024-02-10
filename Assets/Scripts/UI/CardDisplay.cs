@@ -13,6 +13,11 @@ public class CardDisplay : MonoBehaviour
 
     private Card card;
 
+    public int index;
+    public float curveRateInHand;
+    public float angle;
+    public Vector3 targetPos;
+
     public void SetCard(Card card)
     {
         this.card = card;
