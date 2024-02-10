@@ -250,8 +250,9 @@ MonoBehaviour:
   distanceBetweenCard2: 0.1
   cardPrefab: {fileID: 4883506622124037758, guid: b01468d7ed1dfae47b7f9928bc04864d, type: 3}
   _mainCanvas: {fileID: 487571820}
-  AddScaleValueWhenHighlight: 0.5
-  AddYPosValue: 100
+  addScaleValueWhenHighlight: 0.5
+  addYPosValue: 100
+  expandGapValue: 50
 --- !u!1 &388138321
 GameObject:
   m_ObjectHideFlags: 0

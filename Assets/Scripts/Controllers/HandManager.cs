@@ -39,8 +39,9 @@ public class HandManager : MonoBehaviour
     private bool isMouseOver = false;
 
     [Header("Hightlight Card Value")]
-    public float AddScaleValueWhenHighlight;
-    public float AddYPosValue;
+    public float addScaleValueWhenHighlight;
+    public float addYPosValue;
+    public float expandGapValue;
 
     private void Awake()
     {
@@ -69,6 +70,7 @@ public class HandManager : MonoBehaviour
         OnPointerOver();
         OnPointerExit();
         OnPointerDown();
+        OnPointerDrag();
         OnPointerUp();
     }
 
@@ -98,12 +100,17 @@ public class HandManager : MonoBehaviour
     {
         for(int i = 0; i < hands.Count; i++)
         {
-            SetCurveRate(i);
-            SetAngle(i);
-            hands[i].targetPos = GetPositionFromBezierCurve(P0.localPosition, P1.localPosition, P2.localPosition, P3.localPosition, hands[i].curveRateInHand);
-            hands[i].transform.localPosition = hands[i].targetPos;
-            hands[i].transform.localRotation = Quaternion.Euler(new Vector3(0, 0, hands[i].angle));
+            SortCard(i);
         }
+    }
+
+    private void SortCard(int i)
+    {
+        SetCurveRate(i);
+        SetAngle(i);
+        hands[i].targetPos = GetPositionFromBezierCurve(P0.localPosition, P1.localPosition, P2.localPosition, P3.localPosition, hands[i].curveRateInHand);
+        hands[i].transform.localPosition = hands[i].targetPos;
+        hands[i].transform.localRotation = Quaternion.Euler(new Vector3(0, 0, hands[i].angle));
     }
 
     public void SetCurveRate(int index)
@@ -176,7 +183,7 @@ public class HandManager : MonoBehaviour
                 isMouseOver = true;
                 HighlightCard();
                 curMouseOverCard.transform.SetAsLastSibling();
-
+                ExpandGap(curMouseOverCard.index);
             }
         }
     }
@@ -192,6 +199,8 @@ public class HandManager : MonoBehaviour
             curMouseOverCard.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, curMouseOverCard.angle));
             curMouseOverCard.transform.localScale = new Vector3(1f, 1f, 0f);
             curMouseOverCard.transform.SetSiblingIndex(curMouseOverCard.index);
+
+            RollBackExpandGap(curMouseOverCard.index);
 
             isMouseOver = false;
         }
@@ -216,6 +225,14 @@ public class HandManager : MonoBehaviour
         }
     }
 
+    private void OnPointerDrag()
+    {
+        if (isDrag && curSelectedCardDisplay != null)
+        {
+            curSelectedCardDisplay.transform.position = Input.mousePosition;
+        }
+    }
+
     private void OnPointerUp()
     {
         if (Input.GetMouseButtonUp(0))
@@ -230,6 +247,10 @@ public class HandManager : MonoBehaviour
                     UseCard();
                     isMouseOver = false;
                 }
+                else
+                {
+                    curSelectedCardDisplay.transform.localPosition = curSelectedCardDisplay.targetPos;
+                }
             }
         }
     }
@@ -240,6 +261,7 @@ public class HandManager : MonoBehaviour
         hands.Remove(curSelectedCardDisplay);
         Destroy(curSelectedCardGO);
         SortAllCard();
+        SetAllCardIndex();
         _cardManager.DropCard(curSelectedCard);
     }
     private bool IsMeetUseCondition(UseCondition useCondition)
@@ -272,8 +294,31 @@ public class HandManager : MonoBehaviour
         {
             Debug.Log("highlight");
             curMouseOverCard.transform.localRotation = Quaternion.identity;
-            curMouseOverCard.transform.localScale = new Vector3(1f + AddScaleValueWhenHighlight, 1f + AddScaleValueWhenHighlight, 0);
-            curMouseOverCard.transform.localPosition += new Vector3(0f, AddYPosValue, 0f);
+            curMouseOverCard.transform.localScale = new Vector3(1f + addScaleValueWhenHighlight, 1f + addScaleValueWhenHighlight, 0);
+            curMouseOverCard.transform.localPosition += new Vector3(0f, addYPosValue, 0f);
+        }
+    }
+
+    private void ExpandGap(int index)
+    {
+        for(int i = 0; i < hands.Count; i++)
+        {
+            if(i != index)
+            {
+                float x = (i < index) ? expandGapValue * -1 : expandGapValue;
+                hands[i].transform.localPosition += new Vector3(x, 0, 0);
+            }
+        }
+    }
+
+    private void RollBackExpandGap(int index)
+    {
+        for (int i = 0;i < hands.Count; i++)
+        {
+            if(i != index)
+            {
+                SortCard(i);
+            }
         }
     }
 
