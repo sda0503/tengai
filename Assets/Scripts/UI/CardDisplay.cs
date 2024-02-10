@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CardDisplay : MonoBehaviour
@@ -11,16 +12,21 @@ public class CardDisplay : MonoBehaviour
     [SerializeField] private Image cardImage;
 
     private Card card;
-    
+
     public void SetCard(Card card)
     {
         this.card = card;
         InitText();
     }
 
+    public Card GetCard()
+    {
+        return card;
+    }
+
     private void InitText()
     {
-        costText.text = card.CardData.Cost.ToString();
+        costText.text = card.CardData.cost.ToString();
         cardNameText.text = card.CardData.name;
         cardDescriptionText.text = card.CardData.description;
         cardImage.sprite = card.CardData.cardSprite;

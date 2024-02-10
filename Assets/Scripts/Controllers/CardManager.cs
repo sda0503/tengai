@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class CardManager : MonoBehaviour
 {
@@ -16,6 +18,22 @@ public class CardManager : MonoBehaviour
 
     [SerializeField] private GameObject cardPrefab;
 
+    [SerializeField] private Canvas _mainCanvas;
+
+    private GraphicRaycaster _gr;
+    private PointerEventData _ped;
+    private List<RaycastResult> _rrList;
+
+    private Card curSelectedCard;
+    private GameObject curSelectedCardUI;
+    private void Awake()
+    {
+        deck = new List<Card>();
+        hands = new List<Card>();
+        garbages = new List<Card>();
+        Init();
+    }
+
     private void Start()
     {
         for (int i = 0; i < cardDatas.Length; i++)
@@ -27,10 +45,71 @@ public class CardManager : MonoBehaviour
         }
     }
 
+    private void Init()
+    {
+        _gr = _mainCanvas.GetComponent<GraphicRaycaster>();
+        _ped = new PointerEventData(null);
+        _rrList = new List<RaycastResult>(10);
+    }
+
+    private void Update()
+    {
+        _ped.position = Input.mousePosition;
+        //Debug.Log(Input.mousePosition);
+        OnPointerDown();
+        OnPointerUp();
+    }
+
+    private T GetClickedUIObjectComponent<T>() where T : Component
+    {
+        _rrList.Clear();
+
+        _gr.Raycast(_ped, _rrList);
+
+        if(_rrList.Count == 0 )
+        {
+            return null;
+        }
+
+        return _rrList[0].gameObject.GetComponent<T>();
+    }
+
+    private void OnPointerDown()
+    {
+        if(Input.GetMouseButtonDown(0))
+        {
+            curSelectedCard = GetClickedUIObjectComponent<CardDisplay>()?.GetCard();
+            curSelectedCardUI = GetClickedUIObjectComponent<CardDisplay>()?.gameObject;
+
+            Debug.Log("OnClick");
+
+            if (curSelectedCard != null )
+            {
+                Debug.Log(curSelectedCard.CardData.name);
+            }
+        }
+    }
+
+    private void OnPointerUp()
+    {
+        if (Input.GetMouseButtonUp(0))
+        {
+            if(curSelectedCard != null)
+            {
+                Debug.Log("End Click");
+                if (IsMeetUseCondition(curSelectedCard))
+                {
+                    UseCard();
+                }
+            }
+        }
+    }
+
     public void AddCard(Card card)
     {
         deck.Add(card);
     }
+
     public void DrawCard()
     {
         if(deck.Count >= 1 && hands.Count < 10)
@@ -39,10 +118,47 @@ public class CardManager : MonoBehaviour
 
             GameObject go = Instantiate(cardPrefab, handParnet);
 
-            go.GetComponent<CardDisplay>().SetCard(card);
+            go.GetComponentInChildren<CardDisplay>().SetCard(card);
 
             hands.Add(card);
             deck.Remove(card);
         }
+    }
+
+    public void UseCard()
+    {
+        Debug.Log(curSelectedCard.CardData.name + " »ç¿ë");
+        DropCard(curSelectedCard);
+    }
+
+    public void DropCard(Card card)
+    {
+        hands.Remove(card);
+        garbages.Add(card);
+        Destroy(curSelectedCardUI);
+    }
+
+    private bool IsMeetUseCondition(Card card)
+    {
+        switch (card.CardData.condition)
+        {
+            case UseCondition.Target:
+                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+                
+                if(hit.collider != null)
+                {
+                    if (hit.collider.gameObject.CompareTag("Monster"))
+                        return true;
+                }
+                break;
+            case UseCondition.NonTarget:
+                if(Input.mousePosition.y > 500)
+                {
+                    return true;
+                }
+                break;
+        }
+
+        return false;
     }
 }
