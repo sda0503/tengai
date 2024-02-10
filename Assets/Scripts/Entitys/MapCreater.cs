@@ -13,7 +13,7 @@ public class MapCreater : MonoBehaviour
     int curFloor = 0;
 
     public Sprite[] mapSpriteIcon;
-
+    public Sprite[] mapSpriteHover;
     public GameObject mapObject;
 
     List<int[]> maxRooms = new List<int[]>();
@@ -121,7 +121,7 @@ public class MapCreater : MonoBehaviour
         {
             //배열 섞기
             ShuffleArray(maxRooms[i]);
-            float y = i * 250 + 100+ Random.Range(-30f, 30f) ;
+            float y = i * 140 + -2400 + Random.Range(-30f, 30f) ;
             // 셋팅
             for(int j=0; j< 7; j++) 
             {
@@ -131,9 +131,10 @@ public class MapCreater : MonoBehaviour
                 }
                 else
                 {
-                    float x = j * 200 + 383 + Random.Range(-30f, 30f);
+                    float x = j * 130 - 400 + Random.Range(-20f, 20f);
                     //Debug.Log(maxRooms[i][j]);
                     mapObject.GetComponent<Image>().sprite = mapSpriteIcon[maxRooms[i][j]];
+                    mapObject.transform.GetChild(0).GetComponent<Image>().sprite = mapSpriteIcon[maxRooms[i][j]];
                     Instantiate(mapObject, new Vector3(x, y, 0), Quaternion.identity, gameObject.transform);
                     //OnDrawGizmos(new Vector3(x, y, 0), new Vector3(x, i + 1 * 100, 0));
                 }

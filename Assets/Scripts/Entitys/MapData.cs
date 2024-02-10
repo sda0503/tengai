@@ -11,8 +11,13 @@ public class MapData : MonoBehaviour
 
     public void ClearRoom()
     {
-        transform.GetChild(0).gameObject.SetActive(true);
-        transform.gameObject.GetComponent<Image>().sprite = Complete;
+        transform.GetChild(1).gameObject.SetActive(true);
+        transform.GetChild(0).gameObject.GetComponent<Image>().sprite = Complete;
+    }
+
+    void OnMouseEnter()
+    {
+        transform.gameObject.GetComponent<Outline>().enabled = true;
     }
 }
 
