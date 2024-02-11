@@ -10,25 +10,25 @@ public class ItemDataBase : MonoBehaviour
 
     void Awake()
     {
-        AddPotionData();
-        AddRelicsData();
+        //AddPotionData();
+        //AddRelicsData();
     }
 
-    public void AddPotionData()
-    {
-        potionList.Add(new Potion(0,"","",RarityType.Common, false));
-        potionList.Add(new Potion(1, "", "", RarityType.Common, false));
-        potionList.Add(new Potion(2, "", "", RarityType.Common, false));
-        potionList.Add(new Potion(3, "", "", RarityType.Common, false));
-    }
+    //public void AddPotionData()
+    //{
+    //    potionList.Add(new Potion(0,"","",RarityType.Common, false));
+    //    potionList.Add(new Potion(1, "", "", RarityType.Common, false));
+    //    potionList.Add(new Potion(2, "", "", RarityType.Common, false));
+    //    potionList.Add(new Potion(3, "", "", RarityType.Common, false));
+    //}
 
-    public void AddRelicsData()
-    {
-        relicsList.Add(new Relics(0,"","",RarityType.Common));
-        relicsList.Add(new Relics(0, "", "", RarityType.Common));
-        relicsList.Add(new Relics(0, "", "", RarityType.Common));
-        relicsList.Add(new Relics(0, "", "", RarityType.Common));
-    }
+    //public void AddRelicsData()
+    //{
+    //    relicsList.Add(new Relics(0,"","",RarityType.Common));
+    //    relicsList.Add(new Relics(0, "", "", RarityType.Common));
+    //    relicsList.Add(new Relics(0, "", "", RarityType.Common));
+    //    relicsList.Add(new Relics(0, "", "", RarityType.Common));
+    //}
 }
 
 

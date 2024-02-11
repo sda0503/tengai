@@ -9,14 +9,15 @@ public enum RarityType
     Rare
 }
 
-[CreateAssetMenu(fileName = "Item", menuName = "New Item")]
+[CreateAssetMenu(fileName = "Potion", menuName = "New Potion")]
 public class PotionData : ScriptableObject
 {
     [Header("Info")]
-    public string displayName;
+    public string potionName;
     public string description;
     public RarityType type;
     public Sprite icon;
-    public GameObject dropPrefab;
+
+    public bool useOnEnemy;
 
 }

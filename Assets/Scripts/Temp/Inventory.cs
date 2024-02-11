@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.Progress;
 
 public class PotionSlot
 {
@@ -46,6 +47,35 @@ public class Inventory : MonoBehaviour
 
         //ClearSeletecItemWindow();
     }
+
+    public void AddItem(PotionData potion)
+    {
+        for (int i = 0; i < slots.Length; i++)
+        {
+            if (slots[i] == null)
+            {
+                slots[i].potion = potion;
+                UpdateUI();
+                return;
+            }
+        }
+    }
+
+    public void SelectPotion(int index)
+    {
+
+    }
+
+    public void UpdateUI()
+    {
+        //for (int i = 0; i < slots.Length; i++)
+        //{
+        //    if (slots[i].potion  != null)
+        //        uiSlots[i].Set(slots[i]);
+        //    else
+        //        uiSlots[i].Clear();
+        //}
+    }
     public void AddPotion(PotionData newPotion)
     {
         //for (int i = 0; i < potions.Length; i++)
@@ -75,7 +105,32 @@ public class Inventory : MonoBehaviour
 
     public void AddRelics(Relics newRelics)
     {
-        relics.Add(newRelics);
-        Debug.Log($"{newRelics} 유물을 추가했습니다.");
+        //relics.Add(newRelics);
+        //Debug.Log($"{newRelics} 유물을 추가했습니다.");
+    }
+
+    public void OnDrinkButton()
+    {
+
+    }
+
+    public void OnDropButton()
+    {
+
+    }
+
+    public void RemoveSelectedPotion()
+    {
+
+    }
+
+    public void RemovePotion()
+    {
+
+    }
+
+    public bool HasPotions(PotionData potion)
+    {
+        return false;
     }
 }
