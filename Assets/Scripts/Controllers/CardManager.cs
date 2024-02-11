@@ -19,6 +19,9 @@ public class CardManager : MonoBehaviour
 
     [SerializeField] private Canvas _mainCanvas;
 
+    [SerializeField] private Text deckNumText;
+    [SerializeField] private Text garbageNumText;
+
     private GraphicRaycaster _gr;
     private PointerEventData _ped;
     private List<RaycastResult> _rrList;
@@ -36,7 +39,7 @@ public class CardManager : MonoBehaviour
     {
         for (int i = 0; i < cardDatas.Length; i++)
         {
-            for(int j = 0; j < 5; j++)
+            for(int j = 0; j < 2; j++)
             {
                 AddCard(cardDatas[i].CreateCard());
             }
@@ -105,22 +108,32 @@ public class CardManager : MonoBehaviour
     public void AddCard(Card card)
     {
         deck.Add(card);
+        SetDeckNumText();
     }
 
     public void DrawCard()
     {
+        if(deck.Count <= 0)
+        {
+            ReloadAllCard();
+            SetAllNumText();
+        }
+
         if(deck.Count >= 1 && _handManager.hands.Count < 10)
         {
             Card card = deck[Random.Range(0, deck.Count)];
 
             _handManager.DrawCard(card);
             deck.Remove(card);
+
+            SetDeckNumText();
         }
     }
 
     public void DropCard(Card card)
     {
         garbages.Add(card);
+        SetGarbageNumText();
         Destroy(curSelectedCardUI);
     }
 
@@ -146,5 +159,30 @@ public class CardManager : MonoBehaviour
         }
 
         return false;
+    }
+
+    private void SetDeckNumText()
+    {
+        deckNumText.text = deck.Count.ToString();
+    }
+
+    private void SetGarbageNumText()
+    {
+        garbageNumText.text = garbages.Count.ToString();
+    }
+
+    private void SetAllNumText()
+    {
+        SetDeckNumText();
+        SetGarbageNumText();
+    }
+
+    private void ReloadAllCard()
+    {
+        while(garbages.Count > 0)
+        {
+            deck.Add(garbages[0]);
+            garbages.RemoveAt(0);
+        }
     }
 }

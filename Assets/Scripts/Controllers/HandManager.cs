@@ -260,8 +260,10 @@ public class HandManager : MonoBehaviour
         Debug.Log(curSelectedCard.CardData.name + " »ç¿ë");
         hands.Remove(curSelectedCardDisplay);
         Destroy(curSelectedCardGO);
+
         SortAllCard();
         SetAllCardIndex();
+
         _cardManager.DropCard(curSelectedCard);
     }
     private bool IsMeetUseCondition(UseCondition useCondition)
