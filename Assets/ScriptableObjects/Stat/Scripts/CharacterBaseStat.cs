@@ -14,8 +14,8 @@ public class CharacterBaseStat : ScriptableObject
     #region Const MAX Stat
     private const int MAX_HP = 300;
     private const int MAX_COST = 10;
-    private const int MAX_ATK = 100;
-    private const int MAX_DEF = 100;
+    private const int MAX_ATK = 999;
+    private const int MAX_DEF = 999;
     #endregion
 
     #region Stat Getter Setter
