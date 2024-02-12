@@ -7,101 +7,147 @@ public enum StatType
     HP,
     Cost,
     ATK,
-    DEF
+    DEF,
+    MaxHP,
+    MaxCost
 }
 
 public class StatSystem : MonoBehaviour
 {
     [SerializeField] private CharacterBaseStat _stat;
-    private List<BuffData> _buffDatas = new List<BuffData>(MAX_SIZE);
-    private List<BuffData> _invokeBuffDatas = new List<BuffData>(MAX_SIZE);
+    [SerializeField] private List<Buff> _buffs;
+    private CharacterBaseStat _buffStat;
+    private Animator _animator;
 
-    private const int MAX_SIZE = 20;
+    public int HP { get { return _stat.HP + _buffStat.HP; } }
+    public int MaxHP { get { return _stat.MaxHP + _buffStat.MaxHP; } }
+    public int COST { get { return _stat.Cost + _buffStat.Cost; } }
+    public int MaxCost { get { return _stat.MaxCost + _buffStat.MaxCost; } }
+    public int ATK { get { return _stat.ATK + _buffStat.ATK; } }
+    public int DEF { get { return _stat.DEF + _buffStat.DEF; } }
 
-    public void TurnStart()
+    private void Awake()
     {
-        for(int i = 0; i < _invokeBuffDatas.Count; i++)
-        {
-            if (_invokeBuffDatas[i].CheckInvoke())
-            {
-                StatChange(_invokeBuffDatas[i].buff);
-                _invokeBuffDatas.RemoveAt(i);
-            }
-        }
+        _buffStat = ScriptableObject.CreateInstance<CharacterBaseStat>();
+        _animator = GetComponent<Animator>();
+    }
 
-        for(int i = 0; i < _buffDatas.Count; i++)
+    public void TakeDamage(int amount)
+    {
+        _stat.HP -= amount;
+        if (_stat.HP == 0)
         {
-            if (!_buffDatas[i].CheckBuffEnd())
+            _animator.SetTrigger("Die");
+        }
+        else
+        {
+            _animator.SetTrigger("TakeDamage");
+        }
+    }
+
+    public void TakeCost(int amount)
+    {
+        _stat.Cost -= amount;
+    }
+
+    public void UpdateStats()
+    {
+        InitStat();
+        for (int i = 0; i < _buffs.Count; i++)
+        {
+            if (_buffs[i].invokeTurn == 0)
             {
-                StatChange(_buffDatas[i].buff);
-                _buffDatas.RemoveAt(i);
+                AddStat(_buffs[i]);
             }
         }
     }
 
-    public void SetStat(Buff data)
+    public void UpdateBuffs()
     {
-        if (data.invokeTurn > 0)
+        for (int i = 0; i < _buffs.Count; i++)
         {
-            _invokeBuffDatas.Add(new BuffData(data, 0));
+            if (_buffs[i].invokeTurn > 0)
+            {
+                --_buffs[i].invokeTurn;
+                continue;
+            }
+            else if (_buffs[i].maxTurn == _buffs[i].turn)
+            {
+                _buffs[i].turn = 0;
+                _buffs.RemoveAt(i--);
+                continue;
+            }
+            _buffs[i].turn++;
+        }
+    }
+
+    public void AddBuff(Buff buff)
+    {
+        if (_buffs.Contains(buff))
+        {
+            _buffs[_buffs.IndexOf(buff)].turn = 0;
             return;
         }
+        _buffs.Add(buff);
+    }
 
-        StatChange(data);
-        if (data.maxTurn > 1)
+    public void RemoveBuff(Buff buff)
+    {
+        if (_buffs.Contains(buff))
         {
-            _buffDatas.Add(new BuffData(data, 1));
+            _buffs.RemoveAt(_buffs.IndexOf(buff));
         }
     }
 
-    private void StatChange(Buff data)
+    public void SettingStat(CharacterBaseStat stat)
     {
-        switch(data.type)
+        _stat = stat;
+    }
+
+    private void InitStat()
+    {
+        _buffStat.HP = 0;
+        _buffStat.MaxHP = 0;
+        _buffStat.Cost = 0;
+        _buffStat.MaxCost = 0;
+        _buffStat.ATK = 0;
+        _buffStat.DEF = 0;
+    }
+
+    private void AddStat(Buff data)
+    {
+        switch (data.type)
         {
             case StatType.HP:
                 {
-                    _stat.HP += data.amount;
+                    _buffStat.HP += data.amount;
                 }
                 break;
             case StatType.ATK:
                 {
-                    _stat.ATK += data.amount;
+                    _buffStat.ATK += data.amount;
                 }
                 break;
             case StatType.DEF:
                 {
-                    _stat.DEF += data.amount;
+                    _buffStat.DEF += data.amount;
                 }
                 break;
             case StatType.Cost:
                 {
-                    _stat.Cost += data.amount;
+                    _buffStat.Cost += data.amount;
                 }
                 break;
-        }
-    }
-
-    private class BuffData
-    {
-        public Buff buff;
-        public int turn;
-
-        public BuffData(Buff buff, int turn)
-        {
-            this.buff = buff;
-            this.turn = turn;
-        }
-
-        public bool CheckBuffEnd()
-        {
-            return buff.maxTurn == turn;
-        }
-
-        public bool CheckInvoke()
-        {
-            if(buff.invokeTurn-- == 0) return true;
-
-            return false;
+            case StatType.MaxHP:
+                {
+                    _buffStat.MaxHP += data.amount;
+                }
+                break;
+            case StatType.MaxCost:
+                {
+                    _buffStat.MaxCost += data.amount;
+                }
+                break;
         }
     }
 }
@@ -111,8 +157,15 @@ public class Buff
 {
     public StatType type;
     public int amount;
-    public int maxTurn = 1;
+    public int turn = 0;
+    public int maxTurn;
     public int invokeTurn;
 
-    public Action OnEffect;
+    public Buff(StatType type, int amount, int maxTurn = 1, int invokeTurn = 0)
+    {
+        this.type = type;
+        this.amount = amount;
+        this.maxTurn = maxTurn;
+        this.invokeTurn = invokeTurn;
+    }
 }
