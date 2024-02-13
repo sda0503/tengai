@@ -23,7 +23,7 @@ MonoBehaviour:
       _power: 10
       _defense: 0
     prefab: {fileID: 6703778939175893284, guid: 43454aa6bdf2c274abd8cf387d9dd58d, type: 3}
-  - Name: SlimesS
+  - Name: SlimeS
     stat:
       _hp: 10
       _maxHP: 10
@@ -32,7 +32,7 @@ MonoBehaviour:
       _power: 10
       _defense: 0
     prefab: {fileID: 5067599679747889170, guid: f38368be20c99124bbd7efcb2ed14039, type: 3}
-  - Name: SlimesAltS
+  - Name: SlimeAltS
     stat:
       _hp: 10
       _maxHP: 10
@@ -41,7 +41,7 @@ MonoBehaviour:
       _power: 10
       _defense: 0
     prefab: {fileID: 2771449772436700447, guid: 2b19881c39b67ef4399294d283ebb064, type: 3}
-  - Name: Louse
+  - Name: LouseGreen
     stat:
       _hp: 10
       _maxHP: 10

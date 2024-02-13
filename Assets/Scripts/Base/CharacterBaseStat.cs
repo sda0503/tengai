@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 [System.Serializable]
-public class CharacterBaseStat
+public struct CharacterBaseStat
 {
     [SerializeField] private int _hp;
     [SerializeField] private int _maxHP;

@@ -31,7 +31,7 @@ public class ObjectDatas : ScriptableObject//TODO : 플레이어 스텟
         if (_datas == null)
             Init();
 
-        if(_datas.TryGetValue(name.GetHashCode(), out var data))
+        if(!_datas.TryGetValue(name.GetHashCode(), out var data))
         {
             Debug.Log($"Faile Load Object Data : {name}");
         }
