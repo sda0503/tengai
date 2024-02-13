@@ -15,7 +15,7 @@ public class Inventory : MonoBehaviour
     public PotionSlot[] slots;
     public PotionSlotUI[] uiSlots;
 
-    public List<Relics> relics = new List<Relics>();
+    //public List<Relics> relics = new List<Relics>();
 
     [Header("Selected potion")]
     private PotionSlot selectedPotion;
@@ -83,31 +83,31 @@ public class Inventory : MonoBehaviour
         //    if (potions[i] == null)
         //    {
         //        potions[i] = (Potion)newPotion;
-        //        Debug.Log($"{newPotion} + À» Ãß°¡Çß½À´Ï´Ù");
+        //        Debug.Log($"{newPotion} + ì„ ì¶”ê°€í–ˆìŠµë‹ˆë‹¤");
         //        return;
         //    }
         //}
 
-        Debug.Log("ÀÎº¥Åä¸®°¡ °¡µæ Ã¡½À´Ï´Ù.");
+        Debug.Log("ì¸ë²¤í† ë¦¬ê°€ ê°€ë“ ì°¼ìŠµë‹ˆë‹¤.");
     }
 
     public void DropPotion(int potionSlotIndex)
     {
         //if (potions[potionSlotIndex] == null)
         //{
-        //    Debug.Log("ºó ½½·ÔÀÔ´Ï´Ù.");
+        //    Debug.Log("ë¹ˆ ìŠ¬ë¡¯ì…ë‹ˆë‹¤.");
         //    return;
         //}
 
         //potions[potionSlotIndex] = null;
-        //Debug.Log("Æ÷¼ÇÀ» ¹ö·È½À´Ï´Ù.");
+        //Debug.Log("í¬ì…˜ì„ ë²„ë ¸ìŠµë‹ˆë‹¤.");
     }
 
-    public void AddRelics(Relics newRelics)
-    {
-        //relics.Add(newRelics);
-        //Debug.Log($"{newRelics} À¯¹°À» Ãß°¡Çß½À´Ï´Ù.");
-    }
+    //public void AddRelics(Relics newRelics)
+    //{
+    //    relics.Add(newRelics);
+    //    Debug.Log($"{newRelics} ìœ ë¬¼ì„ ì¶”ê°€í–ˆìŠµë‹ˆë‹¤.");
+    //}
 
     public void OnDrinkButton()
     {
