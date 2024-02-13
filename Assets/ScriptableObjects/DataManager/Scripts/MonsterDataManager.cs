@@ -12,13 +12,15 @@ public class MonsterDataManager : ScriptableObject
     [HideInInspector] public GameObject spowPivot;
 
     public List<MonsterObject> activeMonster;
-
+    public bool isTurn;
     public void MonstersAttack()
     {
-        foreach(var monster in activeMonster)
+        isTurn = false;
+        foreach (var monster in activeMonster)
         {
-            monster.Attack();
+            monster?.Attack();
         }
+        isTurn = true;
     }
 
     public void CreateDefalutMonster()
