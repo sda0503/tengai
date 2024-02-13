@@ -14,10 +14,5 @@ public class MapData : MonoBehaviour
         transform.GetChild(1).gameObject.SetActive(true);
         transform.GetChild(0).gameObject.GetComponent<Image>().sprite = Complete;
     }
-
-    void OnMouseEnter()
-    {
-        transform.gameObject.GetComponent<Outline>().enabled = true;
-    }
 }
 

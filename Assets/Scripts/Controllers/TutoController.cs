@@ -22,7 +22,7 @@ public class TutoController : MonoBehaviour
         if(cnt == 3) HideCanvas();
         cnt++;
         nextBtnText.text = cnt == 3 ? "준비 되었습니다!" : "다음";
-        currentText.text = $"(총 3페이지 중 {cnt} 번째 페이지";
+        currentText.text = $"(총 3페이지 중 {cnt} 번째 페이지)";
         
     }
 

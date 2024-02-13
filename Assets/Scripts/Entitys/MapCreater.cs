@@ -10,7 +10,7 @@ using Random = UnityEngine.Random;
 public class MapCreater : MonoBehaviour
 {
     int maxFloor = 13;
-    int curFloor = 0;
+    public int curFloor = 0;
 
     public Sprite[] mapSpriteIcon;
     public Sprite[] mapSpriteHover;
@@ -19,11 +19,15 @@ public class MapCreater : MonoBehaviour
     List<int[]> maxRooms = new List<int[]>();
     List<int> floorRooms = new List<int>();
 
+    bool isStart = false;
+    float y;
+
+    List<GameObject> beforeVec3 = new List<GameObject>();
 
     // Start is called before the first frame update
     void Start()
     {
-
+        
         //전체 수
         for (int i = 0; i < 84 + 12; i++)
         {
@@ -107,41 +111,43 @@ public class MapCreater : MonoBehaviour
                         }
                         else maxRooms[i][j] = 7;
                         break;
-
                 }
-
-                
-
             }
         }
 
-
-        //층마다 생성
         for (int i = 0; i <= maxFloor; i++)
         {
-            //배열 섞기
             ShuffleArray(maxRooms[i]);
-            float y = i * 140 + -2400 + Random.Range(-30f, 30f) ;
-            // 셋팅
             for(int j=0; j< 7; j++) 
             {
-                if(maxRooms[i][j] == 7)
-                {
-                    continue;
-                }
-                else
-                {
-                    float x = j * 130 - 400 + Random.Range(-20f, 20f);
-                    //Debug.Log(maxRooms[i][j]);
-                    mapObject.GetComponent<Image>().sprite = mapSpriteIcon[maxRooms[i][j]];
-                    mapObject.transform.GetChild(0).GetComponent<Image>().sprite = mapSpriteIcon[maxRooms[i][j]];
-                    Instantiate(mapObject, new Vector3(x, y, 0), Quaternion.identity, gameObject.transform);
-                    //OnDrawGizmos(new Vector3(x, y, 0), new Vector3(x, i + 1 * 100, 0));
-                }
+                float y = i * 200 - 3100 + Random.Range(-20f, 20f);
+                float x = j * 130 - 400 + Random.Range(-20f, 20f);
+                mapObject.transform.position = new Vector3(x, y, 0);
+                mapObject.GetComponent<Image>().sprite = mapSpriteIcon[maxRooms[i][j]];
+                mapObject.transform.GetChild(0).GetComponent<Image>().sprite = mapSpriteIcon[maxRooms[i][j]];
                 
+                if(i >= 0 && maxRooms[i][j] != 7) mapObject.SetActive(true);
+                else mapObject.SetActive(false);
+                Instantiate(mapObject, new Vector3(x, y, 0), Quaternion.identity, gameObject.transform);
+                //오브젝트 정보
+                beforeVec3.Add(mapObject);
+            }
+        }
+    }
+
+    public void Update()
+    {
+        if (!isStart)
+        {
+            y += Time.deltaTime;
+            transform.position += new Vector3(0, y, 0);
+            if (transform.position.y >= 3400f)
+            {
+                isStart = true;
             }
         }
 
+        
     }
 
 
