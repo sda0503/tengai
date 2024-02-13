@@ -1,8 +1,8 @@
 using System;
 using UnityEngine;
 
-[CreateAssetMenu(fileName ="BaseStat", menuName = "Data/CharacterStat")]
-public class CharacterBaseStat : ScriptableObject
+[System.Serializable]
+public class CharacterBaseStat
 {
     [SerializeField] private int _hp;
     [SerializeField] private int _maxHP;
@@ -35,19 +35,4 @@ public class CharacterBaseStat : ScriptableObject
     public int ATK { get { return _power; } set { _power = Math.Clamp(_power + value, 0, MAX_ATK); } }
     public int DEF { get { return _defense; } set { _defense = Math.Clamp(_defense + value, 0, MAX_DEF); } }
     #endregion
-
-    public event Action Battle;
-    public event Action EndBattle;
-
-    public void CallBattle()
-    {
-        Battle?.Invoke();
-        Battle = null;
-    }
-
-    public void CallEndBattle()
-    {
-        EndBattle?.Invoke();
-        EndBattle = null;
-    }
 }

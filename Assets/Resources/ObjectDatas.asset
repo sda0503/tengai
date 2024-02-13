@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 723cf22d304121e48996b2d718889067, type: 3}
+  m_Name: ObjectDatas
+  m_EditorClassIdentifier: 
+  data: {fileID: 11400000}
+  datas:
+  - Name: Player
+    stat:
+      _hp: 10
+      _maxHP: 10
+      _cost: 5
+      _maxCost: 5
+      _power: 10
+      _defense: 0
+    prefab: {fileID: 6703778939175893284, guid: 43454aa6bdf2c274abd8cf387d9dd58d, type: 3}
+  - Name: SlimesS
+    stat:
+      _hp: 10
+      _maxHP: 10
+      _cost: 5
+      _maxCost: 5
+      _power: 10
+      _defense: 0
+    prefab: {fileID: 5067599679747889170, guid: f38368be20c99124bbd7efcb2ed14039, type: 3}
+  - Name: SlimesAltS
+    stat:
+      _hp: 10
+      _maxHP: 10
+      _cost: 5
+      _maxCost: 5
+      _power: 10
+      _defense: 0
+    prefab: {fileID: 2771449772436700447, guid: 2b19881c39b67ef4399294d283ebb064, type: 3}
+  - Name: Louse
+    stat:
+      _hp: 10
+      _maxHP: 10
+      _cost: 5
+      _maxCost: 5
+      _power: 10
+      _defense: 0
+    prefab: {fileID: 6757371274554824724, guid: 6f3fd0982f125b444844c0cdbee34fa6, type: 3}

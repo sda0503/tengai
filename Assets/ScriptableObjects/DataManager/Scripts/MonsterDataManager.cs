@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,13 +7,14 @@ public class MonsterDataManager : ScriptableObject
 {
     [SerializeField] private List<Monsters> defaultDatas;//하나의 방에 어떤 몬스터가 있는지
     [SerializeField] private List<Monsters> EliteDatas;
-    [SerializeField] private List<MonsterData> BossDatas;
+    [SerializeField] private List<string> BossDatas;
 
     public StatSystem targetSystem;
     [HideInInspector] public GameObject spowPivot;
 
-    public List<MonsterObject> activeMonster;
+    [NonSerialized] public List<MonsterObject> activeMonster = new();
     public bool isTurn;
+
     public void MonstersAttack()
     {
         isTurn = false;
@@ -23,47 +25,55 @@ public class MonsterDataManager : ScriptableObject
         isTurn = true;
     }
 
+    public bool CheckMonster()
+    {
+        foreach (var monster in activeMonster)
+        {
+            if (monster != null)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public void CreateDefalutMonster()
     {
-        int r = Random.Range(0, defaultDatas.Count);
-        List<MonsterData> monsters = defaultDatas[r].MonsterDatas;
+        int r = UnityEngine.Random.Range(0, defaultDatas.Count);
+        List<string> monsters = defaultDatas[r].MonsterDatas;
         for (int i = 0; i < monsters.Count; i++)
         {
-            var monster = Instantiate(monsters[i].prefab, spowPivot.transform).GetComponent<MonsterObject>();
-            monster.UpdateMonster(monsters[i], targetSystem);
+            var data = ObjectDatas.I.GetData(monsters[i]);
+            var monster = Instantiate(data.prefab, spowPivot.transform).GetComponent<MonsterObject>();
+            monster.UpdateMonster(data, targetSystem);
             activeMonster.Add(monster);
         }
     }
 
     public void CreateEliteMonster()
     {
-        int r = Random.Range(0, EliteDatas.Count);
-        List<MonsterData> monsters = EliteDatas[r].MonsterDatas;
+        int r = UnityEngine.Random.Range(0, EliteDatas.Count);
+        List<string> monsters = EliteDatas[r].MonsterDatas;
         for (int i = 0; i < monsters.Count; i++)
         {
-            var monster = Instantiate(monsters[i].prefab, spowPivot.transform).GetComponent<MonsterObject>();
-            monster.UpdateMonster(monsters[i], targetSystem);
+            var data = ObjectDatas.I.GetData(monsters[i]);
+            var monster = Instantiate(data.prefab, spowPivot.transform).GetComponent<MonsterObject>();
+            monster.UpdateMonster(data, targetSystem);
             activeMonster.Add(monster);
         }
     }
 
     public void CreateBossMonster(int number)
     {
-        var monster = Instantiate(BossDatas[number - 1].prefab, spowPivot.transform).GetComponent<MonsterObject>();
-        monster.UpdateMonster(BossDatas[number - 1], targetSystem);
+        var data = ObjectDatas.I.GetData(BossDatas[number - 1]);
+        var monster = Instantiate(data.prefab, spowPivot.transform).GetComponent<MonsterObject>();
+        monster.UpdateMonster(data, targetSystem);
         activeMonster.Add(monster);
     }
 
     [System.Serializable]
     private class Monsters
     {
-        public List<MonsterData> MonsterDatas;
+        public List<string> MonsterDatas;
     }
-}
-[System.Serializable]
-public class MonsterData
-{
-    public string Name;
-    public CharacterBaseStat stat;
-    public GameObject prefab;
 }
