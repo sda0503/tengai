@@ -5,27 +5,27 @@ using UnityEngine;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
 
-public class PotionSlot
-{
-    public PotionData potion;
-    public int slotNumber;
-}
+//public class PotionSlot
+//{
+//    public PotionData potion;
+//    public int slotNumber;
+//}
 public class Inventory : MonoBehaviour
 {
-    public PotionSlot[] slots;
-    public PotionSlotUI[] uiSlots;
+    //public PotionSlot[] slots;
+    //public PotionSlotUI[] uiSlots;
 
     //public List<Relics> relics = new List<Relics>();
 
-    [Header("Selected potion")]
-    private PotionSlot selectedPotion;
-    private int selectedPotionIndex;
-    public Text selectedPotionName;
-    //public Text selectedPotionDescription;
-    public Text selectedPotionAdditionalDescription;
-    //public Text selectedPotionStatValues;
-    public GameObject useButton;
-    public GameObject dropButton;
+    //[Header("Selected potion")]
+    //private PotionSlot selectedPotion;
+    //private int selectedPotionIndex;
+    //public Text selectedPotionName;
+    ////public Text selectedPotionDescription;
+    //public Text selectedPotionAdditionalDescription;
+    ////public Text selectedPotionStatValues;
+    //public GameObject useButton;
+    //public GameObject dropButton;
 
     public static Inventory instance;
 
@@ -36,7 +36,7 @@ public class Inventory : MonoBehaviour
     }
     private void Start()
     {
-        slots = new PotionSlot[uiSlots.Length];
+        //slots = new PotionSlot[uiSlots.Length];
 
         //for (int i = 0; i < slots.Length; i++)
         //{
@@ -48,18 +48,18 @@ public class Inventory : MonoBehaviour
         //ClearSeletecItemWindow();
     }
 
-    public void AddItem(PotionData potion)
-    {
-        for (int i = 0; i < slots.Length; i++)
-        {
-            if (slots[i] == null)
-            {
-                slots[i].potion = potion;
-                UpdateUI();
-                return;
-            }
-        }
-    }
+    //public void AddItem(PotionData potion)
+    //{
+    //    for (int i = 0; i < slots.Length; i++)
+    //    {
+    //        if (slots[i] == null)
+    //        {
+    //            slots[i].potion = potion;
+    //            UpdateUI();
+    //            return;
+    //        }
+    //    }
+    //}
 
     public void SelectPotion(int index)
     {
@@ -76,20 +76,20 @@ public class Inventory : MonoBehaviour
         //        uiSlots[i].Clear();
         //}
     }
-    public void AddPotion(PotionData newPotion)
-    {
-        //for (int i = 0; i < potions.Length; i++)
-        //{
-        //    if (potions[i] == null)
-        //    {
-        //        potions[i] = (Potion)newPotion;
-        //        Debug.Log($"{newPotion} + 을 추가했습니다");
-        //        return;
-        //    }
-        //}
+    //public void AddPotion(PotionData newPotion)
+    //{
+    //    for (int i = 0; i < potions.Length; i++)
+    //    {
+    //        if (potions[i] == null)
+    //        {
+    //            potions[i] = (Potion)newPotion;
+    //            Debug.Log($"{newPotion} + 을 추가했습니다");
+    //            return;
+    //        }
+    //    }
 
-        Debug.Log("인벤토리가 가득 찼습니다.");
-    }
+    //    Debug.Log("인벤토리가 가득 찼습니다.");
+    //}
 
     public void DropPotion(int potionSlotIndex)
     {
@@ -129,8 +129,8 @@ public class Inventory : MonoBehaviour
 
     }
 
-    public bool HasPotions(PotionData potion)
-    {
-        return false;
-    }
+    //public bool HasPotions(PotionData potion)
+    //{
+    //    return false;
+    //}
 }
