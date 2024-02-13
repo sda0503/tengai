@@ -91,7 +91,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointA: {x: 0, y: 0, z: 0}
   pointB: {x: 0, y: 0, z: 0}
-  drawLineObject: {fileID: 0}
 --- !u!1 &3298514158370694162
 GameObject:
   m_ObjectHideFlags: 0
@@ -233,7 +232,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 375.34747, y: -529.5998}
+  m_AnchoredPosition: {x: 370.09692, y: -516.796}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &380093083167104371
@@ -419,7 +418,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointA: {x: 0, y: 0, z: 0}
   pointB: {x: 0, y: 0, z: 0}
-  drawLineObject: {fileID: 0}
 --- !u!1 &7358858822369231168
 GameObject:
   m_ObjectHideFlags: 0
