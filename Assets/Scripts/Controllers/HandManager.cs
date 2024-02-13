@@ -47,6 +47,8 @@ public class HandManager : MonoBehaviour
 
     private CardDisplay curMouseOverCard;
 
+    private StatSystem targetStatSystem;
+
     public Canvas _mainCanvas;
 
     private bool isDrag = false;
@@ -308,14 +310,17 @@ public class HandManager : MonoBehaviour
     {
         Debug.Log(curSelectedCard.CardData.name + " 사용");
         hands.Remove(curSelectedCardDisplay);
-        isUsing = true;
 
-        curSelectedCardDisplay.transform.localRotation = Quaternion.identity;
-        curSelectedCardDisplay.transform.localScale = new Vector3(1f + addScaleValueWhenHighlight, 1f + addScaleValueWhenHighlight, 0);
+        isUsing = true;
 
         yield return StartCoroutine(MoveObjC(curSelectedCardDisplay.transform, curSelectedCardDisplay.transform.localPosition, usedCardPlace.localPosition, 0.2f));
 
         yield return new WaitForSeconds(0.3f);
+
+        for(int i = 0; i < curSelectedCard.CardData.effects.Count; i++)
+        {
+            curSelectedCard.CardData.effects[i].OnUse(targetStatSystem);
+        }
 
         float angle = Quaternion.FromToRotation(Vector3.up, GarbagePos.localPosition - curSelectedCardDisplay.transform.localPosition).eulerAngles.z;
 
@@ -334,6 +339,7 @@ public class HandManager : MonoBehaviour
         _cardManager.DropCard(curSelectedCard);
         isUsing = false;
         isMouseOver = false;
+        targetStatSystem = null;
     }
 
     IEnumerator MoveObjC(Transform obj, Vector3 startPos, Vector3 endPos, float time)
@@ -394,16 +400,14 @@ public class HandManager : MonoBehaviour
 
                 _gr.Raycast(_ped, _rrList);
 
-                StatSystem statSystem = null;
-
                 if(_rrList.Count > 0)
                 {
-                    statSystem = _rrList[0].gameObject.GetComponentInParent<StatSystem>();
+                    targetStatSystem = _rrList[0].gameObject.GetComponentInParent<StatSystem>();
                 }
 
-                if (statSystem != null)
+                if (targetStatSystem != null)
                 {
-                    if (statSystem.gameObject.CompareTag("Monster"))
+                    if (targetStatSystem.gameObject.CompareTag("Monster"))
                         return true;
                 }
                 else

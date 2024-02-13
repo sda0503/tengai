@@ -8,7 +8,7 @@ public enum UseCondition
     NonTarget
 }
 
-public abstract class Card_Base : ScriptableObject
+public class Card_Base : ScriptableObject
 {
     [Header("Card Info")]
     public int cost;
@@ -17,7 +17,10 @@ public abstract class Card_Base : ScriptableObject
     [Multiline]
     public string description;
     public UseCondition condition;
-    public List<CardEffect> effects;
+    public List<CardEffect_Attack> effects;
 
-    public abstract Card CreateCard();
+    public virtual Card CreateCard()
+    {
+        return new Card(this);
+    }
 }

@@ -3,11 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[System.Serializable]
-public abstract class CardEffect : MonoBehaviour
+public interface ICardEffect
 {
-    public void OnUse(StatSystem statSystem = null)
-    {
-        
-    }
+    public void OnUse(StatSystem statSystem = null);
 }

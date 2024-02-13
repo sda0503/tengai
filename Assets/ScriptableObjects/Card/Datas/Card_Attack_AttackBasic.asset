@@ -18,4 +18,4 @@ MonoBehaviour:
   description: "\uD53C\uD574\uB97C 6 \uC90D\uB2C8\uB2E4."
   condition: 0
   effects:
-  - {fileID: 0}
+  - attackValue: 6
