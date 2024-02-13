@@ -89,6 +89,15 @@ public class HandManager : MonoBehaviour
         OnPointerDown();
         OnPointerDrag();
         OnPointerUp();
+        UpdateHandsCardPosition();
+    }
+
+    private void UpdateHandsCardPosition()
+    {
+        foreach(var hand in hands)
+        {
+            hand.transform.localPosition = Vector3.Lerp(hand.transform.localPosition, hand.targetPos, 0.05f);
+        }
     }
 
     public IEnumerator DrawCard(Card card)
@@ -98,13 +107,14 @@ public class HandManager : MonoBehaviour
         CardDisplay cardDisplay = go.GetComponent<CardDisplay>();
 
         cardDisplay.SetCard(card);
+        cardDisplay.transform.localPosition = DeckPos.transform.localPosition;
 
         hands.Add(cardDisplay);
 
         SetCurveRate(hands.Count - 1);
         hands[hands.Count - 1].targetPos = GetPositionFromBezierCurve4(P0.localPosition, P1.localPosition, P2.localPosition, P3.localPosition, hands[hands.Count - 1].curveRateInHand);
-        StartCoroutine(ChangeSizeCardC(cardDisplay.transform, drawStartSize, drawEndSize, drawTime));
-        yield return StartCoroutine(MoveObjC(cardDisplay.transform, DeckPos.localPosition, cardDisplay.targetPos, drawTime));
+        yield return StartCoroutine(ChangeSizeCardC(cardDisplay.transform, drawStartSize, drawEndSize, drawTime));
+        //yield return StartCoroutine(MoveObjC(cardDisplay.transform, DeckPos.localPosition, cardDisplay.targetPos, drawTime));
         
         SortAllCard();
         SetAllCardIndex();
@@ -146,7 +156,7 @@ public class HandManager : MonoBehaviour
         SetCurveRate(i);
         SetAngle(i);
         hands[i].targetPos = GetPositionFromBezierCurve4(P0.localPosition, P1.localPosition, P2.localPosition, P3.localPosition, hands[i].curveRateInHand);
-        hands[i].transform.localPosition = hands[i].targetPos;
+        //hands[i].transform.localPosition = hands[i].targetPos;
         hands[i].transform.localRotation = Quaternion.Euler(new Vector3(0, 0, hands[i].angle));
     }
 
@@ -238,7 +248,7 @@ public class HandManager : MonoBehaviour
             if (GetClickedUIObjectComponent<CardDisplay>() != null && GetClickedUIObjectComponent<CardDisplay>() == curMouseOverCard)
                 return;
 
-            curMouseOverCard.transform.localPosition = curMouseOverCard.targetPos;
+            curMouseOverCard.targetPos -= new Vector3(0f, addYPosValue, 0f);
             curMouseOverCard.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, curMouseOverCard.angle));
             curMouseOverCard.transform.localScale = new Vector3(1f, 1f, 0f);
             curMouseOverCard.transform.SetSiblingIndex(curMouseOverCard.index);
@@ -328,7 +338,7 @@ public class HandManager : MonoBehaviour
 
         StartCoroutine(RotationObjLeftC(curSelectedCardDisplay.transform, angle, dropTime / 2));
         StartCoroutine(ChangeSizeCardC(curSelectedCardDisplay.transform, curSelectedCardDisplay.transform.localScale, new Vector3(0.2f, 0.2f, 1f), dropTime / 2));
-        yield return StartCoroutine(MoveObjFollowCurveC(curSelectedCardDisplay.transform, usedCardPlace.localPosition,
+        yield return StartCoroutine(MoveObjFollowCurve4C(curSelectedCardDisplay.transform, usedCardPlace.localPosition,
             GarbageMid1Pos.localPosition, GarbageMid2Pos.localPosition, GarbagePos.localPosition, dropTime));
 
         Destroy(curSelectedCardDisplay.gameObject);
@@ -340,6 +350,37 @@ public class HandManager : MonoBehaviour
         isUsing = false;
         isMouseOver = false;
         targetStatSystem = null;
+    }
+
+    public void EndTurn()
+    {
+        StartCoroutine(DropAllCardC());
+    }
+
+    IEnumerator DropAllCardC()
+    {
+        for(int i = hands.Count - 1; i >= 0; i--)
+        {
+            float angle = Quaternion.FromToRotation(Vector3.up, GarbagePos.localPosition - hands[i].transform.localPosition).eulerAngles.z - 180;
+            StartCoroutine(RotationObjLeftC(hands[i].transform, angle, dropTime / 2));
+            StartCoroutine(ChangeSizeCardC(hands[i].transform, hands[i].transform.localScale, new Vector3(0.2f, 0.2f, 1f), dropTime / 2));
+            StartCoroutine(DropCardC(hands[i].transform));
+
+            _cardManager.DropCard(hands[i].GetCard());
+
+            hands.Remove(hands[i]);
+
+            yield return null;
+        }
+    }
+
+    IEnumerator DropCardC(Transform obj)
+    {
+        //yield retrun StartCoroutine(MoveObjFollowCurve3C(obj, obj.localPosition, obj.transform.localPosition + new Vector3(50f, 50f, 0f), GarbagePos.localPosition, dropTime));
+
+        yield return StartCoroutine(MoveObjFollowCurve3C(obj, obj.localPosition, obj.transform.localPosition + new Vector3(50f, 50f, 0f), GarbagePos.localPosition, dropTime));
+
+        Destroy(obj.gameObject);
     }
 
     IEnumerator MoveObjC(Transform obj, Vector3 startPos, Vector3 endPos, float time)
@@ -377,7 +418,21 @@ public class HandManager : MonoBehaviour
         obj.transform.localRotation = Quaternion.Euler(0, 0, angle);
     }
 
-    IEnumerator MoveObjFollowCurveC(Transform obj, Vector3 P0, Vector3 P1, Vector3 P2, Vector3 P3, float time)
+    IEnumerator MoveObjFollowCurve3C(Transform obj, Vector3 P0, Vector3 P1, Vector3 P2, float time)
+    {
+        float startTime = 0;
+
+        while (startTime < time)
+        {
+            obj.localPosition = GetPositionFromBezierCurve3(P0, P1, P2, startTime / time);
+            startTime += Time.deltaTime;
+            yield return null;
+        }
+
+        obj.localPosition = P2;
+    }
+
+    IEnumerator MoveObjFollowCurve4C(Transform obj, Vector3 P0, Vector3 P1, Vector3 P2, Vector3 P3, float time)
     {
         float startTime = 0;
 
@@ -433,7 +488,7 @@ public class HandManager : MonoBehaviour
             Debug.Log("highlight");
             curMouseOverCard.transform.localRotation = Quaternion.identity;
             curMouseOverCard.transform.localScale = new Vector3(1f + addScaleValueWhenHighlight, 1f + addScaleValueWhenHighlight, 0);
-            curMouseOverCard.transform.localPosition += new Vector3(0f, addYPosValue, 0f);
+            curMouseOverCard.targetPos += new Vector3(0f, addYPosValue, 0f);
         }
     }
 
@@ -444,7 +499,7 @@ public class HandManager : MonoBehaviour
             if(i != index)
             {
                 float x = (i < index) ? expandGapValue * -1 : expandGapValue;
-                hands[i].transform.localPosition += new Vector3(x, 0, 0);
+                hands[i].targetPos += new Vector3(x, 0, 0);
             }
         }
     }
