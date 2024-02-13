@@ -17,6 +17,7 @@ public abstract class Card_Base : ScriptableObject
     [Multiline]
     public string description;
     public UseCondition condition;
+    public List<CardEffect> effects;
 
     public abstract Card CreateCard();
 }

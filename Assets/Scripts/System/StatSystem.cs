@@ -16,7 +16,7 @@ public class StatSystem : MonoBehaviour
 {
     [SerializeField] private CharacterBaseStat _stat;
     [SerializeField] private List<Buff> _buffs;
-    private CharacterBaseStat _buffStat;
+    private CharacterBaseStat _buffStat = new();
     private Animator _animator;
 
     public int HP { get { return _stat.HP + _buffStat.HP; } }
@@ -28,8 +28,12 @@ public class StatSystem : MonoBehaviour
 
     private void Awake()
     {
-        _buffStat = ScriptableObject.CreateInstance<CharacterBaseStat>();
         _animator = GetComponent<Animator>();
+    }
+
+    public void Attack()
+    {
+        _animator.SetTrigger("Attack");
     }
 
     public void TakeDamage(int amount)

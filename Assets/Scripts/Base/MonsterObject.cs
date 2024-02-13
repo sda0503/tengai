@@ -5,12 +5,10 @@ using UnityEngine;
 public class MonsterObject : MonoBehaviour
 {
     public TextMeshProUGUI nameText;
-    private Animator animator;
     private MonsterBase monsterBase;
 
     public void Attack()
     {
-        animator.SetTrigger("Attack");
         monsterBase.Attack();
     }
 
@@ -26,11 +24,10 @@ public class MonsterObject : MonoBehaviour
 
     private void OnEnable()
     {
-        animator = GetComponent<Animator>();
         monsterBase = GetComponent<MonsterBase>();
     }
 
-    public void UpdateMonster(MonsterData data, StatSystem target)
+    public void UpdateMonster(ObjectData data, StatSystem target)
     {
         nameText.text = data.Name;
         monsterBase.statSystem = GetComponent<StatSystem>();
