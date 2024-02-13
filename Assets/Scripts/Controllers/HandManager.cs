@@ -298,7 +298,7 @@ public class HandManager : MonoBehaviour
 
     public IEnumerator UseCard()
     {
-        Debug.Log(curSelectedCard.CardData.name + " »ç¿ë");
+        Debug.Log(curSelectedCard.CardData.name + " ì‚¬ìš©");
         hands.Remove(curSelectedCardDisplay);
         isUsing = true;
 
@@ -331,10 +331,13 @@ public class HandManager : MonoBehaviour
     IEnumerator MoveObjC(Transform obj, Vector3 startPos, Vector3 endPos, float time)
     {
         float startTime = 0;
+        Vector3 velocity = Vector3.zero;
+        obj.localPosition = startPos;
 
         while (startTime < time)
         {
             obj.localPosition = Vector3.Lerp(startPos, endPos, startTime / time);
+            //obj.localPosition = Vector3.SmoothDamp(obj.localPosition, endPos, ref velocity, time);
             startTime += Time.deltaTime;
             yield return null;
         }
