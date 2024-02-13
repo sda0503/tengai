@@ -356,7 +356,7 @@ GameObject:
   - component: {fileID: 4604433138978769396}
   m_Layer: 0
   m_Name: SlimeS
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -427,7 +427,8 @@ MonoBehaviour:
     turn: 0
     maxTurn: 0
     invokeTurn: 0
-  _target: {fileID: 0}
+  statSystem: {fileID: 0}
+  target: {fileID: 0}
 --- !u!114 &1355907221458911151
 MonoBehaviour:
   m_ObjectHideFlags: 0

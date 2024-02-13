@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class HandManager : MonoBehaviour
 {
@@ -43,7 +44,6 @@ public class HandManager : MonoBehaviour
 
     private CardDisplay curSelectedCardDisplay;
     private Card curSelectedCard;
-    private GameObject curSelectedCardGO;
 
     private CardDisplay curMouseOverCard;
 
@@ -255,7 +255,9 @@ public class HandManager : MonoBehaviour
 
             curSelectedCardDisplay = GetClickedUIObjectComponent<CardDisplay>();
             curSelectedCard = curSelectedCardDisplay?.GetCard();
-            curSelectedCardGO = curSelectedCardDisplay?.gameObject;
+
+            if(curSelectedCardDisplay != null)
+                curSelectedCardDisplay.GetComponent<Image>().raycastTarget = false;
 
             Debug.Log("OnClick");
 
@@ -291,8 +293,14 @@ public class HandManager : MonoBehaviour
                 else
                 {
                     curSelectedCardDisplay.transform.localPosition = curSelectedCardDisplay.targetPos;
+                    curSelectedCardDisplay.GetComponent<Image>().raycastTarget = true;
+
+                    curSelectedCardDisplay = null;
+                    curSelectedCard = null;
                 }
             }
+
+            
         }
     }
 
@@ -318,7 +326,7 @@ public class HandManager : MonoBehaviour
         yield return StartCoroutine(MoveObjFollowCurveC(curSelectedCardDisplay.transform, usedCardPlace.localPosition,
             GarbageMid1Pos.localPosition, GarbageMid2Pos.localPosition, GarbagePos.localPosition, dropTime));
 
-        Destroy(curSelectedCardGO);
+        Destroy(curSelectedCardDisplay.gameObject);
 
         SortAllCard();
         SetAllCardIndex();
@@ -334,13 +342,16 @@ public class HandManager : MonoBehaviour
         Vector3 velocity = Vector3.zero;
         obj.localPosition = startPos;
 
-        while (startTime < time)
-        {
-            obj.localPosition = Vector3.Lerp(startPos, endPos, startTime / time);
-            //obj.localPosition = Vector3.SmoothDamp(obj.localPosition, endPos, ref velocity, time);
-            startTime += Time.deltaTime;
-            yield return null;
-        }
+        //while (startTime < time)
+        //{
+        //    obj.localPosition = Vector3.Lerp(startPos, endPos, startTime / time);
+        //    //obj.localPosition = Vector3.SmoothDamp(obj.localPosition, endPos, ref velocity, time);
+        //    startTime += Time.deltaTime;
+        //    yield return null;
+        //}
+
+        obj.DOLocalMove(endPos, time).SetEase(Ease.OutQuad);
+        yield return new WaitForSeconds(time);
 
         obj.transform.localPosition = endPos; 
     }
@@ -379,12 +390,25 @@ public class HandManager : MonoBehaviour
         switch (useCondition)
         {
             case UseCondition.Target:
-                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+                _rrList.Clear();
 
-                if (hit.collider != null)
+                _gr.Raycast(_ped, _rrList);
+
+                StatSystem statSystem = null;
+
+                if(_rrList.Count > 0)
                 {
-                    if (hit.collider.gameObject.CompareTag("Monster"))
+                    statSystem = _rrList[0].gameObject.GetComponentInParent<StatSystem>();
+                }
+
+                if (statSystem != null)
+                {
+                    if (statSystem.gameObject.CompareTag("Monster"))
                         return true;
+                }
+                else
+                {
+                    Debug.Log("null");
                 }
                 break;
             case UseCondition.NonTarget:

@@ -147,7 +147,7 @@ GameObject:
   - component: {fileID: 3831123947095087367}
   m_Layer: 0
   m_Name: SlimeAltS
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -218,7 +218,8 @@ MonoBehaviour:
     turn: 0
     maxTurn: 0
     invokeTurn: 0
-  _target: {fileID: 0}
+  statSystem: {fileID: 0}
+  target: {fileID: 0}
 --- !u!114 &1739434537153233485
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -231,8 +232,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalFit: 1
-  m_VerticalFit: 1
+  m_HorizontalFit: 2
+  m_VerticalFit: 2
 --- !u!95 &3831123947095087367
 Animator:
   serializedVersion: 5
