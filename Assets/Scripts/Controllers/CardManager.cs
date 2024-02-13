@@ -123,7 +123,7 @@ public class CardManager : MonoBehaviour
         {
             Card card = deck[Random.Range(0, deck.Count)];
 
-            _handManager.DrawCard(card);
+            StartCoroutine(_handManager.DrawCard(card));
             deck.Remove(card);
 
             SetDeckNumText();
