@@ -15,6 +15,8 @@ public class MapManager : MonoBehaviour
     private Image uiImage;
     private GameObject obj;
     public GameObject mapObj;
+    public GameObject eventObj;
+    public GameObject changeObj;
     public Canvas _mainCanvas;
 
     private void Awake()
@@ -28,9 +30,11 @@ public class MapManager : MonoBehaviour
         _ped.position = Input.mousePosition;
         OnPointerOver();
         OnPointerExit();
+
+
     }
 
-    private T GetClickedUIObjectComponent<T>() where T : Component
+    public T GetClickedUIObjectComponent<T>() where T : Component
     {
         _rrList.Clear();
 
@@ -44,7 +48,7 @@ public class MapManager : MonoBehaviour
         return _rrList[0].gameObject.GetComponent<T>(); 
     }
 
-    private GameObject GetClickedUIObject()
+    public GameObject GetClickedUIObject()
     {
         _rrList.Clear();
 
@@ -54,60 +58,108 @@ public class MapManager : MonoBehaviour
         {
             return null;
         }
-
         return _rrList[0].gameObject;
     }
 
-    private void OnPointerOver()
+    public void OnPointerOver()
     {
         if (!isMouseOver)
         {
             uiImage = GetClickedUIObjectComponent<Image>();
             obj = GetClickedUIObject();
-            if (uiImage != null)
+            if (uiImage != null && obj.name != "Viewport")
             {
-                //Debug.Log("MouseOver");
-                isMouseOver = true;
-                if(obj.name != "nextBtn")
+                if (obj.transform.GetChild(1).gameObject.activeSelf != true)
                 {
-                    uiImage.color = new Color(210f/255f,253f/255f,255f/255f,1f);
-                }
-                else
-                {
-                    uiImage.color = new Color(1, 1, 1, 1f);
+                    isMouseOver = true;
+                    obj.transform.GetChild(0).GetComponent<Image>().color = new Color(0, 0, 0, 1f);
+                    uiImage.color = new Color(255f / 255f, 255f / 255f, 255f / 255f, 1f);
                 }
             }
         }
     }
 
-    private void OnPointerExit()
+    public void OnPointerExit()
     {
-        if (isMouseOver && uiImage != null)
+        if (isMouseOver && uiImage != null && obj.name != "Viewport")
         {
             if (GetClickedUIObjectComponent<Image>() != null && GetClickedUIObjectComponent<Image>() == uiImage)
                 return;
-            if (obj.name != "nextBtn")
-            {
-                uiImage.color = new Color(210f / 255f, 253f / 255f, 255f / 255f, 0.31f);
-            }
-            else
-            {
-                uiImage.color = new Color(1, 1, 1, 168f/255f);
-            }
-            
+            uiImage.color = new Color(0, 0, 0, 0f);
+            obj.transform.GetChild(0).GetComponent<Image>().color = new Color(0, 0, 0, 0.8f);
             isMouseOver = false;
         }
     }
 
-    public void AddGold(int gold)
+    public void ClickArea()
     {
+        obj = GetClickedUIObject();
+        switch(obj.gameObject.GetComponent<MapData>().mapData)
+        {
+            case 0:
+                obj.transform.GetChild(1).gameObject.SetActive(true);
+                obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
+                changeObj.SetActive(true);
+                Invoke("GoBattle", 3f);
 
+                break;
+            case 1:
+                obj.transform.GetChild(1).gameObject.SetActive(true);
+                obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
+                changeObj.SetActive(true);
+                Invoke("GoBattle", 3f);
+
+                break;
+            case 2:
+                obj.transform.GetChild(1).gameObject.SetActive(true);
+                obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
+                changeObj.SetActive(true);
+                Invoke("GoBattle", 3f);
+
+                break;
+            case 3:
+                obj.transform.GetChild(1).gameObject.SetActive(true);
+                obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
+                changeObj.SetActive(true);
+                Invoke("GoBattle", 3f);
+
+                break;
+            case 4:
+                obj.transform.GetChild(1).gameObject.SetActive(true);
+                obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
+                changeObj.SetActive(true);
+                Invoke("GoEvent", 3f);
+
+                break;
+            case 5:
+                obj.transform.GetChild(1).gameObject.SetActive(true);
+                obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
+                changeObj.SetActive(true);
+                Invoke("GoBattle", 3f);
+
+                break;
+            default:
+                break;
+        }
     }
 
-    public void Skip()
+    public void GoBattle()
     {
         gameObject.SetActive(false);
         mapObj.SetActive(true);
+        changeObj.SetActive(false);
+    }
+
+    public void GoEvent()
+    {
+        gameObject.SetActive(false);
+        eventObj.SetActive(true);
+        changeObj.SetActive(false);
+    }
+
+    public void SelectArea()
+    {
 
     }
+
 }
