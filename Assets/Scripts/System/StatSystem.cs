@@ -123,6 +123,7 @@ public class StatSystem : MonoBehaviour
     {
         if (_bar == null) _bar = GetComponentInChildren<HPBar>();
         _stat = stat;
+        _buffStat.MaxHP = 1;
         _bar.UpdateHPBar(HP, MaxHP, DEF);
     }
 
