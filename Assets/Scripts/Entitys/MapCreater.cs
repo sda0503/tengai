@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 using Random = UnityEngine.Random;
@@ -10,7 +11,6 @@ using Random = UnityEngine.Random;
 public class MapCreater : MonoBehaviour
 {
     int maxFloor = 13;
-    public int curFloor = 0;
 
     public Sprite[] mapSpriteIcon;
     public Sprite[] mapSpriteHover;
@@ -22,13 +22,21 @@ public class MapCreater : MonoBehaviour
     bool isStart = false;
     float y;
 
+    MapManager mapManager;
+
     List<GameObject> beforeVec3 = new List<GameObject>();
+
+    void Awake()
+    {
+        mapManager = transform.parent.parent.parent.gameObject.GetComponent<MapManager>();
+        Debug.Log(transform.parent.parent.parent.gameObject.name);
+        Debug.Log(mapManager);
+    }
 
     // Start is called before the first frame update
     void Start()
     {
-        
-        //¿¸√º ºˆ
+        //Ï†ÑÏ≤¥ Ïàò
         for (int i = 0; i < 84 + 12; i++)
         {
             float r = Random.Range(0f, 100f);
@@ -123,16 +131,25 @@ public class MapCreater : MonoBehaviour
                 float y = i * 200 - 3100 + Random.Range(-20f, 20f);
                 float x = j * 130 - 400 + Random.Range(-20f, 20f);
                 mapObject.transform.position = new Vector3(x, y, 0);
-                mapObject.GetComponent<Image>().sprite = mapSpriteIcon[maxRooms[i][j]];
+                mapObject.GetComponent<Image>().sprite = mapSpriteHover[maxRooms[i][j]];
                 mapObject.transform.GetChild(0).GetComponent<Image>().sprite = mapSpriteIcon[maxRooms[i][j]];
                 
-                if(i >= 0 && maxRooms[i][j] != 7) mapObject.SetActive(true);
+
+                if (i >= 0 && maxRooms[i][j] != 7) mapObject.SetActive(true);
                 else mapObject.SetActive(false);
-                Instantiate(mapObject, new Vector3(x, y, 0), Quaternion.identity, gameObject.transform);
-                //ø¿∫Í¡ß∆Æ ¡§∫∏
+                var mapObj = Instantiate(mapObject, new Vector3(x, y, 0), Quaternion.identity, gameObject.transform);
+                mapObj.GetComponent<Button>().onClick.AddListener((mapManager.ClickArea));
+                mapObj.GetComponent<MapData>().mapData = maxRooms[i][j];
+
+
+
+
+                //Ïò§Î∏åÏ†ùÌä∏ Ï†ïÎ≥¥
                 beforeVec3.Add(mapObject);
             }
         }
+
+
     }
 
     public void Update()
