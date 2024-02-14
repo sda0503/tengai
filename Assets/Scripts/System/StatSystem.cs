@@ -23,7 +23,7 @@ public class StatSystem : MonoBehaviour
     private HPBar _bar;
 
     public int HP { get { return _stat.HP + _buffStat.HP; } }
-    public int MaxHP { get { return _stat.MaxHP + _buffStat.MaxHP; } }
+    public int MaxHP { get { return _stat.MaxHP + _buffStat.MaxHP - 1; } }
     public int COST { get { return _stat.Cost + _buffStat.Cost; } }
     public int MaxCost { get { return _stat.MaxCost + _buffStat.MaxCost; } }
     public int ATK { get { return _stat.ATK + _buffStat.ATK; } }
@@ -189,5 +189,14 @@ public class Buff
         this.amount = amount;
         this.maxTurn = maxTurn;
         this.invokeTurn = invokeTurn;
+    }
+
+    public Buff(Buff buff)
+    {
+        this.type = buff.type;
+        this.amount = buff.amount;
+        this.turn = buff.turn;
+        this.maxTurn = buff.maxTurn;
+        this.invokeTurn = buff.invokeTurn;
     }
 }
