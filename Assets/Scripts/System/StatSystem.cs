@@ -53,7 +53,13 @@ public class StatSystem : MonoBehaviour
         _stat.HP -= result;
         if (_stat.HP == 0)
         {
-            _animator.SetTrigger("Die");
+            if (TryGetComponent<MonsterBase>(out _))
+            {
+                Destroy(this);
+            }
+            else
+                Debug.Log("PlayerDie");
+            //_animator.SetTrigger("Die");
         }
         else
         {
