@@ -29,7 +29,8 @@ public class InfoSystem : MonoBehaviour
         cardsList[1] = 10; //현재 카드수
         cardsList[2] = 0;  //버린 카드수
 
-        currentHp = maxHp;
+        //currentHp = maxHp;
+        currentHp = 10;
         gold = 99;
         ShowDate();
     }
