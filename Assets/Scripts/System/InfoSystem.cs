@@ -11,8 +11,10 @@ public class InfoSystem : MonoBehaviour
     public int maxHp = 80;
     public int currentHp = 80;
     public int playerPoint = 3;
-    public int playerHand = 5;
     public int currentFloor = 0;
+    public int index = 0;
+
+    public bool _isTuto = false;
 
     public Text[] text;
 

@@ -19,14 +19,13 @@ public class BattleManager : MonoBehaviour
     {
         _isPlayerTrun = false;
         trunBtn.text = "적 턴";
-    }
+    }   
 
     public void MyTrun()
     {
         _isPlayerTrun = true;
         trunBtn.text = "턴 종료";
         InfoSystem.instance.playerPoint = 3;
-        InfoSystem.instance.playerHand = 5;
         InfoSystem.instance.ShowDate();
     }
 }
