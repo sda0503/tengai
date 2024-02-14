@@ -6,6 +6,10 @@ public class MakeLine : MonoBehaviour
     float lineWidth = 2f; 
     public Vector3 pointA; 
     public Vector3 pointB;
+    public Vector3 pointC;
+    public Vector3 pointD;
+    public Vector3 pointE;
+
 
     // Start is called before the first frame update
     void Start()

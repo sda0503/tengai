@@ -69,11 +69,11 @@ public class RewardClick : MonoBehaviour
             {
                 //Debug.Log("MouseOver");
                 isMouseOver = true;
-                if (obj.name != "nextBtn")
+                if (obj.name == "List(Clone)")
                 {
                     uiImage.color = new Color(210f / 255f, 253f / 255f, 255f / 255f, 1f);
                 }
-                else
+                else if(obj.name == "nextBtn")
                 {
                     uiImage.color = new Color(1, 1, 1, 1f);
                 }
@@ -87,11 +87,11 @@ public class RewardClick : MonoBehaviour
         {
             if (GetClickedUIObjectComponent<Image>() != null && GetClickedUIObjectComponent<Image>() == uiImage)
                 return;
-            if (obj.name != "nextBtn")
+            if (obj.name == "List(Clone)")
             {
                 uiImage.color = new Color(210f / 255f, 253f / 255f, 255f / 255f, 0.31f);
             }
-            else
+            else if (obj.name == "nextBtn")
             {
                 uiImage.color = new Color(1, 1, 1, 168f / 255f);
             }
@@ -113,7 +113,10 @@ public class RewardClick : MonoBehaviour
     {
         gameObject.SetActive(false);
         mapObj.SetActive(true);
-        Destroy(gameObject.transform.GetChild(1).GetChild(1).gameObject);
-        Destroy(gameObject.transform.GetChild(1).GetChild(2).gameObject);
+    }
+
+    public void AddRelics()
+    {
+
     }
 }

@@ -91,6 +91,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointA: {x: 0, y: 0, z: 0}
   pointB: {x: 0, y: 0, z: 0}
+  pointC: {x: 0, y: 0, z: 0}
+  pointD: {x: 0, y: 0, z: 0}
+  pointE: {x: 0, y: 0, z: 0}
 --- !u!1 &3298514158370694162
 GameObject:
   m_ObjectHideFlags: 0
@@ -230,7 +233,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 395.1788, y: -490.5694}
+  m_AnchoredPosition: {x: 382.6997, y: -3089.1453}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &380093083167104371
@@ -261,7 +264,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ed6dccbd530e586408ae696408282615, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6de9401d21bd58241b43aa08c0efdb84, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -416,7 +419,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 4f9cdbe177c895c4dabd83e1b7c53b2d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 30751bf314ffbaa47a3f1b2e7769f9d5, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

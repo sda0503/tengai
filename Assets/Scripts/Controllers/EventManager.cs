@@ -16,6 +16,8 @@ public class EventManager : MonoBehaviour
     public GameObject mapObj;
     public Canvas _mainCanvas;
 
+    public Sprite[] _sprite;
+    public Text[] _text;
 
     // Start is called before the first frame update
     void Start()

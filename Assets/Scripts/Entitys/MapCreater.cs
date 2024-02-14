@@ -126,9 +126,8 @@ public class MapCreater : MonoBehaviour
         boss.GetComponent<MapData>().mapData = 6;
         boss.GetComponent<MapData>().index = 15;
         boss.GetComponent<MapData>().floor = 0;
-        beforeVec3.Add(boss);
 
-        for (int i = maxFloor; i <= 0 ; i--)
+        for (int i = maxFloor; i >= 0; i--)
         {
             ShuffleArray(maxRooms[i]);
             for(int j=0; j< 7; j++) 
@@ -138,7 +137,6 @@ public class MapCreater : MonoBehaviour
                 mapObject.transform.position = new Vector3(x, y, 0);
                 mapObject.GetComponent<Image>().sprite = mapSpriteHover[maxRooms[i][j]];
                 mapObject.transform.GetChild(0).GetComponent<Image>().sprite = mapSpriteIcon[maxRooms[i][j]];
-                
 
                 if (i >= 0 && maxRooms[i][j] != 7) mapObject.SetActive(true);
                 else mapObject.SetActive(false);
@@ -167,7 +165,7 @@ public class MapCreater : MonoBehaviour
                 isStart = true;
             }
         }
-       // ColorCheck();
+       ColorCheck();
 
 
     }
@@ -215,6 +213,7 @@ public class MapCreater : MonoBehaviour
                     ))
                 {
                     gameObject.transform.GetChild(i).transform.GetChild(0).GetComponent<Image>().color = new Color(0, 0, 0, 1f);
+                    
                 }
                 else
                 {
@@ -222,5 +221,7 @@ public class MapCreater : MonoBehaviour
                 }
             }
         }
+
+
     }
 }
