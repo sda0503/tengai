@@ -19,7 +19,7 @@ public class ShowCardListInfo : MonoBehaviour
         _handManager = GameObject.Find("Hand").GetComponent<HandManager>();
         _cardManager = GameObject.Find("CardManager").GetComponent<CardManager>();
 
-        for(int i = 0; i < StartInstanceNum; i++)
+        for(int i = 0; i < _cardManager.deck.Count; i++)
         {
             GameObject go = Instantiate(cardPrefab, container);
             go.transform.localScale += new Vector3(0.3f, 0.3f, 0f);
@@ -46,6 +46,7 @@ public class ShowCardListInfo : MonoBehaviour
 
         for(j = 0; j < _cardManager.deck.Count; j++)
         {
+            Debug.Log(j);
             container.transform.GetChild(j).GetComponent<CardDisplay>().SetCard(_cardManager.deck[j]);
             container.transform.GetChild(j).gameObject.SetActive(true);
         }

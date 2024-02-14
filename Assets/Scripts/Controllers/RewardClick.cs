@@ -13,9 +13,11 @@ public class RewardClick : MonoBehaviour
 
     private Image uiImage;
     private GameObject obj;
-
+    private GameObject cardRewardUIObj;
     public GameObject mapObj;
     public Canvas _mainCanvas;
+
+    public Transform cardRewardWindow;
 
     public void Awake()
     {
@@ -69,33 +71,31 @@ public class RewardClick : MonoBehaviour
             {
                 //Debug.Log("MouseOver");
                 isMouseOver = true;
-                if (obj.name != "nextBtn")
+                if (obj.name == "List(Clone)")
                 {
                     uiImage.color = new Color(210f / 255f, 253f / 255f, 255f / 255f, 1f);
                 }
-                else
+                else if (obj.name == "nextBtn")
                 {
                     uiImage.color = new Color(1, 1, 1, 1f);
                 }
             }
         }
     }
-
     public void OnPointerExit()
     {
         if (isMouseOver && uiImage != null)
         {
             if (GetClickedUIObjectComponent<Image>() != null && GetClickedUIObjectComponent<Image>() == uiImage)
                 return;
-            if (obj.name != "nextBtn")
+            if (obj.name == "List(Clone)")
             {
                 uiImage.color = new Color(210f / 255f, 253f / 255f, 255f / 255f, 0.31f);
             }
-            else
+            else if (obj.name == "nextBtn")
             {
                 uiImage.color = new Color(1, 1, 1, 168f / 255f);
             }
-
             isMouseOver = false;
         }
     }
@@ -109,11 +109,38 @@ public class RewardClick : MonoBehaviour
         obj.SetActive(false);
     }
 
+    public void AddCard()
+    {
+        obj = GetClickedUIObject();
+        cardRewardUIObj = obj;
+        cardRewardWindow.gameObject.SetActive(true);
+        Transform container = cardRewardWindow.GetChild(0);
+
+        for(int i = 0; i < container.childCount; i++)
+        {
+            container.GetChild(i).GetComponent<CardDisplay>().SetCard(CardDatabase.instance.GetRandomCard());
+        }
+    }
+
+    public void OnRewardCardClick(int i)
+    {
+        Transform container = cardRewardWindow.GetChild(0);
+        Debug.Log(container.GetChild(i).GetComponent<CardDisplay>().GetCard().CardData.name);
+        CardManager.instance.AddCard(container.GetChild(i).GetComponent<CardDisplay>().GetCard());
+        cardRewardUIObj.SetActive(false);
+        OnExitButtonClick();
+    }
+
+    public void OnExitButtonClick()
+    {
+        cardRewardWindow.gameObject.SetActive(false);
+    }
+
     public void Skip()
     {
         gameObject.SetActive(false);
         mapObj.SetActive(true);
-        Destroy(gameObject.transform.GetChild(1).GetChild(1).gameObject);
-        Destroy(gameObject.transform.GetChild(1).GetChild(2).gameObject);
+        //Destroy(gameObject.transform.GetChild(1).GetChild(1).gameObject);
+        //Destroy(gameObject.transform.GetChild(1).GetChild(2).gameObject);
     }
 }

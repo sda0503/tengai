@@ -36,7 +36,6 @@ public class InfoSystem : MonoBehaviour
     public void SetGold(int addGold)
     {
         gold += addGold;
-        Destroy(gameObject);
     }
 
     public void ShowDate()
