@@ -17,6 +17,8 @@ MonoBehaviour:
   name: "\uD0C0\uACA9"
   description: "\uD53C\uD574\uB97C {attackValue} \uC90D\uB2C8\uB2E4."
   condition: 0
-  attackEffects: []
+  attackEffects:
+  - attackValue: 6
   drawEffects: []
-  attackValue: 2
+  statEffects: []
+  attackValue: 6

@@ -19,3 +19,10 @@ MonoBehaviour:
   condition: 1
   attackEffects: []
   drawEffects: []
+  statEffects:
+  - buff:
+      type: 3
+      amount: 5
+      turn: 0
+      maxTurn: 0
+      invokeTurn: 0

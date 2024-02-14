@@ -2640,6 +2640,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6912564393575829062, guid: 43454aa6bdf2c274abd8cf387d9dd58d, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6912564393575829062, guid: 43454aa6bdf2c274abd8cf387d9dd58d, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -5338,10 +5346,10 @@ RectTransform:
   - {fileID: 1789876257}
   - {fileID: 608320835}
   - {fileID: 2213449865071547405}
-  - {fileID: 5808849979283753533}
   - {fileID: 3309453739469472307}
   - {fileID: 4696193581847235478}
   - {fileID: 2122879807}
+  - {fileID: 5808849979283753533}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5380,6 +5388,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapObj: {fileID: 0}
+  eventObj: {fileID: 0}
+  changeObj: {fileID: 0}
   _mainCanvas: {fileID: 0}
 --- !u!4 &1233245878
 Transform:
@@ -6500,7 +6510,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abdf405ba89d4b649bc18ba6fc1d0350, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  curFloor: 0
   mapSpriteIcon:
   - {fileID: 21300000, guid: f5b7ec78dccb2d347b33c34a00471f61, type: 3}
   - {fileID: 21300000, guid: 29dcbcaf88cbeb44faa5a20dc2deef87, type: 3}
@@ -9642,6 +9651,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mapObj: {fileID: 798118149}
+  eventObj: {fileID: 0}
+  changeObj: {fileID: 0}
   _mainCanvas: {fileID: 2069106703}
 --- !u!1 &2078292646
 GameObject:
