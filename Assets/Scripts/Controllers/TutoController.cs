@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -21,8 +19,8 @@ public class TutoController : MonoBehaviour
         if(cnt == 2) backgound.transform.position = new Vector3(-960, 540, 0);
         if(cnt == 3) HideCanvas();
         cnt++;
-        nextBtnText.text = cnt == 3 ? "ÁØºñ µÇ¾ú½À´Ï´Ù!" : "´ÙÀ½";
-        currentText.text = $"(ÃÑ 3ÆäÀÌÁö Áß {cnt} ¹øÂ° ÆäÀÌÁö)";
+        nextBtnText.text = cnt == 3 ? "ì¤€ë¹„ ë˜ì—ˆìŠµë‹ˆë‹¤!" : "ë‹¤ìŒ";
+        currentText.text = $"(ì´ 3í˜ì´ì§€ ì¤‘ {cnt} ë²ˆì§¸ í˜ì´ì§€)";
         
     }
 
