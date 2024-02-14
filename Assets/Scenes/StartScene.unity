@@ -1941,8 +1941,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uB610...\n\uB9CC\uB0AC\uAD70..."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: e1450d08f1d487e48bf2131791758b9e, type: 2}
-  m_sharedMaterial: {fileID: 7314739234087270698, guid: e1450d08f1d487e48bf2131791758b9e, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6f810da950ec2284db14d4b06199f903, type: 2}
+  m_sharedMaterial: {fileID: -5272947936210005589, guid: 6f810da950ec2284db14d4b06199f903, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

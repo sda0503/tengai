@@ -18,4 +18,4 @@ MonoBehaviour:
   maxHP: 7
   addATK: 0
   addDEF: 0
-  icon: {fileID: 21300000, guid: 4c0ac7dbd3e5bf54da065763af30a46a, type: 3}
+  icon: {fileID: 21300000, guid: ab082e4b0b6a5694f92ad0261ae5d306, type: 3}
