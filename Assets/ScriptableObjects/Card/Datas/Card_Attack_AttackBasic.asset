@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4324d0bb860800c4a92d182dbf071a70, type: 3}
   m_Name: Card_Attack_AttackBasic
   m_EditorClassIdentifier: 
-  cost: 0
+  cost: 1
   cardSprite: {fileID: -1386510880, guid: 9b9507f0b562fdc4cab9c8a56a951394, type: 3}
   name: "\uD0C0\uACA9"
   description: "\uD53C\uD574\uB97C {attackValue} \uC90D\uB2C8\uB2E4."
-  condition: 0
+  useCondition: 0
+  extinctionType: 0
   attackEffects:
   - attackValue: 6
   drawEffects: []

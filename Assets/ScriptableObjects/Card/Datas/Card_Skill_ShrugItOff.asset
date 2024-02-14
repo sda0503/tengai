@@ -17,7 +17,8 @@ MonoBehaviour:
   name: "\uD758\uB824\uBCF4\uB0B4\uAE30"
   description: "\uBC29\uC5B4\uB3C4\uB97C 8 \uC5BB\uC2B5\uB2C8\uB2E4.\n\uCE74\uB4DC\uB97C
     1\uC7A5 \uBF51\uC2B5\uB2C8\uB2E4."
-  condition: 1
+  useCondition: 1
+  extinctionType: 0
   attackEffects: []
   drawEffects:
   - drawCardNum: 1

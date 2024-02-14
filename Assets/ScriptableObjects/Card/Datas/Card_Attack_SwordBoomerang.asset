@@ -10,11 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4324d0bb860800c4a92d182dbf071a70, type: 3}
-  m_Name: Card_AttackSwordBoomerang
+  m_Name: Card_Attack_SwordBoomerang
   m_EditorClassIdentifier: 
   cost: 0
   cardSprite: {fileID: 1671804445, guid: 9b9507f0b562fdc4cab9c8a56a951394, type: 3}
   name: "\uBD80\uBA54\uB791 \uCE7C\uB0A0"
   description: "\uBB34\uC791\uC704 \uC801\uB4E4\uC5D0\uAC8C \uD53C\uD574\uB97C 3\uB9CC\uD07C
     3\uBC88 \uC90D\uB2C8\uB2E4."
-  condition: 1
+  useCondition: 1
+  extinctionType: 0
+  attackEffects: []
+  drawEffects: []
+  statEffects: []
+  attackValue: 0

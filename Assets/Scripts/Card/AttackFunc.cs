@@ -2,17 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum AttackEnum
+{
+    Atk1, Atk2, Atk3, Atk4,
+}
+
 public class AttackFunc : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void Attack()
     {
-        
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

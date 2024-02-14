@@ -8,6 +8,13 @@ public enum UseCondition
     Player,
 }
 
+public enum ExtinctionType
+{
+    None,
+    Extinction,
+    Volatilization
+}
+
 public class Card_Base : ScriptableObject
 {
     [Header("Card Info")]
@@ -16,7 +23,8 @@ public class Card_Base : ScriptableObject
     public string name;
     [Multiline]
     public string description;
-    public UseCondition condition;
+    public UseCondition useCondition;
+    public ExtinctionType extinctionType;
     public List<CardEffect_Attack> attackEffects;
     public List<CardEffect_Draw> drawEffects;
     public List<CardEffect_Stat> statEffects;

@@ -12,7 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4324d0bb860800c4a92d182dbf071a70, type: 3}
   m_Name: Card_Attack_BigBang
   m_EditorClassIdentifier: 
-  Cost: 2
+  cost: 2
   cardSprite: {fileID: -787184023, guid: 9b9507f0b562fdc4cab9c8a56a951394, type: 3}
   name: "\uAC15\uD0C0"
   description: "\uD53C\uD574\uB97C 8 \uC90D\uB2C8\uB2E4.\n\uCDE8\uC57D\uC744 2 \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+  useCondition: 0
+  extinctionType: 1
+  attackEffects:
+  - attackValue: 8
+  drawEffects: []
+  statEffects: []
+  attackValue: 0

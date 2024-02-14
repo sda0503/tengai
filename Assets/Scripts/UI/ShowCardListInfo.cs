@@ -85,6 +85,25 @@ public class ShowCardListInfo : MonoBehaviour
         }
     }
 
+    public void OnExtinguishCardsButtonClick()
+    {
+        this.gameObject.SetActive(true);
+        _handManager.enabled = false;
+
+        int j;
+
+        for (j = 0; j < _cardManager.extinguishedCards.Count; j++)
+        {
+            container.transform.GetChild(j).GetComponent<CardDisplay>().SetCard(_cardManager.extinguishedCards[j]);
+            container.transform.GetChild(j).gameObject.SetActive(true);
+        }
+
+        for (; j < container.transform.childCount; j++)
+        {
+            container.transform.GetChild(j).gameObject.SetActive(false);
+        }
+    }
+
     public void OnExitButtonClick()
     {
         this.gameObject.SetActive(false);

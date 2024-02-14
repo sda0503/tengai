@@ -12,6 +12,7 @@ public class HandManager : MonoBehaviour
     [Header("Card Movement Value")]
     [SerializeField] private float drawTime;
     public float dropTime;
+    public float extinguishTime;
     public Vector3 drawStartSize;
     public Vector3 drawEndSize;
     public Transform usedCardPlace;
@@ -296,7 +297,7 @@ public class HandManager : MonoBehaviour
     {
         if (isDrag && curSelectedCardDisplay != null)
         {
-            if(curSelectedCardDisplay.GetCard().CardData.condition == UseCondition.Target && Input.mousePosition.y > 300)
+            if(curSelectedCardDisplay.GetCard().CardData.useCondition == UseCondition.Target && Input.mousePosition.y > 300)
             {
                 if(!lineGO.activeSelf)
                     lineGO.SetActive(true);
@@ -392,7 +393,7 @@ public class HandManager : MonoBehaviour
             if (curSelectedCard != null)
             {
                 Debug.Log("End Click");
-                if (IsMeetUseCondition(curSelectedCard.CardData.condition))
+                if (IsMeetUseCondition(curSelectedCard.CardData.useCondition))
                 {
                     StartCoroutine(UseCard());
                     isMouseOver = false;
@@ -428,21 +429,31 @@ public class HandManager : MonoBehaviour
 
         UseCardEffect(usedCard);
 
-        float angle = Quaternion.FromToRotation(Vector3.up, GarbagePos.localPosition - usedCardDisplay.transform.localPosition).eulerAngles.z;
+        if(usedCard.CardData.extinctionType == ExtinctionType.Extinction)
+        {
+            yield return StartCoroutine(ExtinguishCardC(usedCardDisplay.transform));
 
-        Debug.Log(angle);
+            _cardManager.ExtingushCard(usedCard);
+        }
+        else
+        {
+            float angle = Quaternion.FromToRotation(Vector3.up, GarbagePos.localPosition - usedCardDisplay.transform.localPosition).eulerAngles.z;
 
-        StartCoroutine(RotationObjLeftC(usedCardDisplay.transform, angle, dropTime / 2));
-        StartCoroutine(ChangeSizeCardC(usedCardDisplay.transform, usedCardDisplay.transform.localScale, new Vector3(0.2f, 0.2f, 1f), dropTime / 2));
-        yield return StartCoroutine(MoveObjFollowCurve4C(usedCardDisplay.transform, usedCardPlace.localPosition,
-            GarbageMid1Pos.localPosition, GarbageMid2Pos.localPosition, GarbagePos.localPosition, dropTime));
+            Debug.Log(angle);
 
-        Destroy(usedCardDisplay.gameObject);
+            StartCoroutine(RotationObjLeftC(usedCardDisplay.transform, angle, dropTime / 2));
+            StartCoroutine(ChangeSizeCardC(usedCardDisplay.transform, usedCardDisplay.transform.localScale, new Vector3(0.2f, 0.2f, 1f), dropTime / 2));
+            yield return StartCoroutine(MoveObjFollowCurve4C(usedCardDisplay.transform, usedCardPlace.localPosition,
+                GarbageMid1Pos.localPosition, GarbageMid2Pos.localPosition, GarbagePos.localPosition, dropTime));
+
+            _cardManager.DropCard(usedCard);
+
+            Destroy(usedCardDisplay.gameObject);
+        }
 
         SortAllCard();
         SetAllCardIndex();
 
-        _cardManager.DropCard(usedCard);
         isUsing = false;
         isMouseOver = false;
         targetStatSystem = null;
@@ -473,6 +484,18 @@ public class HandManager : MonoBehaviour
         }
     }
 
+    IEnumerator ExtinguishCardC(Transform obj)
+    {
+        Image[] images = obj.GetComponentsInChildren<Image>();
+        foreach (Image image in images)
+        {
+            image.DOFade(0f, extinguishTime);
+        }
+        yield return StartCoroutine(MoveObjC(obj, obj.localPosition, obj.localPosition + new Vector3(0f, 100f, 0f), extinguishTime));
+
+        Destroy(obj.gameObject);
+    }
+
     public void EndTurn()
     {
         StartCoroutine(DropAllCardC());
@@ -482,12 +505,21 @@ public class HandManager : MonoBehaviour
     {
         for(int i = hands.Count - 1; i >= 0; i--)
         {
-            float angle = Quaternion.FromToRotation(Vector3.up, GarbagePos.localPosition - hands[i].transform.localPosition).eulerAngles.z - 180;
-            StartCoroutine(RotationObjLeftC(hands[i].transform, angle, dropTime / 2));
-            StartCoroutine(ChangeSizeCardC(hands[i].transform, hands[i].transform.localScale, new Vector3(0.2f, 0.2f, 1f), dropTime / 2));
-            StartCoroutine(DropCardC(hands[i].transform));
+            if (hands[i].GetCard().CardData.extinctionType == ExtinctionType.Volatilization)
+            {
+                StartCoroutine(ExtinguishCardC(hands[i].transform));
 
-            _cardManager.DropCard(hands[i].GetCard());
+                _cardManager.ExtingushCard(hands[i].GetCard());
+            }
+            else
+            {
+                float angle = Quaternion.FromToRotation(Vector3.up, GarbagePos.localPosition - hands[i].transform.localPosition).eulerAngles.z - 180;
+                StartCoroutine(RotationObjLeftC(hands[i].transform, angle, dropTime / 2));
+                StartCoroutine(ChangeSizeCardC(hands[i].transform, hands[i].transform.localScale, new Vector3(0.2f, 0.2f, 1f), dropTime / 2));
+                StartCoroutine(DropCardC(hands[i].transform));
+
+                _cardManager.DropCard(hands[i].GetCard());
+            }
 
             hands.Remove(hands[i]);
 
