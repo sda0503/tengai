@@ -13,11 +13,12 @@ MonoBehaviour:
   m_Name: Card_Status_Wound
   m_EditorClassIdentifier: 
   cost: 0
-  cardSprite: {fileID: 0}
-  name: 
-  description: 
+  cardSprite: {fileID: -425702037, guid: de2981234dc9f944cb16ba92c704b863, type: 3}
+  cardName: "\uBD80\uC0C1"
+  description: "\uC0AC\uC6A9\uBD88\uAC00"
   useCondition: 0
   extinctionType: 0
   attackEffects: []
   drawEffects: []
   statEffects: []
+  addCards: []

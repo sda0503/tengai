@@ -125,7 +125,7 @@ public class RewardClick : MonoBehaviour
     public void OnRewardCardClick(int i)
     {
         Transform container = cardRewardWindow.GetChild(0);
-        Debug.Log(container.GetChild(i).GetComponent<CardDisplay>().GetCard().CardData.name);
+        Debug.Log(container.GetChild(i).GetComponent<CardDisplay>().GetCard().CardData.cardName);
         CardManager.instance.AddCard(container.GetChild(i).GetComponent<CardDisplay>().GetCard());
         cardRewardUIObj.SetActive(false);
         OnExitButtonClick();

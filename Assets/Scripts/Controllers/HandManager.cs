@@ -297,7 +297,7 @@ public class HandManager : MonoBehaviour
 
             if (curSelectedCard != null)
             {
-                Debug.Log(curSelectedCard.CardData.name);
+                Debug.Log(curSelectedCard.CardData.cardName);
             }
         }
     }
@@ -421,7 +421,7 @@ public class HandManager : MonoBehaviour
 
     public IEnumerator UseCard()
     {
-        Debug.Log(curSelectedCard.CardData.name + " 사용");
+        Debug.Log(curSelectedCard.CardData.cardName + " 사용");
         hands.Remove(curSelectedCardDisplay);
 
         CardDisplay usedCardDisplay = curSelectedCardDisplay;
@@ -491,6 +491,11 @@ public class HandManager : MonoBehaviour
                 card.CardData.statEffects[i].OnUse(playerStatSystem);
             }
         }
+
+        for(int i = 0; i < card.CardData.addCards.Count; i++)
+        {
+            card.CardData.addCards[i].OnUse(targetStatSystem);
+        }
     }
 
     IEnumerator ExtinguishCardC(Transform obj)
@@ -503,6 +508,63 @@ public class HandManager : MonoBehaviour
         yield return StartCoroutine(MoveObjC(obj, obj.localPosition, obj.localPosition + new Vector3(0f, 100f, 0f), extinguishTime));
 
         Destroy(obj.gameObject);
+    }
+
+    public void CreateCard(Card card, CardCreatePlace cardCreatePlace)
+    {
+        StartCoroutine(CreateCardC(card, cardCreatePlace));
+    }
+
+    IEnumerator CreateCardC(Card card, CardCreatePlace cardCreatePlace)
+    {
+        GameObject go;
+        if (card is StatusCard)
+        {
+            go = Instantiate(statusCardPrefab, this.transform);
+        }
+        else
+        {
+            go = Instantiate(cardPrefab, this.transform);
+        }
+
+        CardDisplay cardDisplay = go.GetComponent<CardDisplay>();
+
+        cardDisplay.SetCard(card);
+        go.transform.localPosition = usedCardPlace.localPosition;
+        go.transform.localScale  = new Vector3(1f + addScaleValueWhenHighlight, 1f + addScaleValueWhenHighlight, 0);
+
+        yield return new WaitForSeconds(0.3f);
+
+        if(cardCreatePlace == CardCreatePlace.Garbage)
+        {
+            float angle = Quaternion.FromToRotation(Vector3.up, GarbagePos.localPosition - go.transform.localPosition).eulerAngles.z;
+
+            Debug.Log(angle);
+
+            StartCoroutine(RotationObjLeftC(go.transform, angle, dropTime / 2));
+            StartCoroutine(ChangeSizeCardC(go.transform, go.transform.localScale, new Vector3(0.2f, 0.2f, 1f), dropTime / 2));
+            yield return StartCoroutine(MoveObjFollowCurve4C(go.transform, usedCardPlace.localPosition,
+                GarbageMid1Pos.localPosition, GarbageMid2Pos.localPosition, GarbagePos.localPosition, dropTime));
+
+            _cardManager.DropCard(card);
+
+            Destroy(go.gameObject);
+        }
+        else
+        {
+            float angle = Quaternion.FromToRotation(Vector3.up, DeckPos.localPosition - go.transform.localPosition).eulerAngles.z;
+
+            Debug.Log(angle);
+
+            StartCoroutine(RotationObjLeftC(go.transform, angle, dropTime / 2));
+            StartCoroutine(ChangeSizeCardC(go.transform, go.transform.localScale, new Vector3(0.2f, 0.2f, 1f), dropTime / 2));
+            yield return StartCoroutine(MoveObjFollowCurve4C(go.transform, usedCardPlace.localPosition,
+                DeckMid1Pos.localPosition, DeckMid2Pos.localPosition, DeckPos.localPosition, dropTime));
+
+            _cardManager.AddCard(card);
+
+            Destroy(go.gameObject);
+        }
     }
 
     public void EndTurn()

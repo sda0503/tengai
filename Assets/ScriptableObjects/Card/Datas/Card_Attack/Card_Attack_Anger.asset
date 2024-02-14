@@ -10,16 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4324d0bb860800c4a92d182dbf071a70, type: 3}
-  m_Name: Card_Attack_AttackBasic
+  m_Name: Card_Attack_Anger
   m_EditorClassIdentifier: 
-  cost: 1
-  cardSprite: {fileID: -1386510880, guid: 9b9507f0b562fdc4cab9c8a56a951394, type: 3}
-  name: "\uD0C0\uACA9"
-  description: "\uD53C\uD574\uB97C {attackValue} \uC90D\uB2C8\uB2E4."
-  useCondition: 0
+  cost: 0
+  cardSprite: {fileID: -27060426, guid: de2981234dc9f944cb16ba92c704b863, type: 3}
+  cardName: "\uBD84\uB178"
+  description: "\uD53C\uD574\uB97C 6 \uC90D\uB2C8\uB2E4.\n\uC774 \uCE74\uB4DC\uB97C
+    1\uC7A5 \uBCF5\uC0AC\uD574 \uBC84\uB9B0 \uCE74\uB4DC \uB354\uBBF8\uC5D0 \uC11E\uC5B4
+    \uB123\uC2B5\uB2C8\uB2E4."
+  useCondition: 1
   extinctionType: 0
   attackEffects:
   - attackValue: 6
   drawEffects: []
   statEffects: []
-  attackValue: 6
+  addCards:
+  - cardName: Card_Attack_Anger
+    cardCreatePlace: 1
+  attackValue: 0

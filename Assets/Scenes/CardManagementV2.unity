@@ -8321,11 +8321,12 @@ MonoBehaviour:
   cardDatas:
   - {fileID: 11400000, guid: 5a4b7929077e44448a5b35813c497d65, type: 2}
   - {fileID: 11400000, guid: a1b52794bf53e79438ab5240efe04f46, type: 2}
-  - {fileID: 11400000, guid: 139f308a11a1bb64a8fac835a2df1ba6, type: 2}
   - {fileID: 11400000, guid: 29872b275ef45bc40a77cc10bfb5ea79, type: 2}
-  - {fileID: 11400000, guid: 77b78cffce2aec14c83e9d83ac6ddbac, type: 2}
   - {fileID: 11400000, guid: a39c01915af0679438ae50519915315e, type: 2}
   - {fileID: 11400000, guid: 440a89697ab31074a9020aecf6bcebc0, type: 2}
+  - {fileID: 11400000, guid: fcbdeeb7196041442a5449f3e2627de8, type: 2}
+  - {fileID: 11400000, guid: c1bd4baaf5993494ea8b4d5a24f82c87, type: 2}
+  - {fileID: 11400000, guid: 9d5e0c982f31e1f47acf3ca5e726fa26, type: 2}
 --- !u!4 &1610792510
 Transform:
   m_ObjectHideFlags: 0
@@ -12050,7 +12051,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 319, y: -683}
+  m_AnchoredPosition: {x: 927, y: -483}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &4965212012194916372
@@ -12069,11 +12070,12 @@ MonoBehaviour:
   cardDatas:
   - {fileID: 11400000, guid: 5a4b7929077e44448a5b35813c497d65, type: 2}
   - {fileID: 11400000, guid: a1b52794bf53e79438ab5240efe04f46, type: 2}
-  - {fileID: 11400000, guid: 139f308a11a1bb64a8fac835a2df1ba6, type: 2}
   - {fileID: 11400000, guid: 29872b275ef45bc40a77cc10bfb5ea79, type: 2}
-  - {fileID: 11400000, guid: 77b78cffce2aec14c83e9d83ac6ddbac, type: 2}
   - {fileID: 11400000, guid: a39c01915af0679438ae50519915315e, type: 2}
   - {fileID: 11400000, guid: 440a89697ab31074a9020aecf6bcebc0, type: 2}
+  - {fileID: 11400000, guid: 9d5e0c982f31e1f47acf3ca5e726fa26, type: 2}
+  - {fileID: 11400000, guid: c1bd4baaf5993494ea8b4d5a24f82c87, type: 2}
+  - {fileID: 11400000, guid: fcbdeeb7196041442a5449f3e2627de8, type: 2}
   cardPrefab: {fileID: 4883506622124037758, guid: b01468d7ed1dfae47b7f9928bc04864d, type: 3}
   _mainCanvas: {fileID: 1230219275}
   deckNumText: {fileID: 938821345}
@@ -12165,7 +12167,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 551, y: -683}
+  m_AnchoredPosition: {x: 704, y: -482}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5461485989597076028
@@ -12426,6 +12428,7 @@ MonoBehaviour:
   distanceBetweenCard1: 0.08
   distanceBetweenCard2: 0.08
   cardPrefab: {fileID: 4883506622124037758, guid: b01468d7ed1dfae47b7f9928bc04864d, type: 3}
+  statusCardPrefab: {fileID: 4883506622124037758, guid: 7efbe3b654404b04cbf697ffb20bacca, type: 3}
   _mainCanvas: {fileID: 1230219275}
   addScaleValueWhenHighlight: 0.5
   addYPosValue: 100

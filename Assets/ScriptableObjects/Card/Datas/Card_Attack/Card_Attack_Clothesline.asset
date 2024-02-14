@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4324d0bb860800c4a92d182dbf071a70, type: 3}
-  m_Name: Card_Attack_PommelStrike
+  m_Name: Card_Attack_Clothesline
   m_EditorClassIdentifier: 
-  cost: 0
-  cardSprite: {fileID: 56886870, guid: 9b9507f0b562fdc4cab9c8a56a951394, type: 3}
-  name: "\uD3FC\uBA5C \uD0C0\uACA9"
-  description: "\uD53C\uD574\uB97C 9 \uC90D\uB2C8\uB2E4.\n\uCE74\uB4DC\uB97C 1\uC7A5
-    \uBF51\uC2B5\uB2C8\uB2E4."
-  useCondition: 0
+  cost: 2
+  cardSprite: {fileID: 1660868715, guid: de2981234dc9f944cb16ba92c704b863, type: 3}
+  cardName: "\uD074\uB85C\uC2A4\uB77C\uC778"
+  description: "\uD53C\uD574\uB97C 12 \uC90D\uB2C8\uB2E4.\n\uC57D\uD654 \uB97C 2
+    \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+  useCondition: 1
   extinctionType: 0
   attackEffects:
-  - attackValue: 9
-  drawEffects:
-  - drawCardNum: 1
+  - attackValue: 12
+  drawEffects: []
   statEffects: []
+  addCards: []
   attackValue: 0
