@@ -10,21 +10,17 @@ public class ShowCardListInfo : MonoBehaviour
 
     [SerializeField] private GameObject cardPrefab;
 
-    public int StartInstanceNum;
-
-    private List<Transform> cards;
-
     private void Start()
     {
-        _handManager = GameObject.Find("Hand").GetComponent<HandManager>();
-        _cardManager = GameObject.Find("CardManager").GetComponent<CardManager>();
+        _cardManager = CardManager.instance;
+        _handManager = _cardManager.handManager;
 
-        for(int i = 0; i < StartInstanceNum; i++)
+        for(int i = 0; i < _cardManager.deck.Count; i++)
         {
             GameObject go = Instantiate(cardPrefab, container);
             go.transform.localScale += new Vector3(0.3f, 0.3f, 0f);
         }
-
+        transform.SetAsLastSibling();
         this.gameObject.SetActive(false);
     }
 

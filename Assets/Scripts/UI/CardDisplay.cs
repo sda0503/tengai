@@ -30,7 +30,7 @@ public class CardDisplay : MonoBehaviour
     {
         costText.text = card.CardData.cost.ToString();
         cardNameText.text = card.CardData.name; 
-        cardDescriptionText.text = card.CardData.description;
+        cardDescriptionText.text = $"{card.CardData.description}";
         cardImage.sprite = card.CardData.cardSprite;
     }
 }

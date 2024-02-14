@@ -23,8 +23,6 @@ public class BattleManager : MonoBehaviour
     {
         _isPlayerTrun = true;
         trunBtn.text = "턴 종료";
-        InfoSystem.instance.playerPoint = 3;
-        InfoSystem.instance.playerHand = 5;
         InfoSystem.instance.ShowDate();
     }
 }

@@ -18,7 +18,7 @@ public class StatSystem : MonoBehaviour
 {
     [SerializeField] private CharacterBaseStat _stat;
     [SerializeField] private List<Buff> _buffs;
-    private CharacterBaseStat _buffStat = new();
+    [SerializeField] private CharacterBaseStat _buffStat = new();
     private Animator _animator;
     private HPBar _bar;
 
@@ -55,7 +55,7 @@ public class StatSystem : MonoBehaviour
         {
             if (TryGetComponent<MonsterBase>(out _))
             {
-                Destroy(this);
+                Destroy(gameObject);
             }
             else
                 Debug.Log("PlayerDie");
