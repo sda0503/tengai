@@ -15,12 +15,24 @@ MonoBehaviour:
   defaultDatas:
   - MonsterDatas:
     - SlimeS
+    - SlimeS
+    - SlimeS
+    - SlimeS
+    - SlimeS
+  - MonsterDatas:
+    - LouseRed
+    - LouseGreen
+    - LouseRed
+    - LouseGreen
+    - LouseRed
+  - MonsterDatas:
     - SlimeAltS
-    - LouseGreen
-    - LouseGreen
-    - LouseGreen
+    - SlimeAltS
+    - SlimeAltS
+    - SlimeAltS
+    - SlimeAltS
   EliteDatas: []
   BossDatas: []
   targetSystem: {fileID: 0}
-  spowPivot: {fileID: 0}
-  isTurn: 0
+  spawnObj: {fileID: 4950835499087033506, guid: 5d15c5daacd279644b9c4dd91b3e447e, type: 3}
+  isTurn: 1

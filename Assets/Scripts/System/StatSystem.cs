@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum StatType
 {
@@ -18,6 +20,7 @@ public class StatSystem : MonoBehaviour
     [SerializeField] private List<Buff> _buffs;
     private CharacterBaseStat _buffStat = new();
     private Animator _animator;
+    private HPBar _bar;
 
     public int HP { get { return _stat.HP + _buffStat.HP; } }
     public int MaxHP { get { return _stat.MaxHP + _buffStat.MaxHP; } }
@@ -31,6 +34,12 @@ public class StatSystem : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
+    public void TestDEF(int amount)
+    {
+        _buffStat.DEF += amount;
+        _bar.UpdateHPBar(HP, MaxHP, DEF);
+    }
+
     public void Attack()
     {
         _animator.SetTrigger("Attack");
@@ -38,8 +47,10 @@ public class StatSystem : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        Debug.Log(amount);
-        _stat.HP -= amount;
+        int result = Math.Clamp(amount - DEF, 0, int.MaxValue);
+        _buffStat.DEF -= amount;
+
+        _stat.HP -= result;
         if (_stat.HP == 0)
         {
             _animator.SetTrigger("Die");
@@ -48,6 +59,8 @@ public class StatSystem : MonoBehaviour
         {
             _animator.SetTrigger("TakeDamage");
         }
+
+        _bar.UpdateHPBar(HP, MaxHP, DEF);
     }
 
     public void TakeCost(int amount)
@@ -65,6 +78,7 @@ public class StatSystem : MonoBehaviour
                 AddStat(_buffs[i]);
             }
         }
+        _bar.UpdateHPBar(HP, MaxHP, DEF);
     }
 
     public void UpdateBuffs()
@@ -84,6 +98,7 @@ public class StatSystem : MonoBehaviour
             }
             _buffs[i].turn++;
         }
+        _bar.UpdateHPBar(HP, MaxHP, DEF);
     }
 
     public void AddBuff(Buff buff)
@@ -106,7 +121,9 @@ public class StatSystem : MonoBehaviour
 
     public void SettingStat(CharacterBaseStat stat)
     {
+        if (_bar == null) _bar = GetComponentInChildren<HPBar>();
         _stat = stat;
+        _bar.UpdateHPBar(HP, MaxHP, DEF);
     }
 
     private void InitStat()
