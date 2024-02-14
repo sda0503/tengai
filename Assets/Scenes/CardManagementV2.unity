@@ -10882,6 +10882,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 139f308a11a1bb64a8fac835a2df1ba6, type: 2}
   - {fileID: 11400000, guid: 29872b275ef45bc40a77cc10bfb5ea79, type: 2}
   - {fileID: 11400000, guid: 77b78cffce2aec14c83e9d83ac6ddbac, type: 2}
+  - {fileID: 11400000, guid: a39c01915af0679438ae50519915315e, type: 2}
+  - {fileID: 11400000, guid: 440a89697ab31074a9020aecf6bcebc0, type: 2}
   cardPrefab: {fileID: 4883506622124037758, guid: b01468d7ed1dfae47b7f9928bc04864d, type: 3}
   _mainCanvas: {fileID: 1230219275}
   deckNumText: {fileID: 938821345}

@@ -5,7 +5,8 @@ using UnityEngine;
 public enum UseCondition
 {
     Target,
-    NonTarget
+    NonTarget,
+    Player,
 }
 
 public class Card_Base : ScriptableObject
@@ -19,6 +20,7 @@ public class Card_Base : ScriptableObject
     public UseCondition condition;
     public List<CardEffect_Attack> attackEffects;
     public List<CardEffect_Draw> drawEffects;
+    public List<CardEffect_Stat> statEffects;
 
     public virtual Card CreateCard()
     {

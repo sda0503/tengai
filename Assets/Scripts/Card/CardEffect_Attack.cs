@@ -10,4 +10,12 @@ public class CardEffect_Attack : ICardEffect
     {
         statSystem?.TakeDamage(attackValue);
     }
+
+    public void OnUse(List<StatSystem> statSystemList)
+    {
+        foreach(StatSystem statSystem in statSystemList)
+        {
+            statSystem.TakeDamage(attackValue);
+        }
+    }
 }

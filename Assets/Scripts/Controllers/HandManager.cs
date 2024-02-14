@@ -68,6 +68,8 @@ public class HandManager : MonoBehaviour
     [SerializeField] Color onTargetLineColor;
     [SerializeField] Color defaultLineColor;
 
+    private StatSystem playerStatSystem;
+
     private void Awake()
     {
         hands = new List<CardDisplay>();
@@ -77,7 +79,7 @@ public class HandManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        playerStatSystem = GameObject.Find("Player").GetComponent<StatSystem>();
     }
 
     private void Init()
@@ -456,6 +458,18 @@ public class HandManager : MonoBehaviour
         {
             card.CardData.drawEffects[i].OnUse();
         }
+
+        for(int i = 0; i < card.CardData.statEffects.Count; i++)
+        {
+            if(targetStatSystem != null)
+            {
+                card.CardData.statEffects[i].OnUse(targetStatSystem);
+            }
+            else
+            {
+                card.CardData.statEffects[i].OnUse(playerStatSystem);
+            }
+        }
     }
 
     public void EndTurn()
@@ -577,6 +591,7 @@ public class HandManager : MonoBehaviour
                 }
                 break;
             case UseCondition.NonTarget:
+            case UseCondition.Player:
                 if (Input.mousePosition.y > 500)
                 {
                     return true;

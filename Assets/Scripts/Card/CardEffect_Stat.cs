@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class CardEffect_Draw : ICardEffect
+public class CardEffect_Stat : ICardEffect
 {
-    public int drawCardNum;
-
+    public Buff buff;
     public void OnUse(StatSystem statSystem = null)
     {
-        CardManager.instance.DrawCard(drawCardNum);
+        statSystem?.AddBuff(buff);
     }
 
     public void OnUse(List<StatSystem> statSystemList)
