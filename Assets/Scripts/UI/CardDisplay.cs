@@ -28,7 +28,8 @@ public class CardDisplay : MonoBehaviour
 
     private void InitText()
     {
-        costText.text = card.CardData.cost.ToString();
+        if(costText != null)
+            costText.text = card.CardData.cost.ToString();
         cardNameText.text = card.CardData.name; 
         cardDescriptionText.text = card.CardData.description;
         cardImage.sprite = card.CardData.cardSprite;

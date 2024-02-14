@@ -37,6 +37,7 @@ public class HandManager : MonoBehaviour
     public float distanceBetweenCard2;
 
     public GameObject cardPrefab;
+    public GameObject statusCardPrefab;
 
     private CardManager _cardManager;
 
@@ -114,7 +115,15 @@ public class HandManager : MonoBehaviour
 
     public IEnumerator DrawCard(Card card)
     {
-        GameObject go = Instantiate(cardPrefab, this.transform);
+        GameObject go;
+        if(card is StatusCard)
+        {
+            go = Instantiate(statusCardPrefab, this.transform);
+        }
+        else
+        {
+            go = Instantiate(cardPrefab, this.transform);
+        }
 
         CardDisplay cardDisplay = go.GetComponent<CardDisplay>();
 

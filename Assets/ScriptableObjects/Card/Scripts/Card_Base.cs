@@ -3,6 +3,7 @@ using UnityEngine;
 
 public enum UseCondition
 {
+    None,
     Target,
     NonTarget,
     Player,
