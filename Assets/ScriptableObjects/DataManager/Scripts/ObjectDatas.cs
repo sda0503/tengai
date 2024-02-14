@@ -2,9 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "ObjectDatas", menuName = "Data/Datas/ObjectDatas")]
-public class ObjectDatas : ScriptableObject//TODO : 플레이어 스텟
+public class ObjectDatas : ScriptableObject
 {
-    [SerializeField] private ObjectDatas data;
     private static ObjectDatas _i;
     public static ObjectDatas I 
     { 

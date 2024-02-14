@@ -19,8 +19,8 @@ public struct CharacterBaseStat
     #endregion
 
     #region Stat Getter Setter
-    public int HP { get { return _hp; } set { _hp = Math.Clamp(_hp + value, 0, _maxHP); } }
-    public int MaxHP { get { return _maxHP; } set { _maxHP = Math.Clamp(_maxHP + value, 1, MAX_HP); } }
+    public int HP { get { return _hp; } set { _hp = Math.Clamp(value, 0, _maxHP); } }
+    public int MaxHP { get { return _maxHP; } set { _maxHP = Math.Clamp(value, 1, MAX_HP); } }
     public int Cost { get { return _cost; } set 
         {
             if(_cost < value)
@@ -28,11 +28,11 @@ public struct CharacterBaseStat
                 Debug.Log($"Cost Change fail : {_cost - value} / Cost Check Please");
                 return;
             }
-            _cost = Math.Clamp(_cost + value, 0, MaxCost);
+            _cost = Math.Clamp(value, 0, MaxCost);
         }
     }
-    public int MaxCost { get { return _maxCost; } set { _maxCost = Math.Clamp(_maxCost + value, 1, MAX_COST); } }
-    public int ATK { get { return _power; } set { _power = Math.Clamp(_power + value, 0, MAX_ATK); } }
-    public int DEF { get { return _defense; } set { _defense = Math.Clamp(_defense + value, 0, MAX_DEF); } }
+    public int MaxCost { get { return _maxCost; } set { _maxCost = Math.Clamp(value, 1, MAX_COST); } }
+    public int ATK { get { return _power; } set { _power = Math.Clamp(value, 0, MAX_ATK); } }
+    public int DEF { get { return _defense; } set { _defense = Math.Clamp(value, 0, MAX_DEF); } }
     #endregion
 }

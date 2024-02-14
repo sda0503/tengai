@@ -1,5 +1,4 @@
 using TMPro;
-using UnityEditor.Animations;
 using UnityEngine;
 
 public class MonsterObject : MonoBehaviour
@@ -17,9 +16,15 @@ public class MonsterObject : MonoBehaviour
         monsterBase.statSystem.UpdateStats();
     }
 
+    public void UpdateAttackIcon()
+    {
+        monsterBase.CheckATKText();
+    }
+
     public void TurnEnd()
     {
         monsterBase.statSystem.UpdateBuffs();
+        monsterBase.UpdateAttack();
     }
 
     private void OnEnable()
@@ -32,6 +37,7 @@ public class MonsterObject : MonoBehaviour
         nameText.text = data.Name;
         monsterBase.statSystem = GetComponent<StatSystem>();
         monsterBase.statSystem.SettingStat(data.stat);
+        monsterBase.UpdateAttack();
         monsterBase.target = target;
     }
 }
