@@ -80,6 +80,7 @@ public class HandManager : MonoBehaviour
     void Start()
     {
         playerStatSystem = GameObject.Find("Player").GetComponent<StatSystem>();
+        this.transform.SetAsLastSibling();
     }
 
     private void Init()
