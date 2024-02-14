@@ -15,6 +15,7 @@ public class ChestManager : MonoBehaviour
     private GameObject obj;
 
     public GameObject mapObj;
+    public GameObject rewardObj;
     public Canvas _mainCanvas;
 
     public void Awake()
@@ -67,16 +68,7 @@ public class ChestManager : MonoBehaviour
             obj = GetClickedUIObject();
             if (uiImage != null)
             {
-                //Debug.Log("MouseOver");
                 isMouseOver = true;
-                if (obj.name != "nextBtn")
-                {
-                    uiImage.color = new Color(210f / 255f, 253f / 255f, 255f / 255f, 1f);
-                }
-                else
-                {
-                    uiImage.color = new Color(1, 1, 1, 1f);
-                }
             }
         }
     }
@@ -87,16 +79,13 @@ public class ChestManager : MonoBehaviour
         {
             if (GetClickedUIObjectComponent<Image>() != null && GetClickedUIObjectComponent<Image>() == uiImage)
                 return;
-            if (obj.name != "nextBtn")
-            {
-                uiImage.color = new Color(210f / 255f, 253f / 255f, 255f / 255f, 0.31f);
-            }
-            else
-            {
-                uiImage.color = new Color(1, 1, 1, 168f / 255f);
-            }
 
             isMouseOver = false;
         }
+    }
+
+    public void OpenChest()
+    {
+        rewardObj.SetActive(true);
     }
 }
