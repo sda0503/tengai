@@ -17,7 +17,8 @@ public class Card_Base : ScriptableObject
     [Multiline]
     public string description;
     public UseCondition condition;
-    public List<CardEffect_Attack> effects;
+    public List<CardEffect_Attack> attackEffects;
+    public List<CardEffect_Draw> drawEffects;
 
     public virtual Card CreateCard()
     {

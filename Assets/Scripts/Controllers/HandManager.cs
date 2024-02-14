@@ -411,41 +411,51 @@ public class HandManager : MonoBehaviour
         Debug.Log(curSelectedCard.CardData.name + " 사용");
         hands.Remove(curSelectedCardDisplay);
 
-        CardDisplay useCardDisplay = curSelectedCardDisplay;
-        Card useCard = curSelectedCard;
+        CardDisplay usedCardDisplay = curSelectedCardDisplay;
+        Card usedCard = curSelectedCard;
 
         curSelectedCard = null;
         curSelectedCardDisplay = null;
 
         isUsing = true;
 
-        yield return StartCoroutine(MoveObjC(useCardDisplay.transform, useCardDisplay.transform.localPosition, usedCardPlace.localPosition, 0.2f));
+        yield return StartCoroutine(MoveObjC(usedCardDisplay.transform, usedCardDisplay.transform.localPosition, usedCardPlace.localPosition, 0.2f));
 
         yield return new WaitForSeconds(0.3f);
 
-        for(int i = 0; i < useCard.CardData.effects.Count; i++)
-        {
-            useCard.CardData.effects[i].OnUse(targetStatSystem);
-        }
+        UseCardEffect(usedCard);
 
-        float angle = Quaternion.FromToRotation(Vector3.up, GarbagePos.localPosition - useCardDisplay.transform.localPosition).eulerAngles.z;
+        float angle = Quaternion.FromToRotation(Vector3.up, GarbagePos.localPosition - usedCardDisplay.transform.localPosition).eulerAngles.z;
 
         Debug.Log(angle);
 
-        StartCoroutine(RotationObjLeftC(useCardDisplay.transform, angle, dropTime / 2));
-        StartCoroutine(ChangeSizeCardC(useCardDisplay.transform, useCardDisplay.transform.localScale, new Vector3(0.2f, 0.2f, 1f), dropTime / 2));
-        yield return StartCoroutine(MoveObjFollowCurve4C(useCardDisplay.transform, usedCardPlace.localPosition,
+        StartCoroutine(RotationObjLeftC(usedCardDisplay.transform, angle, dropTime / 2));
+        StartCoroutine(ChangeSizeCardC(usedCardDisplay.transform, usedCardDisplay.transform.localScale, new Vector3(0.2f, 0.2f, 1f), dropTime / 2));
+        yield return StartCoroutine(MoveObjFollowCurve4C(usedCardDisplay.transform, usedCardPlace.localPosition,
             GarbageMid1Pos.localPosition, GarbageMid2Pos.localPosition, GarbagePos.localPosition, dropTime));
 
-        Destroy(useCardDisplay.gameObject);
+        Destroy(usedCardDisplay.gameObject);
 
         SortAllCard();
         SetAllCardIndex();
 
-        _cardManager.DropCard(useCard);
+        _cardManager.DropCard(usedCard);
         isUsing = false;
         isMouseOver = false;
         targetStatSystem = null;
+    }
+
+    private void UseCardEffect(Card card)
+    {
+        for (int i = 0; i < card.CardData.attackEffects.Count; i++)
+        {
+            card.CardData.attackEffects[i].OnUse(targetStatSystem);
+        }
+
+        for(int i = 0; i < card.CardData.drawEffects.Count; i++)
+        {
+            card.CardData.drawEffects[i].OnUse();
+        }
     }
 
     public void EndTurn()

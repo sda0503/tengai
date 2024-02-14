@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class CardManager : MonoBehaviour
 {
     // 카드 추가, 카드 제거, 드로우 
+    public static CardManager instance;
 
     public List<Card> deck;
     public List<Card> garbages;
@@ -33,6 +34,7 @@ public class CardManager : MonoBehaviour
     {
         deck = new List<Card>();
         garbages = new List<Card>();
+        instance = this;
     }
 
     private void Start()
