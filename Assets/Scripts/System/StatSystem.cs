@@ -38,6 +38,7 @@ public class StatSystem : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
+        Debug.Log(amount);
         _stat.HP -= amount;
         if (_stat.HP == 0)
         {
