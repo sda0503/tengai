@@ -28,7 +28,7 @@ public class RewardController : MonoBehaviour
 
     void MakeReward()
     {
-        for (int i = 0; i < 2; i++)
+        for (int i = 0; i < 3; i++)
         {
             float y = i * -120 + 640;
             float x = 960;
@@ -40,12 +40,11 @@ public class RewardController : MonoBehaviour
                 
             }
             else if (i == 1) rewarObj.GetComponent<Reward>().rewardType = RewardType.Card;
-
+            else if (i == 2) rewarObj.GetComponent<Reward>().rewardType = RewardType.SCard;
             var reList = Instantiate(rewarObj, new Vector3(x, y, 0), Quaternion.identity, gameObject.transform);
-            //else if (i == 2) rewarObj.GetComponent<Reward>().rewardType = RewardType.SCard;
-
-            if(i==0) reList.GetComponent<Button>().onClick.AddListener(() => mapManager.AddGold());
+            if (i==0) reList.GetComponent<Button>().onClick.AddListener(() => mapManager.AddGold());
             else if (i == 1) reList.GetComponent<Button>().onClick.AddListener(() => mapManager.AddGold());
+            if (i == 0) reList.GetComponent<Button>().onClick.AddListener(() => mapManager.AddGold());
         }
     }
 }

@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
 {
-    bool _isPlayerTrun = true;
+    public bool _isPlayerTrun = true;
     public Text trunBtn;
     
-    bool _isEndBattle = false;   //게임 종료 
+    public bool _isEndBattle = false;   //게임 종료 
 
     void Start()
     {
@@ -28,4 +28,5 @@ public class BattleManager : MonoBehaviour
         InfoSystem.instance.playerPoint = 3;
         InfoSystem.instance.ShowDate();
     }
+
 }
