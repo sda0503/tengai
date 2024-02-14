@@ -14,60 +14,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   defaultDatas:
   - MonsterDatas:
-    - Name: SlimesS
-      stat: {fileID: 11400000, guid: 1d176511f15eec14b934ee874a68f67f, type: 2}
-      prefab: {fileID: 5067599679747889170, guid: f38368be20c99124bbd7efcb2ed14039, type: 3}
-    - Name: SlimesAltS
-      stat: {fileID: 11400000, guid: 1d176511f15eec14b934ee874a68f67f, type: 2}
-      prefab: {fileID: 2771449772436700447, guid: 2b19881c39b67ef4399294d283ebb064, type: 3}
-    - Name: SlimesS
-      stat: {fileID: 11400000, guid: 1d176511f15eec14b934ee874a68f67f, type: 2}
-      prefab: {fileID: 5067599679747889170, guid: f38368be20c99124bbd7efcb2ed14039, type: 3}
-    - Name: SlimesAltS
-      stat: {fileID: 11400000, guid: 1d176511f15eec14b934ee874a68f67f, type: 2}
-      prefab: {fileID: 2771449772436700447, guid: 2b19881c39b67ef4399294d283ebb064, type: 3}
-    - Name: LouseGreen
-      stat: {fileID: 11400000, guid: 1d176511f15eec14b934ee874a68f67f, type: 2}
-      prefab: {fileID: 6757371274554824724, guid: 6f3fd0982f125b444844c0cdbee34fa6, type: 3}
+    - SlimeS
+    - SlimeS
+    - SlimeS
+    - SlimeS
+    - SlimeS
+  - MonsterDatas:
+    - LouseRed
+    - LouseGreen
+    - LouseRed
+    - LouseGreen
+    - LouseRed
+  - MonsterDatas:
+    - SlimeAltS
+    - SlimeAltS
+    - SlimeAltS
+    - SlimeAltS
+    - SlimeAltS
   EliteDatas: []
   BossDatas: []
   targetSystem: {fileID: 0}
-  spowPivot: {fileID: 0}
-  activeMonster:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  spawnObj: {fileID: 4950835499087033506, guid: 5d15c5daacd279644b9c4dd91b3e447e, type: 3}
+  isTurn: 1

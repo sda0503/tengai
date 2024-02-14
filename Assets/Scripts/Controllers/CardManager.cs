@@ -6,7 +6,8 @@ using UnityEngine.UI;
 
 public class CardManager : MonoBehaviour
 {
-    // Ä«µå Ãß°¡, Ä«µå Á¦°Å, µå·Î¿ì 
+    // ì¹´ë“œ ì¶”ê°€, ì¹´ë“œ ì œê±°, ë“œë¡œìš° 
+    public static CardManager instance;
 
     public List<Card> deck;
     public List<Card> garbages;
@@ -28,11 +29,12 @@ public class CardManager : MonoBehaviour
 
     private Card curSelectedCard;
     private GameObject curSelectedCardUI;
+
     private void Awake()
     {
         deck = new List<Card>();
         garbages = new List<Card>();
-        Init();
+        instance = this;
     }
 
     private void Start()
@@ -48,62 +50,10 @@ public class CardManager : MonoBehaviour
         _handManager.ConnectCardManager(this);
     }
 
-    private void Init()
-    {
-        _gr = _mainCanvas.GetComponent<GraphicRaycaster>();
-        _ped = new PointerEventData(null);
-        _rrList = new List<RaycastResult>(10);
-    }
-
     private void Update()
     {
         
     }
-
-    private T GetClickedUIObjectComponent<T>() where T : Component
-    {
-        _rrList.Clear();
-
-        _gr.Raycast(_ped, _rrList);
-
-        if(_rrList.Count == 0 )
-        {
-            return null;
-        }
-
-        return _rrList[0].gameObject.GetComponent<T>();
-    }
-
-    private void OnPointerDown()
-    {
-        if(Input.GetMouseButtonDown(0))
-        {
-            curSelectedCard = GetClickedUIObjectComponent<CardDisplay>()?.GetCard();
-            curSelectedCardUI = GetClickedUIObjectComponent<CardDisplay>()?.gameObject;
-
-            Debug.Log("OnClick");
-
-            if (curSelectedCard != null )
-            {
-                Debug.Log(curSelectedCard.CardData.name);
-            }
-        }
-    }
-
-    //private void OnPointerUp()
-    //{
-    //    if (Input.GetMouseButtonUp(0))
-    //    {
-    //        if(curSelectedCard != null)
-    //        {
-    //            Debug.Log("End Click");
-    //            if (IsMeetUseCondition(curSelectedCard))
-    //            {
-    //                UseCard();
-    //            }
-    //        }
-    //    }
-    //}
 
     public void AddCard(Card card)
     {
@@ -111,22 +61,30 @@ public class CardManager : MonoBehaviour
         SetDeckNumText();
     }
 
-    public void DrawCard()
+    public void DrawCard(int drawNum)
     {
-        if(deck.Count <= 0)
+        StartCoroutine(DrawCardC(drawNum));
+    }
+
+    IEnumerator DrawCardC(int drawNum)
+    {
+        for(int i = 0; i < drawNum; i++)
         {
-            ReloadAllCard();
-            SetAllNumText();
-        }
+            if(deck.Count <= 0)
+            {
+                ReloadAllCard();
+                SetAllNumText();
+            }
 
-        if(deck.Count >= 1 && _handManager.hands.Count < 10)
-        {
-            Card card = deck[Random.Range(0, deck.Count)];
+            if(deck.Count >= 1 && _handManager.hands.Count < 10)
+            {
+                Card card = deck[Random.Range(0, deck.Count)];
 
-            StartCoroutine(_handManager.DrawCard(card));
-            deck.Remove(card);
+                yield return StartCoroutine(_handManager.DrawCard(card));
+                deck.Remove(card);
 
-            SetDeckNumText();
+                SetDeckNumText();
+            }
         }
     }
 

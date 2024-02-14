@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 340d33560583ac84ebd39d4469bbb4e1, type: 3}
+  m_Name: smoothStone
+  m_EditorClassIdentifier: 
+  RelcisName: "\uB9E4\uB044\uB7EC\uC6B4 \uB3CC"
+  Relcisdescription: "\uBBFC\uCCA9\uC744 1 \uC5BB\uC740 \uCC44\uB85C \uC804\uD22C\uB97C
+    \uC2DC\uC791\uD569\uB2C8\uB2E4"
+  curHP: 0
+  maxHP: 0
+  addATK: 0
+  addDEF: 1
+  icon: {fileID: 21300000, guid: e80a91b49094f9b47afe258ea2fd46b7, type: 3}

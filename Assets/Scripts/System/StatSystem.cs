@@ -1,6 +1,8 @@
 using System;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum StatType
 {
@@ -16,11 +18,12 @@ public class StatSystem : MonoBehaviour
 {
     [SerializeField] private CharacterBaseStat _stat;
     [SerializeField] private List<Buff> _buffs;
-    private CharacterBaseStat _buffStat;
+    private CharacterBaseStat _buffStat = new();
     private Animator _animator;
+    private HPBar _bar;
 
     public int HP { get { return _stat.HP + _buffStat.HP; } }
-    public int MaxHP { get { return _stat.MaxHP + _buffStat.MaxHP; } }
+    public int MaxHP { get { return _stat.MaxHP + _buffStat.MaxHP - 1; } }
     public int COST { get { return _stat.Cost + _buffStat.Cost; } }
     public int MaxCost { get { return _stat.MaxCost + _buffStat.MaxCost; } }
     public int ATK { get { return _stat.ATK + _buffStat.ATK; } }
@@ -28,13 +31,26 @@ public class StatSystem : MonoBehaviour
 
     private void Awake()
     {
-        _buffStat = ScriptableObject.CreateInstance<CharacterBaseStat>();
         _animator = GetComponent<Animator>();
+    }
+
+    public void TestDEF(int amount)
+    {
+        _buffStat.DEF += amount;
+        _bar.UpdateHPBar(HP, MaxHP, DEF);
+    }
+
+    public void Attack()
+    {
+        _animator.SetTrigger("Attack");
     }
 
     public void TakeDamage(int amount)
     {
-        _stat.HP -= amount;
+        int result = Math.Clamp(amount - DEF, 0, int.MaxValue);
+        _buffStat.DEF -= amount;
+
+        _stat.HP -= result;
         if (_stat.HP == 0)
         {
             _animator.SetTrigger("Die");
@@ -43,6 +59,8 @@ public class StatSystem : MonoBehaviour
         {
             _animator.SetTrigger("TakeDamage");
         }
+
+        _bar.UpdateHPBar(HP, MaxHP, DEF);
     }
 
     public void TakeCost(int amount)
@@ -60,6 +78,7 @@ public class StatSystem : MonoBehaviour
                 AddStat(_buffs[i]);
             }
         }
+        _bar.UpdateHPBar(HP, MaxHP, DEF);
     }
 
     public void UpdateBuffs()
@@ -79,6 +98,7 @@ public class StatSystem : MonoBehaviour
             }
             _buffs[i].turn++;
         }
+        _bar.UpdateHPBar(HP, MaxHP, DEF);
     }
 
     public void AddBuff(Buff buff)
@@ -101,7 +121,10 @@ public class StatSystem : MonoBehaviour
 
     public void SettingStat(CharacterBaseStat stat)
     {
+        if (_bar == null) _bar = GetComponentInChildren<HPBar>();
         _stat = stat;
+        _buffStat.MaxHP = 1;
+        _bar.UpdateHPBar(HP, MaxHP, DEF);
     }
 
     private void InitStat()
@@ -167,5 +190,14 @@ public class Buff
         this.amount = amount;
         this.maxTurn = maxTurn;
         this.invokeTurn = invokeTurn;
+    }
+
+    public Buff(Buff buff)
+    {
+        this.type = buff.type;
+        this.amount = buff.amount;
+        this.turn = buff.turn;
+        this.maxTurn = buff.maxTurn;
+        this.invokeTurn = buff.invokeTurn;
     }
 }

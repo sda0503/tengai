@@ -1,14 +1,14 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public enum UseCondition
 {
     Target,
-    NonTarget
+    NonTarget,
+    Player,
 }
 
-public abstract class Card_Base : ScriptableObject
+public class Card_Base : ScriptableObject
 {
     [Header("Card Info")]
     public int cost;
@@ -17,6 +17,12 @@ public abstract class Card_Base : ScriptableObject
     [Multiline]
     public string description;
     public UseCondition condition;
+    public List<CardEffect_Attack> attackEffects;
+    public List<CardEffect_Draw> drawEffects;
+    public List<CardEffect_Stat> statEffects;
 
-    public abstract Card CreateCard();
+    public virtual Card CreateCard()
+    {
+        return new Card(this);
+    }
 }
