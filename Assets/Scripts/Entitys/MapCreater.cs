@@ -18,6 +18,8 @@ public class MapCreater : MonoBehaviour
     bool isStart = false;
     float y;
 
+    bool checkMap = false;
+
     MapManager mapManager;
 
     List<GameObject> beforeVec3 = new List<GameObject>();

@@ -26,6 +26,8 @@ public class MapManager : MonoBehaviour
 
     private MapData curMapData;
 
+    bool _checkMap = false;
+
     private void Awake()
     {
         _gr = _mainCanvas.GetComponent<GraphicRaycaster>();
@@ -107,6 +109,7 @@ public class MapManager : MonoBehaviour
             || obj.gameObject.GetComponent<MapData>().index == InfoSystem.instance.index + 1
             ) || InfoSystem.instance.currentFloor==0 || InfoSystem.instance.currentFloor == 14)
         {
+            _checkMap = false;
             InfoSystem.instance.currentFloor++;
             InfoSystem.instance.index = obj.gameObject.GetComponent<MapData>().index;
             curMapData = obj.gameObject.GetComponent<MapData>();
@@ -177,6 +180,94 @@ public class MapManager : MonoBehaviour
                     break;
                 default:
                     break;
+            }
+        }
+        else
+        {
+            _checkMap = true;
+        }
+
+        if (_checkMap)
+        {
+            if (obj.gameObject.GetComponent<MapData>().floor == InfoSystem.instance.currentFloor &&
+            (obj.gameObject.GetComponent<MapData>().index == InfoSystem.instance.index - 2
+            || obj.gameObject.GetComponent<MapData>().index == InfoSystem.instance.index
+            || obj.gameObject.GetComponent<MapData>().index == InfoSystem.instance.index + 2
+            ))
+            {
+                obj.transform.GetChild(0).GetComponent<Image>().color = new Color(0, 0, 0, 1f);
+                _checkMap = false;
+                InfoSystem.instance.currentFloor++;
+                InfoSystem.instance.index = obj.gameObject.GetComponent<MapData>().index;
+                curMapData = obj.gameObject.GetComponent<MapData>();
+                switch (obj.gameObject.GetComponent<MapData>().mapData)
+                {
+                    case 0:
+                        obj.transform.GetChild(1).gameObject.SetActive(true);
+                        obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
+                        obj.GetComponent<Image>().raycastTarget = false;
+                        changeObj.SetActive(true);
+
+                        chestObj.GetComponent<ChestManager>().iNum = obj.GetComponent<MapData>().EventNum;
+                        chestObj.GetComponent<ChestManager>().chestImage.sprite = chestObj.GetComponent<ChestManager>().closeChest[chestObj.GetComponent<ChestManager>().iNum];
+                        Invoke("GoChest", 3f);
+
+                        break;
+                    case 1:
+                        obj.transform.GetChild(1).gameObject.SetActive(true);
+                        obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
+                        changeObj.SetActive(true);
+                        obj.GetComponent<Image>().raycastTarget = false;
+                        chestObj.GetComponent<ChestManager>().iNum = obj.GetComponent<MapData>().EventNum;
+                        chestObj.GetComponent<ChestManager>().chestImage.sprite = chestObj.GetComponent<ChestManager>().closeChest[chestObj.GetComponent<ChestManager>().iNum];
+                        Invoke("GoShop", 3f);
+
+                        break;
+                    case 2:
+                        obj.transform.GetChild(1).gameObject.SetActive(true);
+                        obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
+                        changeObj.SetActive(true);
+                        obj.GetComponent<Image>().raycastTarget = false;
+                        Invoke("GoRest", 3f);
+
+                        break;
+                    case 3:
+                        obj.transform.GetChild(1).gameObject.SetActive(true);
+                        obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
+                        changeObj.SetActive(true);
+                        obj.GetComponent<Image>().raycastTarget = false;
+                        Invoke("GoBattle", 3f);
+
+                        break;
+                    case 4:
+                        obj.transform.GetChild(1).gameObject.SetActive(true);
+                        obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
+                        changeObj.SetActive(true);
+                        obj.GetComponent<Image>().raycastTarget = false;
+                        eventObj.GetComponent<EventManager>().iNum = obj.GetComponent<MapData>().EventNum;
+                        Invoke("GoEvent", 3f);
+
+                        break;
+                    case 5:
+                        obj.transform.GetChild(1).gameObject.SetActive(true);
+                        obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
+                        changeObj.SetActive(true);
+                        obj.GetComponent<Image>().raycastTarget = false;
+                        Invoke("GoBattle", 3f);
+
+                        break;
+
+                    case 8:
+                        obj.transform.GetChild(1).gameObject.SetActive(true);
+                        obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
+                        changeObj.SetActive(true);
+                        obj.GetComponent<Image>().raycastTarget = false;
+                        Invoke("GoBattle", 3f);
+
+                        break;
+                    default:
+                        break;
+                }
             }
         }
     }
