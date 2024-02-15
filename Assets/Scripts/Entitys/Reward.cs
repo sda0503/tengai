@@ -29,7 +29,7 @@ public class Reward : MonoBehaviour
         SwitchType(rewardType);
     }
 
-    void SwitchType(RewardType type)
+    public void SwitchType(RewardType type)
     {
         switch (type)
         {

@@ -58,3 +58,21 @@ MonoBehaviour:
       _power: 7
       _defense: 0
     prefab: {fileID: 325566195651819928, guid: d1774f7c93cf7624e89ce784045d4543, type: 3}
+  - Name: Sentry
+    stat:
+      _hp: 15
+      _maxHP: 15
+      _cost: 5
+      _maxCost: 5
+      _power: 7
+      _defense: 0
+    prefab: {fileID: 4418542308630663407, guid: 1641463ce9629a541bbd2d0cfec5f43f, type: 3}
+  - Name: LouseRed
+    stat:
+      _hp: 15
+      _maxHP: 15
+      _cost: 5
+      _maxCost: 5
+      _power: 7
+      _defense: 0
+    prefab: {fileID: 325566195651819928, guid: d1774f7c93cf7624e89ce784045d4543, type: 3}

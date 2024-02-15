@@ -14768,7 +14768,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3b2704be7bb1cfd449ba8346df622178, type: 2}
   - {fileID: 11400000, guid: 1daf1ac49e368bd4db8e642e3ac96c8b, type: 2}
   - {fileID: 11400000, guid: e37ccdd9fcf2a5c4d811985c58810092, type: 2}
-  cardRewardWindow: {fileID: 0}
+  cardRewardWindow: {fileID: 1007145021}
 --- !u!1 &2078292646
 GameObject:
   m_ObjectHideFlags: 0

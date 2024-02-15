@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -118,7 +119,9 @@ public class MapManager : MonoBehaviour
                     obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
                     obj.GetComponent<Image>().raycastTarget = false;
                     changeObj.SetActive(true);
+
                     chestObj.GetComponent<ChestManager>().iNum = obj.GetComponent<MapData>().EventNum;
+                    chestObj.GetComponent<ChestManager>().chestImage.sprite = chestObj.GetComponent<ChestManager>().closeChest[chestObj.GetComponent<ChestManager>().iNum];
                     Invoke("GoChest", 3f);
 
                     break;
@@ -127,6 +130,8 @@ public class MapManager : MonoBehaviour
                     obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
                     changeObj.SetActive(true);
                     obj.GetComponent<Image>().raycastTarget = false;
+                    chestObj.GetComponent<ChestManager>().iNum = obj.GetComponent<MapData>().EventNum;
+                    chestObj.GetComponent<ChestManager>().chestImage.sprite = chestObj.GetComponent<ChestManager>().closeChest[chestObj.GetComponent<ChestManager>().iNum];
                     Invoke("GoShop", 3f);
 
                     break;
@@ -156,6 +161,15 @@ public class MapManager : MonoBehaviour
 
                     break;
                 case 5:
+                    obj.transform.GetChild(1).gameObject.SetActive(true);
+                    obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
+                    changeObj.SetActive(true);
+                    obj.GetComponent<Image>().raycastTarget = false;
+                    Invoke("GoBattle", 3f);
+
+                    break;
+
+                case 8:
                     obj.transform.GetChild(1).gameObject.SetActive(true);
                     obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
                     changeObj.SetActive(true);
@@ -200,13 +214,14 @@ public class MapManager : MonoBehaviour
     {
         gameObject.SetActive(false);
         chestObj.SetActive(true);
+        
         changeObj.SetActive(false);
     }
 
     public void GoShop()
     {
         gameObject.SetActive(false);
-        shoptObj.SetActive(true);
+        chestObj.SetActive(true);
         changeObj.SetActive(false);
     }
 
