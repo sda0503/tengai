@@ -103,6 +103,7 @@ public class StatSystem : MonoBehaviour
 
     public void UpdateBuffs()
     {
+        List<string> remove = new();
         foreach (var buff in _activeBuffs)
         {
             var key = buff.Key;
@@ -115,10 +116,15 @@ public class StatSystem : MonoBehaviour
             else if (value.maxTurn == value.turn)
             {
                 value.turn = 0;
-                _activeBuffs.Remove(key);
+                remove.Add(key);
                 continue;
             }
             value.turn++;
+        }
+
+        for(int i =  remove.Count - 1; i >= 0; i--)
+        {
+            _activeBuffs.Remove(remove[i]);
         }
 
         for(int i = 0; i < _buffs.Count; i++)

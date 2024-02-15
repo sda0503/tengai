@@ -54,9 +54,11 @@ public class HPBar : MonoBehaviour
 
     public void UpdateBuffSlots()
     {
-        foreach(var slot in _buffSlots)
+        for(int  i = 0; i < _buffSlots.Count; i++)
         {
-            slot.UpdateSlot();
+            _buffSlots[i].UpdateSlot();
+            if (_buffSlots[i] == null)
+                _buffSlots.RemoveAt(i--);
         }
     }
 }
