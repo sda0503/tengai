@@ -15,11 +15,10 @@ public class BattleManager : MonoBehaviour
     public CardManager _cardManager;
     public MonsterDataManager _monsterDataManager;
 
-    // [SerializeField] public GameObject canvas;
+    [SerializeField] public GameObject canvas;
 
     private void Awake()
     {
-        
     }
     void Start()
     {
@@ -35,7 +34,10 @@ public class BattleManager : MonoBehaviour
         //{
         //    _monsterDataManager.CreateDefalutMonster();
         //}
-        
+        _cardManager = CardManager.instance;
+        _monsterDataManager.Init(canvas.transform);
+        _monsterDataManager.CreateDefalutMonster();
+
         MyTrun();
     }
 
