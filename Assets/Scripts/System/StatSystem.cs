@@ -201,8 +201,9 @@ public class Buff
     public int maxTurn;
     public int invokeTurn;
 
-    public Buff(StatType type, int amount, int maxTurn = 1, int invokeTurn = 0)
+    public Buff(string name, StatType type, int amount, int maxTurn = 1, int invokeTurn = 0)
     {
+        this.name = name;
         this.type = type;
         this.amount = amount;
         this.maxTurn = maxTurn;
@@ -211,6 +212,7 @@ public class Buff
 
     public Buff(Buff buff)
     {
+        this.name = buff.name;
         this.type = buff.type;
         this.amount = buff.amount;
         this.turn = buff.turn;

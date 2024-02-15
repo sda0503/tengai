@@ -15,7 +15,7 @@ public class CardEffect_AddCard : ICardEffect
 
     public void OnUse(StatSystem statSystem = null)
     {
-        CardManager.instance._handManager.CreateCard(CardDatabase.instance.GetCard(cardName), cardCreatePlace);
+        CardManager.instance.handManager.CreateCard(CardDatabase.instance.GetCard(cardName), cardCreatePlace);
     }
 
     public void OnUse(List<StatSystem> statSystemList)
