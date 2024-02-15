@@ -19,6 +19,7 @@ public class BattleManager : MonoBehaviour
 
     private void Awake()
     {
+        
     }
     void Start()
     {
@@ -65,7 +66,7 @@ public class BattleManager : MonoBehaviour
 
     void Update()
     {
-        if (!_monsterDataManager.isTurn)  // 적 턴이 아니면 플레이어의 턴
+        if (!_isPlayerTrun && _monsterDataManager.isTurn)  // 적 턴이 아니면 플레이어의 턴
         {
             MyTrun();
             _monsterDataManager.isTurn = false;
@@ -74,7 +75,7 @@ public class BattleManager : MonoBehaviour
     public void EndTrun()  // 엔드턴을 어디에서 호출해야 할 지 모르겠습니다. -> 버튼에서 호출
     {
         _isPlayerTrun = false;
-        _player.TEST_Attack();  // 플레이어의 턴이 끝나면 적이 공격
+        StartCoroutine(_monsterDataManager.MonstersAttack());  // 플레이어의 턴이 끝나면 적이 공격
         trunBtn.text = "적 턴";
         InfoSystem.instance.ShowDate();
     }
