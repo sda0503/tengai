@@ -113,6 +113,7 @@ public class StatSystem : MonoBehaviour
             value.turn++;
         }
         _bar.UpdateHPBar(HP, MaxHP, DEF);
+        _bar.UpdateBuffSlots();
     }
 
     public void AddBuff(Buff buff)
@@ -123,6 +124,7 @@ public class StatSystem : MonoBehaviour
             return;
         }
         _buffs.Add(buff.name, buff);
+        _bar.CreateBuffSlot(buff);
     }
 
     public void RemoveBuff(Buff buff)
@@ -200,14 +202,16 @@ public class Buff
     public int turn = 0;
     public int maxTurn;
     public int invokeTurn;
+    public Sprite icon;
 
-    public Buff(string name, StatType type, int amount, int maxTurn = 1, int invokeTurn = 0)
+    public Buff(string name, StatType type, int amount, Sprite icon, int maxTurn = 1, int invokeTurn = 0)
     {
         this.name = name;
         this.type = type;
         this.amount = amount;
         this.maxTurn = maxTurn;
         this.invokeTurn = invokeTurn;
+        this.icon = icon;
     }
 
     public Buff(Buff buff)
@@ -218,5 +222,6 @@ public class Buff
         this.turn = buff.turn;
         this.maxTurn = buff.maxTurn;
         this.invokeTurn = buff.invokeTurn;
+        this.icon = buff.icon;
     }
 }
