@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -9,10 +8,9 @@ public class ChestManager : MonoBehaviour
     private GraphicRaycaster _gr;
     private PointerEventData _ped;
     private List<RaycastResult> _rrList;
-    private bool isMouseOver = false;
+    private bool _isMouseOver = false;
 
-    private Image uiImage;
-    private GameObject obj;
+    private Image _uiImage;
 
     public GameObject mapObj;
     public GameObject rewardObj;
@@ -70,25 +68,24 @@ public class ChestManager : MonoBehaviour
 
     public void OnPointerOver()
     {
-        if (!isMouseOver)
+        if (!_isMouseOver)
         {
-            uiImage = GetClickedUIObjectComponent<Image>();
-            obj = GetClickedUIObject();
-            if (uiImage != null)
+            _uiImage = GetClickedUIObjectComponent<Image>();
+            if (_uiImage != null)
             {
-                isMouseOver = true;
+                _isMouseOver = true;
             }
         }
     }
 
     public void OnPointerExit()
     {
-        if (isMouseOver && uiImage != null)
+        if (_isMouseOver && _uiImage != null)
         {
-            if (GetClickedUIObjectComponent<Image>() != null && GetClickedUIObjectComponent<Image>() == uiImage)
+            if (GetClickedUIObjectComponent<Image>() != null && GetClickedUIObjectComponent<Image>() == _uiImage)
                 return;
 
-            isMouseOver = false;
+            _isMouseOver = false;
         }
     }
 

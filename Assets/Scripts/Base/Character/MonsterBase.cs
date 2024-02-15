@@ -8,6 +8,7 @@ public abstract class MonsterBase : MonoBehaviour
     [SerializeField] private Image _attackIcon;
     [SerializeField] private TextMeshProUGUI _atkText;
     private Animator __attackIconAnimator;
+
     public StatSystem statSystem;
     public StatSystem target;
 

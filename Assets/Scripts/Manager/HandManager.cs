@@ -10,7 +10,7 @@ public class HandManager : MonoBehaviour
     public List<CardDisplay> hands;
 
     [Header("Card Movement Value")]
-    [SerializeField] private float drawTime;
+    [SerializeField] private float _drawTime;
     public float dropTime;
     public float extinguishTime;
     public Vector3 drawStartSize;
@@ -45,18 +45,18 @@ public class HandManager : MonoBehaviour
     private PointerEventData _ped;
     private List<RaycastResult> _rrList;
 
-    private CardDisplay curSelectedCardDisplay;
-    private Card curSelectedCard;
+    private CardDisplay _curSelectedCardDisplay;
+    private Card _curSelectedCard;
 
-    private CardDisplay curMouseOverCard;
+    private CardDisplay _curMouseOverCard;
 
-    private StatSystem targetStatSystem;
+    private StatSystem _targetStatSystem;
 
     public Canvas _mainCanvas;
 
-    private bool isDrag = false;
-    private bool isMouseOver = false;
-    private bool isUsing = false;
+    private bool _isDrag = false;
+    private bool _isMouseOver = false;
+    private bool _isUsing = false;
 
     [Header("Hightlight Card Value")]
     public float addScaleValueWhenHighlight;
@@ -64,13 +64,13 @@ public class HandManager : MonoBehaviour
     public float expandGapValue;
 
     [Header("Targeting")]
-    [SerializeField] private Sprite reticleBlock;
-    [SerializeField] private Sprite reticleArrow;
-    [SerializeField] GameObject lineGO;
-    [SerializeField] Color onTargetLineColor;
-    [SerializeField] Color defaultLineColor;
+    [SerializeField] private Sprite _reticleBlock;
+    [SerializeField] private Sprite _reticleArrow;
+    [SerializeField] private GameObject _lineGO;
+    [SerializeField] private Color onTargetLineColor;
+    [SerializeField] private Color defaultLineColor;
 
-    private StatSystem playerStatSystem;
+    private StatSystem _playerStatSystem;
 
     private void Awake()
     {
@@ -78,10 +78,9 @@ public class HandManager : MonoBehaviour
         Init();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        playerStatSystem = GameObject.Find("Player").GetComponent<StatSystem>();
+        _playerStatSystem = GameObject.Find("Player").GetComponent<StatSystem>();
         this.transform.SetAsLastSibling();
     }
 
@@ -92,11 +91,9 @@ public class HandManager : MonoBehaviour
         _rrList = new List<RaycastResult>(10);
     }
 
-    // Update is called once per frame
     void Update()
     {
         _ped.position = Input.mousePosition;
-        //Debug.Log(Input.mousePosition);
         OnPointerOver();
         OnPointerExit();
         OnPointerDown();
@@ -135,9 +132,8 @@ public class HandManager : MonoBehaviour
 
         SetCurveRate(hands.Count - 1);
         hands[hands.Count - 1].targetPos = GetPositionFromBezierCurve4(P0.localPosition, P1.localPosition, P2.localPosition, P3.localPosition, hands[hands.Count - 1].curveRateInHand);
-        yield return StartCoroutine(ChangeSizeCardC(cardDisplay.transform, drawStartSize, drawEndSize, drawTime));
+        yield return StartCoroutine(ChangeSizeCardC(cardDisplay.transform, drawStartSize, drawEndSize, _drawTime));
         go.GetComponent<Image>().raycastTarget = true;
-        //yield return StartCoroutine(MoveObjC(cardDisplay.transform, DeckPos.localPosition, cardDisplay.targetPos, drawTime));
 
         SortAllCard();
         SetAllCardIndex();
@@ -179,7 +175,6 @@ public class HandManager : MonoBehaviour
         SetCurveRate(i);
         SetAngle(i);
         hands[i].targetPos = GetPositionFromBezierCurve4(P0.localPosition, P1.localPosition, P2.localPosition, P3.localPosition, hands[i].curveRateInHand);
-        //hands[i].transform.localPosition = hands[i].targetPos;
         hands[i].transform.localRotation = Quaternion.Euler(new Vector3(0, 0, hands[i].angle));
     }
 
@@ -249,82 +244,81 @@ public class HandManager : MonoBehaviour
     }
     private void OnPointerOver()
     {
-        if(!isMouseOver && !isDrag && !isUsing)
+        if(!_isMouseOver && !_isDrag && !_isUsing)
         {
-            curMouseOverCard = GetClickedUIObjectComponent<CardDisplay>();
+            _curMouseOverCard = GetClickedUIObjectComponent<CardDisplay>();
 
-            if (curMouseOverCard != null)
+            if (_curMouseOverCard != null)
             {
                 Debug.Log("MouseOver");
-                isMouseOver = true;
+                _isMouseOver = true;
                 HighlightCard();
-                curMouseOverCard.transform.SetAsLastSibling();
-                ExpandGap(curMouseOverCard.index);
+                _curMouseOverCard.transform.SetAsLastSibling();
+                ExpandGap(_curMouseOverCard.index);
             }
         }
     }
 
     private void OnPointerExit()
     {
-        if(isMouseOver && !isDrag && curMouseOverCard != null && !isUsing)
+        if(_isMouseOver && !_isDrag && _curMouseOverCard != null && !_isUsing)
         {
-            if (GetClickedUIObjectComponent<CardDisplay>() != null && GetClickedUIObjectComponent<CardDisplay>() == curMouseOverCard)
+            if (GetClickedUIObjectComponent<CardDisplay>() != null && GetClickedUIObjectComponent<CardDisplay>() == _curMouseOverCard)
                 return;
             Debug.Log("OnExit");
-            //curMouseOverCard.targetPos -= new Vector3(0f, addYPosValue, 0f);
             SortAllCard();
-            curMouseOverCard.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, curMouseOverCard.angle));
-            curMouseOverCard.transform.localScale = new Vector3(1f, 1f, 0f);
-            curMouseOverCard.transform.SetSiblingIndex(curMouseOverCard.index);
+            _curMouseOverCard.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, _curMouseOverCard.angle));
+            _curMouseOverCard.transform.localScale = new Vector3(1f, 1f, 0f);
+            _curMouseOverCard.transform.SetSiblingIndex(_curMouseOverCard.index);
 
-            RollBackExpandGap(curMouseOverCard.index);
+            RollBackExpandGap(_curMouseOverCard.index);
 
-            isMouseOver = false;
+            _isMouseOver = false;
         }
     }
 
     private void OnPointerDown()
     {
-        if (Input.GetMouseButtonDown(0) && !isUsing)
+        if (Input.GetMouseButtonDown(0) && !_isUsing)
         {
-            isDrag = true;
+            _isDrag = true;
 
-            curSelectedCardDisplay = GetClickedUIObjectComponent<CardDisplay>();
-            curSelectedCard = curSelectedCardDisplay?.GetCard();
+            _curSelectedCardDisplay = GetClickedUIObjectComponent<CardDisplay>();
+            _curSelectedCard = _curSelectedCardDisplay?.GetCard();
 
-            if(curSelectedCardDisplay != null)
-                curSelectedCardDisplay.GetComponent<Image>().raycastTarget = false;
+            if(_curSelectedCardDisplay != null)
+                _curSelectedCardDisplay.GetComponent<Image>().raycastTarget = false;
 
             Debug.Log("OnClick");
 
-            if (curSelectedCard != null)
+            if (_curSelectedCard != null)
             {
-                Debug.Log(curSelectedCard.CardData.cardName);
+                Debug.Log(_curSelectedCard.CardData.cardName);
             }
         }
     }
 
     private void OnPointerDrag()
     {
-        if (isDrag && curSelectedCardDisplay != null && CanUse(curSelectedCard))
+        if (_isDrag && _curSelectedCardDisplay != null && CanUse(_curSelectedCard))
         {
-            if(curSelectedCardDisplay.GetCard().CardData.useCondition == UseCondition.Target && Input.mousePosition.y > 300)
+            if(_curSelectedCardDisplay.GetCard().CardData.useCondition == UseCondition.Target && Input.mousePosition.y > 300)
             {
-                if (!lineGO.activeSelf)
+                if (!_lineGO.activeSelf)
                 {
-                    lineGO.SetActive(true);
-                    lineGO.transform.SetAsLastSibling();
+                    _lineGO.SetActive(true);
+                    _lineGO.transform.SetAsLastSibling();
                 }
 
-                curSelectedCardDisplay.targetPos = dragTargetingCardPlace.transform.localPosition;
+                _curSelectedCardDisplay.targetPos = dragTargetingCardPlace.transform.localPosition;
                 DrawTargetingLine();
             }
             else
             {
-                if (lineGO.activeSelf)
-                    lineGO.SetActive(false);
+                if (_lineGO.activeSelf)
+                    _lineGO.SetActive(false);
 
-                curSelectedCardDisplay.transform.position = Input.mousePosition;
+                _curSelectedCardDisplay.transform.position = Input.mousePosition;
             }
         }
     }
@@ -333,44 +327,44 @@ public class HandManager : MonoBehaviour
     {
         Vector3 endPos = Input.mousePosition;
         Vector3 P1 = new Vector3(dragTargetingCardPlace.position.x, endPos.y + 300);
-        for (int i = 0; i < lineGO.transform.childCount - 1; i++)
+        for (int i = 0; i < _lineGO.transform.childCount - 1; i++)
         {
-            lineGO.transform.GetChild(i).position = GetPositionFromBezierCurve3(dragTargetingCardPlace.position, P1, endPos, (float)i / (lineGO.transform.childCount - 1));
+            _lineGO.transform.GetChild(i).position = GetPositionFromBezierCurve3(dragTargetingCardPlace.position, P1, endPos, (float)i / (_lineGO.transform.childCount - 1));
 
-            lineGO.transform.GetChild(i).GetComponent<Image>().sprite = reticleBlock;
+            _lineGO.transform.GetChild(i).GetComponent<Image>().sprite = _reticleBlock;
         }
 
         float angle;
 
-        for (int i = 0; i < lineGO.transform.childCount - 2; i++)
+        for (int i = 0; i < _lineGO.transform.childCount - 2; i++)
         {
-            angle = Quaternion.FromToRotation(Vector3.up, lineGO.transform.GetChild(i + 1).position - lineGO.transform.GetChild(i).position).eulerAngles.z;
+            angle = Quaternion.FromToRotation(Vector3.up, _lineGO.transform.GetChild(i + 1).position - _lineGO.transform.GetChild(i).position).eulerAngles.z;
 
-            lineGO.transform.GetChild(i).rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
+            _lineGO.transform.GetChild(i).rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
         }
 
-        angle = Quaternion.FromToRotation(Vector3.up, Input.mousePosition - lineGO.transform.GetChild(lineGO.transform.childCount - 2).position).eulerAngles.z;
-        lineGO.transform.GetChild(lineGO.transform.childCount - 2).rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
+        angle = Quaternion.FromToRotation(Vector3.up, Input.mousePosition - _lineGO.transform.GetChild(_lineGO.transform.childCount - 2).position).eulerAngles.z;
+        _lineGO.transform.GetChild(_lineGO.transform.childCount - 2).rotation = Quaternion.Euler(new Vector3(0f, 0f, angle));
 
-        Transform arrow = lineGO.transform.GetChild(lineGO.transform.childCount - 1);
+        Transform arrow = _lineGO.transform.GetChild(_lineGO.transform.childCount - 1);
 
         arrow.transform.position = Input.mousePosition;
-        arrow.rotation = lineGO.transform.GetChild(lineGO.transform.childCount - 2).rotation;
-        arrow.GetComponent<Image>().sprite = reticleArrow;
+        arrow.rotation = _lineGO.transform.GetChild(_lineGO.transform.childCount - 2).rotation;
+        arrow.GetComponent<Image>().sprite = _reticleArrow;
         arrow.localScale = new Vector3(2f, 2f, 1f);
 
         if (IsMouseOnTarget<StatSystem>())
         {
-            for(int i = 0; i < lineGO.transform.childCount; i++)
+            for(int i = 0; i < _lineGO.transform.childCount; i++)
             {
-                lineGO.transform.GetChild(i).GetComponent<Image>().color = onTargetLineColor;
+                _lineGO.transform.GetChild(i).GetComponent<Image>().color = onTargetLineColor;
             }
         }
         else
         {
-            for (int i = 0; i < lineGO.transform.childCount; i++)
+            for (int i = 0; i < _lineGO.transform.childCount; i++)
             {
-                lineGO.transform.GetChild(i).GetComponent<Image>().color = defaultLineColor;
+                _lineGO.transform.GetChild(i).GetComponent<Image>().color = defaultLineColor;
             }
         }
     }
@@ -400,24 +394,23 @@ public class HandManager : MonoBehaviour
     {
         if (Input.GetMouseButtonUp(0))
         {
-            isDrag = false;
-            lineGO.SetActive(false);
+            _isDrag = false;
+            _lineGO.SetActive(false);
 
-            if (curSelectedCard != null)
+            if (_curSelectedCard != null)
             {
                 Debug.Log("End Click");
-                if (IsMeetUseCondition(curSelectedCard.CardData.useCondition) && CanUse(curSelectedCard))
+                if (IsMeetUseCondition(_curSelectedCard.CardData.useCondition) && CanUse(_curSelectedCard))
                 {
                     StartCoroutine(UseCard());
-                    isMouseOver = false;
+                    _isMouseOver = false;
                 }
                 else
                 {
-                    //SortAllCard();
-                    curSelectedCardDisplay.GetComponent<Image>().raycastTarget = true;
+                    _curSelectedCardDisplay.GetComponent<Image>().raycastTarget = true;
 
-                    curSelectedCardDisplay = null;
-                    curSelectedCard = null;
+                    _curSelectedCardDisplay = null;
+                    _curSelectedCard = null;
                 }
             }
         }
@@ -425,27 +418,27 @@ public class HandManager : MonoBehaviour
 
     public IEnumerator UseCard()
     {
-        Debug.Log(curSelectedCard.CardData.cardName + " 사용");
-        playerStatSystem.TakeCost(curSelectedCard.CardData.cost);
+        Debug.Log(_curSelectedCard.CardData.cardName + " 사용");
+        _playerStatSystem.TakeCost(_curSelectedCard.CardData.cost);
         InfoSystem.instance.ShowDate();
-        hands.Remove(curSelectedCardDisplay);
+        hands.Remove(_curSelectedCardDisplay);
 
-        CardDisplay usedCardDisplay = curSelectedCardDisplay;
-        Card usedCard = curSelectedCard;
+        CardDisplay usedCardDisplay = _curSelectedCardDisplay;
+        Card usedCard = _curSelectedCard;
 
-        curSelectedCard = null;
-        curSelectedCardDisplay = null;
+        _curSelectedCard = null;
+        _curSelectedCardDisplay = null;
 
-        isUsing = true;
+        _isUsing = true;
 
         yield return StartCoroutine(MoveObjC(usedCardDisplay.transform, usedCardDisplay.transform.localPosition, usedCardPlace.localPosition, 0.2f));
 
         yield return new WaitForSeconds(0.3f);
 
-        isUsing = false;
+        _isUsing = false;
         SortAllCard();
         SetAllCardIndex();
-        isMouseOver = false;
+        _isMouseOver = false;
         
         UseCardEffect(usedCard);
 
@@ -471,7 +464,7 @@ public class HandManager : MonoBehaviour
 
         InfoSystem.instance.ShowDate();
 
-        targetStatSystem = null;
+        _targetStatSystem = null;
     }
 
     private void UseCardEffect(Card card)
@@ -481,10 +474,10 @@ public class HandManager : MonoBehaviour
             switch (card.CardData.attackEffects[i].target)
             {
                 case Target.Player:
-                    card.CardData.attackEffects[i].OnUse(playerStatSystem);
+                    card.CardData.attackEffects[i].OnUse(_playerStatSystem);
                     break;
                 case Target.TargetEnemy:
-                    card.CardData.attackEffects[i].OnUse(targetStatSystem);
+                    card.CardData.attackEffects[i].OnUse(_targetStatSystem);
                     break;
                 case Target.AllEnemy:
                 case Target.RandomEnemy:
@@ -503,10 +496,10 @@ public class HandManager : MonoBehaviour
             switch (card.CardData.statEffects[i].target)
             {
                 case Target.Player:
-                    card.CardData.statEffects[i].OnUse(playerStatSystem);
+                    card.CardData.statEffects[i].OnUse(_playerStatSystem);
                     break;
                 case Target.TargetEnemy:
-                    card.CardData.statEffects[i].OnUse(targetStatSystem);
+                    card.CardData.statEffects[i].OnUse(_targetStatSystem);
                     break;
                 case Target.AllEnemy:
                 case Target.RandomEnemy:
@@ -693,12 +686,12 @@ public class HandManager : MonoBehaviour
 
                 if(_rrList.Count > 0)
                 {
-                    targetStatSystem = _rrList[0].gameObject.GetComponentInParent<StatSystem>();
+                    _targetStatSystem = _rrList[0].gameObject.GetComponentInParent<StatSystem>();
                 }
 
-                if (targetStatSystem != null)
+                if (_targetStatSystem != null)
                 {
-                    if (targetStatSystem.gameObject.CompareTag("Monster"))
+                    if (_targetStatSystem.gameObject.CompareTag("Monster"))
                         return true;
                 }
                 break;
@@ -715,11 +708,11 @@ public class HandManager : MonoBehaviour
 
     private void HighlightCard()
     {
-        if(curMouseOverCard != null)
+        if(_curMouseOverCard != null)
         {
-            curMouseOverCard.transform.localRotation = Quaternion.identity;
-            curMouseOverCard.transform.localScale = new Vector3(1f + addScaleValueWhenHighlight, 1f + addScaleValueWhenHighlight, 0);
-            curMouseOverCard.targetPos += new Vector3(0f, addYPosValue, 0f);
+            _curMouseOverCard.transform.localRotation = Quaternion.identity;
+            _curMouseOverCard.transform.localScale = new Vector3(1f + addScaleValueWhenHighlight, 1f + addScaleValueWhenHighlight, 0);
+            _curMouseOverCard.targetPos += new Vector3(0f, addYPosValue, 0f);
         }
     }
 
@@ -748,7 +741,7 @@ public class HandManager : MonoBehaviour
 
     private bool CanUse(Card card)
     {
-        return card.CardData.cost <= playerStatSystem.COST;
+        return card.CardData.cost <= _playerStatSystem.COST;
     }
 
     public void ConnectCardManager(CardManager manager)

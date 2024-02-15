@@ -12,24 +12,22 @@ public class MapCreater : MonoBehaviour
     public Sprite[] mapSpriteHover;
     public GameObject mapObject;
 
-    List<int[]> maxRooms = new List<int[]>();
-    List<int> floorRooms = new List<int>();
+    private List<int[]> _maxRooms = new List<int[]>();
+    private List<int> _floorRooms = new List<int>();
 
-    bool isStart = false;
-    float y;
+    private bool _isStart = false;
 
-    bool checkMap = false;
+    private MapManager _mapManager;
 
-    MapManager mapManager;
+    private List<GameObject> _beforeVec3 = new List<GameObject>();
 
-    List<GameObject> beforeVec3 = new List<GameObject>();
+    private float _y;
 
     void Awake()
     {
-        mapManager = transform.parent.parent.parent.gameObject.GetComponent<MapManager>();
+        _mapManager = transform.parent.parent.parent.gameObject.GetComponent<MapManager>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         //전체 수
@@ -43,7 +41,7 @@ public class MapCreater : MonoBehaviour
                 cumulative += p[j];
                 if (r <= cumulative)
                 {
-                    floorRooms.Add(j);
+                    _floorRooms.Add(j);
                     break;
                 }
             }
@@ -53,7 +51,7 @@ public class MapCreater : MonoBehaviour
         {
             int setStageCount = Random.Range(3, 6);
             int[] arrayFloor = new int[7];
-            maxRooms.Add(arrayFloor);
+            _maxRooms.Add(arrayFloor);
 
             int x = setStageCount;
             int y = setStageCount;
@@ -65,55 +63,55 @@ public class MapCreater : MonoBehaviour
                     case 0:
                         if (y != 0)
                         {
-                            maxRooms[i][j] = 5;
+                            _maxRooms[i][j] = 5;
                             y--;
                         }
-                        else maxRooms[i][j] = 7;
+                        else _maxRooms[i][j] = 7;
                         break;
                     case 1:
                         if (y != 0)
                         {
-                            if (floorRooms[i * x + j] == 3) maxRooms[i][j] = 5;
-                            else maxRooms[i][j] = floorRooms[i * x + j];
+                            if (_floorRooms[i * x + j] == 3) _maxRooms[i][j] = 5;
+                            else _maxRooms[i][j] = _floorRooms[i * x + j];
                             y--;
                         }
-                        else maxRooms[i][j] = 7;
+                        else _maxRooms[i][j] = 7;
                         break;
                     case 2:
                         if (y != 0)
                         {
-                            if (floorRooms[i * x + j] == 3) maxRooms[i][j] = 5;
-                            else maxRooms[i][j] = floorRooms[i * x + j];
+                            if (_floorRooms[i * x + j] == 3) _maxRooms[i][j] = 5;
+                            else _maxRooms[i][j] = _floorRooms[i * x + j];
                             y--;
                         }
-                        else maxRooms[i][j] = 7;
+                        else _maxRooms[i][j] = 7;
                         break;
 
                     case 9:
                         if (y != 0)
                         {
-                            maxRooms[i][j] = 0;
+                            _maxRooms[i][j] = 0;
                             y--;
                         }
-                        else maxRooms[i][j] = 7;
+                        else _maxRooms[i][j] = 7;
                         break;
 
                     case 13:
                         if (y != 0)
                         {
-                            maxRooms[i][j] = 2;
+                            _maxRooms[i][j] = 2;
                             y--;
                         }
-                        else maxRooms[i][j] = 7;
+                        else _maxRooms[i][j] = 7;
                         break;
 
                     default:
                         if (y != 0)
                         {
-                            maxRooms[i][j] = floorRooms[i * x + j];
+                            _maxRooms[i][j] = _floorRooms[i * x + j];
                             y--;
                         }
-                        else maxRooms[i][j] = 7;
+                        else _maxRooms[i][j] = 7;
                         break;
                 }
             }
@@ -125,33 +123,33 @@ public class MapCreater : MonoBehaviour
         mapObject.transform.GetChild(0).GetComponent<Image>().sprite = mapSpriteIcon[8];
         var boss = Instantiate(mapObject, new Vector3(0, -350, 0), Quaternion.identity, gameObject.transform);
         boss.transform.localScale = new Vector3(2, 2, 1);
-        boss.GetComponent<Button>().onClick.AddListener((mapManager.ClickArea));
+        boss.GetComponent<Button>().onClick.AddListener((_mapManager.ClickArea));
         boss.GetComponent<MapData>().mapData = 8;
         boss.GetComponent<MapData>().index = 14;
         boss.GetComponent<MapData>().floor = 0;
 
         for (int i = maxFloor; i >= 0; i--)
         {
-            ShuffleArray(maxRooms[i]);
+            ShuffleArray(_maxRooms[i]);
             for (int j = 0; j < 7; j++)
             {
                 float y = i * 200 - 3100 + Random.Range(-20f, 20f);
                 float x = j * 130 - 400 + Random.Range(-20f, 20f);
                 mapObject.transform.position = new Vector3(x, y, 0);
-                mapObject.GetComponent<Image>().sprite = mapSpriteHover[maxRooms[i][j]];
-                mapObject.transform.GetChild(0).GetComponent<Image>().sprite = mapSpriteIcon[maxRooms[i][j]];
+                mapObject.GetComponent<Image>().sprite = mapSpriteHover[_maxRooms[i][j]];
+                mapObject.transform.GetChild(0).GetComponent<Image>().sprite = mapSpriteIcon[_maxRooms[i][j]];
 
-                if (i >= 0 && maxRooms[i][j] != 7) mapObject.SetActive(true);
+                if (i >= 0 && _maxRooms[i][j] != 7) mapObject.SetActive(true);
                 else mapObject.SetActive(false);
                 var mapObj = Instantiate(mapObject, new Vector3(x, y, 0), Quaternion.identity, gameObject.transform);
-                mapObj.GetComponent<Button>().onClick.AddListener((mapManager.ClickArea));
-                mapObj.GetComponent<MapData>().mapData = maxRooms[i][j];
+                mapObj.GetComponent<Button>().onClick.AddListener((_mapManager.ClickArea));
+                mapObj.GetComponent<MapData>().mapData = _maxRooms[i][j];
                 mapObj.GetComponent<MapData>().index = j;
                 mapObj.GetComponent<MapData>().floor = i;
                 mapObj.GetComponent<MapData>().EventNum = Random.Range(0, 3);
 
                 //오브젝트 정보
-                beforeVec3.Add(mapObj);
+                _beforeVec3.Add(mapObj);
             }
         }
 
@@ -160,18 +158,16 @@ public class MapCreater : MonoBehaviour
 
     public void Update()
     {
-        if (!isStart)
+        if (!_isStart)
         {
-            y += Time.deltaTime;
-            transform.position += new Vector3(0, y, 0);
+            _y += Time.deltaTime;
+            transform.position += new Vector3(0, _y, 0);
             if (transform.position.y >= 3400f)
             {
-                isStart = true;
+                _isStart = true;
             }
         }
         ColorCheck();
-
-
     }
 
 

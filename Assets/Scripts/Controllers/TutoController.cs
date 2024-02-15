@@ -8,10 +8,6 @@ public class TutoController : MonoBehaviour
     public Text nextBtnText;
     public GameObject TutoCanvas;
     int cnt = 1;
-    private void Start()
-    {
-        cnt = 1;
-    }
 
     public void NextTuto()
     {

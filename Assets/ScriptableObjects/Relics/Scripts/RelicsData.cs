@@ -1,12 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-
-
 [CreateAssetMenu(fileName = "Relics", menuName = "New Relics")]
-
-[System.Serializable]
 public class RelicsData : ScriptableObject
 {
     [Header("Info")]

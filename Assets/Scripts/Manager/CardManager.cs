@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class CardManager : MonoBehaviour
@@ -19,20 +18,9 @@ public class CardManager : MonoBehaviour
 
     [SerializeField] private Card_Base[] cardDatas;
 
-    [SerializeField] private GameObject cardPrefab;
-
-    [SerializeField] private Canvas _mainCanvas;
-
     [SerializeField] private Text deckNumText;
     [SerializeField] private Text garbageNumText;
     [SerializeField] private Text extinguishedCardsNumText;
-
-    private GraphicRaycaster _gr;
-    private PointerEventData _ped;
-    private List<RaycastResult> _rrList;
-
-    private Card curSelectedCard;
-    private GameObject curSelectedCardUI;
 
     private void Awake()
     {
@@ -45,7 +33,9 @@ public class CardManager : MonoBehaviour
         for (int i = 0; i < cardDatas.Length; i++)
         {
             for (int j = 0; j < 10; j++)
+            {
                 AddCardToOriginal(cardDatas[i].CreateCard());
+            }
         }
     }
 

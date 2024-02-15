@@ -11,7 +11,6 @@ public class EventManager : MonoBehaviour
     private bool isMouseOver = false;
 
     private Image uiImage;
-    private GameObject obj;
 
     public GameObject mapObj;
     public Canvas _mainCanvas;
@@ -23,7 +22,6 @@ public class EventManager : MonoBehaviour
 
     public int iNum;
 
-    // Start is called before the first frame update
     void Start()
     {
         _gr = _mainCanvas.GetComponent<GraphicRaycaster>();
@@ -32,7 +30,6 @@ public class EventManager : MonoBehaviour
         EventSet(iNum);
     }
 
-    // Update is called once per frame
     void Update()
     {
         _ped.position = Input.mousePosition;

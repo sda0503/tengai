@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 using Random = UnityEngine.Random;
@@ -35,7 +34,7 @@ public class Reward : MonoBehaviour
         {
             case RewardType.Gold:
                 image.sprite = sprites[0];
-                text.text = $"{power.ToString()} 골드";
+                text.text = $"{power} 골드";
                 break;
             case RewardType.Potion:
                 image.sprite = sprites[0];

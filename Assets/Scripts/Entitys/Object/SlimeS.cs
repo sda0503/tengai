@@ -1,5 +1,3 @@
-using UnityEngine;
-
 public class SlimeS : MonsterBase
 {
     public override void Attack()

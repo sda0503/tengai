@@ -10,8 +10,7 @@ public class RestManager : MonoBehaviour
     private List<RaycastResult> _rrList;
     private bool isMouseOver = false;
 
-    private Image uiImage;
-    private GameObject obj;
+    private GameObject _obj;
     public GameObject mapObj;
     public Canvas _mainCanvas;
     public Sprite[] sprites;
@@ -63,37 +62,37 @@ public class RestManager : MonoBehaviour
     {
         if (!isMouseOver)
         {
-            obj = GetClickedUIObject();
-            if (obj != null && obj.name == "btn")
+            _obj = GetClickedUIObject();
+            if (_obj != null && _obj.name == "btn")
             {
                 isMouseOver = true;
-                obj.transform.localScale = new Vector3(1f, 1f, 1);
-                obj.transform.GetChild(0).gameObject.SetActive(true);
-                obj.transform.GetChild(3).gameObject.SetActive(true);
+                _obj.transform.localScale = new Vector3(1f, 1f, 1);
+                _obj.transform.GetChild(0).gameObject.SetActive(true);
+                _obj.transform.GetChild(3).gameObject.SetActive(true);
             }
-            else if(obj != null && obj.name == "nextBtn")
+            else if(_obj != null && _obj.name == "nextBtn")
             {
                 isMouseOver = true;
-                obj.GetComponent<Image>().color = new Color(1, 1, 1, 1f);
+                _obj.GetComponent<Image>().color = new Color(1, 1, 1, 1f);
             }
         }
     }
 
     public void OnPointerExit()
     {
-        if (isMouseOver && obj != null)
+        if (isMouseOver && _obj != null)
         {
-            if (GetClickedUIObject() != null && GetClickedUIObject() == obj)
+            if (GetClickedUIObject() != null && GetClickedUIObject() == _obj)
                 return;
-            if(obj.name == "btn")
+            if(_obj.name == "btn")
             {
-                obj.transform.localScale = new Vector3(0.8f, 0.8f, 1);
-                obj.transform.GetChild(0).gameObject.SetActive(false);
-                obj.transform.GetChild(3).gameObject.SetActive(false);
+                _obj.transform.localScale = new Vector3(0.8f, 0.8f, 1);
+                _obj.transform.GetChild(0).gameObject.SetActive(false);
+                _obj.transform.GetChild(3).gameObject.SetActive(false);
             }
             else
             {
-                obj.GetComponent<Image>().color = new Color (1,1,1,0.5f);
+                _obj.GetComponent<Image>().color = new Color (1,1,1,0.5f);
             }
             isMouseOver = false;
         }

@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MonsterManager", menuName = "Data/Manager/MonsterManager")]
@@ -63,12 +62,6 @@ public class MonsterDataManager : ScriptableObject
 
     public void UpdateMonsters()
     {
-        //foreach (var monster in activeMonster)
-        //{
-        //    if (monster == null)
-        //        activeMonster.Remove(monster);
-        //}
-
         for(int i = 0; i < activeMonster.Count; i++)
         {
             if (activeMonster[i] == null)

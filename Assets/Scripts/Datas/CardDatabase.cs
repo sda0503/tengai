@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,7 +5,7 @@ public class CardDatabase : MonoBehaviour
 {
     [SerializeField] private Card_Base[] cardDatas;
     [SerializeField] private Card_Base[] statusCardDatas;
-    Dictionary<int, Card_Base> cardDatasDictionary;
+    private Dictionary<int, Card_Base> _cardDatasDictionary;
 
     public static CardDatabase instance;
 
@@ -17,15 +16,15 @@ public class CardDatabase : MonoBehaviour
 
     private void Start()
     {
-        cardDatasDictionary = new Dictionary<int, Card_Base>();
+        _cardDatasDictionary = new Dictionary<int, Card_Base>();
         foreach (var cardData in cardDatas)
         {
-            cardDatasDictionary.Add(cardData.name.GetHashCode(), cardData);
+            _cardDatasDictionary.Add(cardData.name.GetHashCode(), cardData);
         }
 
         foreach (var statusCardData in statusCardDatas)
         {
-            cardDatasDictionary.Add(statusCardData.name.GetHashCode(), statusCardData);
+            _cardDatasDictionary.Add(statusCardData.name.GetHashCode(), statusCardData);
         }
     }
 
@@ -36,7 +35,7 @@ public class CardDatabase : MonoBehaviour
 
     public Card GetCard(string name)
     {
-        return cardDatasDictionary[name.GetHashCode()].CreateCard();
+        return _cardDatasDictionary[name.GetHashCode()].CreateCard();
     }
 
     public Card GetRandomRewardCard()

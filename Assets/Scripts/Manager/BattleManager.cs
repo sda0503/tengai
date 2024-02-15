@@ -1,9 +1,6 @@
-using JetBrains.Annotations;
-using System.Xml.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEditor.Experimental.GraphView.GraphView;
-using static UnityEditor.PlayerSettings;
 
 public class BattleManager : MonoBehaviour
 {
@@ -30,18 +27,6 @@ public class BattleManager : MonoBehaviour
     void Start()
     {
         _player.SettingStat(ObjectDatas.I.GetData("Ironclad").stat);
-        //if (_isElite)
-        //{
-        //    _monsterDataManager.CreateEliteMonster();
-        //}
-        //else if (_isBoss)
-        //{
-        //    _monsterDataManager.CreateBossMonster(0);
-        //}
-        //else
-        //{
-        //    _monsterDataManager.CreateDefalutMonster();
-        //}
         _cardManager = CardManager.instance;
         _monsterDataManager.Init(canvas.transform, _player);
         canvas.SetActive(false);
@@ -66,6 +51,7 @@ public class BattleManager : MonoBehaviour
             case 8://보스
                 {
                     _monsterDataManager.CreateBossMonster(mapData.floor);
+                    _isEndBattle = true;
                 }
                 break;
         }
@@ -83,6 +69,7 @@ public class BattleManager : MonoBehaviour
     {
         if (isBattle && !_monsterDataManager.CheckMonster())
         {
+            if (isBattle) SceneManager.LoadScene("Ending");
             CardManager.instance.Clear();
             rewardCanvas.SetActive(true);
             _rewardController.Init(_mapData.EventNum);
@@ -112,11 +99,6 @@ public class BattleManager : MonoBehaviour
     public void MyTrun()
     {
         _isPlayerTrun = true;
-        //maxCost = 3;
-        //curCost = 3;
-        //maxText.text = maxCost.ToString();
-        //curText.text = curCost.ToString();
-        //_player. 코스트 회복을 어떻게 할지 모르겠습니다.
         _cardManager.DrawCard(5); //드로우 불러오는 방법을 모르겠습니다. -> 카드 매니저에서 불러오기
 
         trunBtn.text = "턴 종료";

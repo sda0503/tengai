@@ -1,4 +1,3 @@
-
 public class Card
 {
     public Card_Base CardData {  get; private set; }

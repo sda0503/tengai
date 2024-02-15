@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
@@ -10,16 +8,11 @@ public class SoundController : MonoBehaviour
 
     public Slider BGMSlider;
     public Slider SFXSlider;
-    // Start is called before the first frame update
 
     private void Awake()
     {
         BGMSlider.onValueChanged.AddListener(SetBGMVolume);
         SFXSlider.onValueChanged.AddListener(SetSFXVolume);
-    }
-    void Start()
-    {
-
     }
     public void SetBGMVolume(float sliderValue)
     {
