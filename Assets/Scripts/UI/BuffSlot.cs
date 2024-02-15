@@ -8,6 +8,8 @@ public class BuffSlot : MonoBehaviour
     private TextMeshProUGUI _text;
     private Buff _buff;
 
+    public bool isEnd = false;
+
     private void Awake()
     {
         _img = GetComponent<Image>();
@@ -26,6 +28,7 @@ public class BuffSlot : MonoBehaviour
     {
         int turn = _buff.maxTurn - _buff.turn;
         _text.text = turn > 1 ? turn.ToString() : string.Empty;
-        if (turn == 0) Destroy(gameObject);
+
+        if (turn == 0)  isEnd = true;
     }
 }

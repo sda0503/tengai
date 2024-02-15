@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -54,11 +55,15 @@ public class HPBar : MonoBehaviour
 
     public void UpdateBuffSlots()
     {
-        for(int  i = 0; i < _buffSlots.Count; i++)
+        for(int  i = _buffSlots.Count - 1; i >= 0; i--)
         {
             _buffSlots[i].UpdateSlot();
-            if (_buffSlots[i] == null)
-                _buffSlots.RemoveAt(i--);
+            if (_buffSlots[i].isEnd)
+            {
+                var obj = _buffSlots[i].gameObject;
+                _buffSlots.RemoveAt(i);
+                Destroy(obj);
+            }
         }
     }
 }

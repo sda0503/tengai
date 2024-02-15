@@ -114,16 +114,16 @@ public class StatSystem : MonoBehaviour
                 --value.invokeTurn;
                 continue;
             }
-            else if (value.maxTurn == value.turn)
+
+            value.turn++;
+            if (value.maxTurn == value.turn)
             {
                 remove.Add(key);
                 continue;
             }
-            value.turn++;
-
         }
 
-        for (int i =  remove.Count - 1; i >= 0; i--)
+        for (int i = 0; i < remove.Count; i++)
         {
             _activeBuffs.Remove(remove[i]);
         }
@@ -146,7 +146,7 @@ public class StatSystem : MonoBehaviour
                 _buffs[i].amount = -(ATK * 25 / 100);
                 _bar.UpdateBuffSlots();
                 UpdateStats();
-                return;
+                continue;
             }
             _buffs[i].turn++;
         }
