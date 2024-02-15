@@ -23,7 +23,7 @@ public struct CharacterBaseStat
     public int MaxHP { get { return _maxHP; } set { _maxHP = Math.Clamp(value, 1, MAX_HP); } }
     public int Cost { get { return _cost; } set 
         {
-            _cost = Math.Clamp(value, 0, MaxCost);
+            _cost = Math.Clamp(value, 0, int.MaxValue);
         }
     }
     public int MaxCost { get { return _maxCost; } set { _maxCost = Math.Clamp(value, 0, MAX_COST); } }

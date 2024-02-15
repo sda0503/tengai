@@ -62,6 +62,8 @@ public class BattleManager : MonoBehaviour
                 break;
         }
 
+        _cardManager.CopyFromOriginal();
+
         MyTrun();
     }
 

@@ -60,19 +60,19 @@ MonoBehaviour:
     prefab: {fileID: 325566195651819928, guid: d1774f7c93cf7624e89ce784045d4543, type: 3}
   - Name: Sentry
     stat:
-      _hp: 15
-      _maxHP: 15
+      _hp: 42
+      _maxHP: 42
       _cost: 5
       _maxCost: 5
-      _power: 7
+      _power: 9
       _defense: 0
     prefab: {fileID: 4418542308630663407, guid: 1641463ce9629a541bbd2d0cfec5f43f, type: 3}
-  - Name: LouseRed
+  - Name: Haxaghost
     stat:
-      _hp: 15
-      _maxHP: 15
+      _hp: 250
+      _maxHP: 250
       _cost: 5
       _maxCost: 5
-      _power: 7
+      _power: 12
       _defense: 0
-    prefab: {fileID: 325566195651819928, guid: d1774f7c93cf7624e89ce784045d4543, type: 3}
+    prefab: {fileID: 8499652573074729757, guid: 0943e271124cdb34ab57076a349be577, type: 3}
