@@ -266,6 +266,8 @@ public class HandManager : MonoBehaviour
     {
         if(isMouseOver && !isDrag && curMouseOverCard != null && !isUsing)
         {
+            Debug.Log("OnExit");
+
             if (GetClickedUIObjectComponent<CardDisplay>() != null && GetClickedUIObjectComponent<CardDisplay>() == curMouseOverCard)
                 return;
 
@@ -308,8 +310,11 @@ public class HandManager : MonoBehaviour
         {
             if(curSelectedCardDisplay.GetCard().CardData.useCondition == UseCondition.Target && Input.mousePosition.y > 300)
             {
-                if(!lineGO.activeSelf)
+                if (!lineGO.activeSelf)
+                {
                     lineGO.SetActive(true);
+                    lineGO.transform.SetAsLastSibling();
+                }
 
                 curSelectedCardDisplay.targetPos = dragTargetingCardPlace.transform.localPosition;
                 DrawTargetingLine();
@@ -385,7 +390,6 @@ public class HandManager : MonoBehaviour
 
         if(target != null)
         {
-            Debug.Log("nfdfd");
             if(target.gameObject.CompareTag("Monster"))
                 return true;
         }
@@ -421,7 +425,6 @@ public class HandManager : MonoBehaviour
 
     public IEnumerator UseCard()
     {
-
         Debug.Log(curSelectedCard.CardData.cardName + " 사용");
         playerStatSystem.TakeCost(curSelectedCard.CardData.cost);
         InfoSystem.instance.ShowDate();
@@ -450,8 +453,6 @@ public class HandManager : MonoBehaviour
         else
         {
             float angle = Quaternion.FromToRotation(Vector3.up, GarbagePos.localPosition - usedCardDisplay.transform.localPosition).eulerAngles.z;
-
-            Debug.Log(angle);
 
             StartCoroutine(RotationObjLeftC(usedCardDisplay.transform, angle, dropTime / 2));
             StartCoroutine(ChangeSizeCardC(usedCardDisplay.transform, usedCardDisplay.transform.localScale, new Vector3(0.2f, 0.2f, 1f), dropTime / 2));
@@ -700,10 +701,6 @@ public class HandManager : MonoBehaviour
                     if (targetStatSystem.gameObject.CompareTag("Monster"))
                         return true;
                 }
-                else
-                {
-                    Debug.Log("null");
-                }
                 break;
             case UseCondition.NonTarget:
                 if (Input.mousePosition.y > 500)
@@ -720,7 +717,6 @@ public class HandManager : MonoBehaviour
     {
         if(curMouseOverCard != null)
         {
-            Debug.Log("highlight");
             curMouseOverCard.transform.localRotation = Quaternion.identity;
             curMouseOverCard.transform.localScale = new Vector3(1f + addScaleValueWhenHighlight, 1f + addScaleValueWhenHighlight, 0);
             curMouseOverCard.targetPos += new Vector3(0f, addYPosValue, 0f);
@@ -752,7 +748,6 @@ public class HandManager : MonoBehaviour
 
     private bool CanUse(Card card)
     {
-        Debug.Log(playerStatSystem.COST);
         return card.CardData.cost <= playerStatSystem.COST;
     }
 

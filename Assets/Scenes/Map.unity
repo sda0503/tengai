@@ -9318,7 +9318,7 @@ MonoBehaviour:
   _mainCanvas: {fileID: 2052064431}
   addScaleValueWhenHighlight: 0.5
   addYPosValue: 100
-  expandGapValue: 80
+  expandGapValue: 100
   reticleBlock: {fileID: 21300000, guid: 2f7d7af527f1c8141ba46f81740a57a7, type: 3}
   reticleArrow: {fileID: 21300000, guid: 740dd02aa704c0940b95402ec8b7f91e, type: 3}
   lineGO: {fileID: 562849739}
