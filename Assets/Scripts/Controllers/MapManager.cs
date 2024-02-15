@@ -39,8 +39,6 @@ public class MapManager : MonoBehaviour
         _ped.position = Input.mousePosition;
         OnPointerOver();
         OnPointerExit();
-
-
     }
 
     public T GetClickedUIObjectComponent<T>() where T : Component

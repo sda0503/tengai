@@ -56,8 +56,6 @@ public class MonsterDataManager : ScriptableObject
             {
                 return true;
             }
-            else
-                activeMonster.Remove(monster);
         }
         activeMonster.Clear();
         return false;

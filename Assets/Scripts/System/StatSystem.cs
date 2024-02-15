@@ -92,11 +92,15 @@ public class StatSystem : MonoBehaviour
     public void UpdateStats()
     {
         InitStat();
-        foreach(var buff in _buffs)
+        for(int i = 0; i < _buffs.Count; i++)
         {
-            if(buff.invokeTurn == 0)
+            if (_buffs[i].invokeTurn == 0)
             {
-                AddStat(buff);
+                AddStat(_buffs[i]);
+                if (_buffs[i].type == StatType.Cost)
+                {
+                    _buffs.RemoveAt(i--);
+                }
             }
         }
         _bar.UpdateHPBar(HP, MaxHP, DEF);
@@ -210,7 +214,7 @@ public class StatSystem : MonoBehaviour
                 break;
             case StatType.Cost:
                 {
-                    _buffStat.Cost += data.amount;
+                    _stat.Cost += data.amount;
                 }
                 break;
             case StatType.MaxHP:
