@@ -819,8 +819,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5819fbd8d5b26b54ea421014dc94b4e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iconObj: {fileID: 1809659946490227676}
-  backGroundObj: {fileID: 5603863366524424549}
-  hpText: {fileID: 2352736023789549378}
+  _iconObj: {fileID: 1809659946490227676}
+  _backGroundObj: {fileID: 3390201101158009928}
+  _hpText: {fileID: 2352736023789549378}
   _buffSlotPrefab: {fileID: 3322362719033595248, guid: 936c94288f144bb4190085d459218aed, type: 3}
   _buffPivot: {fileID: 8809428547144131803}

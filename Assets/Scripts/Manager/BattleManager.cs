@@ -77,12 +77,14 @@ public class BattleManager : MonoBehaviour
             _player.UpdateBuffs();
             isBattle = false;
             _isPlayerTrun = true;
+            trunBtn.transform.parent.GetComponent<Button>().interactable = true;
             return;
         }
 
         if (!_isPlayerTrun && _monsterDataManager.isTurn)  // 적 턴이 아니면 플레이어의 턴
         {
             MyTrun();
+            trunBtn.transform.parent.GetComponent<Button>().interactable = true;
             _monsterDataManager.isTurn = false;
         }
     }
@@ -93,6 +95,7 @@ public class BattleManager : MonoBehaviour
         _monsterDataManager.UpdateMonsters();
         StartCoroutine(_monsterDataManager.MonstersAttack());  // 플레이어의 턴이 끝나면 적이 공격
         trunBtn.text = "적 턴";
+        trunBtn.transform.parent.GetComponent<Button>().interactable = false;
 
         InfoSystem.instance.ShowDate();
     }

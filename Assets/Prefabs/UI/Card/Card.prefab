@@ -340,10 +340,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 56bfc38c50605754a89e2dadd270ebc2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  costText: {fileID: 2830543577685449742}
-  cardNameText: {fileID: 8939230135835283426}
-  cardDescriptionText: {fileID: 4549077825268363672}
-  cardImage: {fileID: 149647281849288882}
+  _costText: {fileID: 2830543577685449742}
+  _cardNameText: {fileID: 8939230135835283426}
+  _cardDescriptionText: {fileID: 4549077825268363672}
+  _cardImage: {fileID: 149647281849288882}
   index: 0
   curveRateInHand: 0
   angle: 0

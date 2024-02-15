@@ -15,11 +15,11 @@ MonoBehaviour:
   cost: 1
   cardSprite: {fileID: -1386510880, guid: 9b9507f0b562fdc4cab9c8a56a951394, type: 3}
   cardName: "\uD0C0\uACA9"
-  description: "\uD53C\uD574\uB97C {attackValue} \uC90D\uB2C8\uB2E4."
+  description: "\uD53C\uD574\uB97C 6 \uC90D\uB2C8\uB2E4."
   useCondition: 1
   extinctionType: 0
   attackEffects:
-  - attackValue: 6
+  - attackValue: 15
     target: 1
   drawEffects: []
   statEffects: []

@@ -4724,8 +4724,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isDead: 1
-  bannerText: {fileID: 1704917568}
-  gameOverPopup: {fileID: 1442437898}
+  _bannerText: {fileID: 1704917568}
+  _gameOverPopup: {fileID: 1442437898}
 --- !u!4 &1881950754
 Transform:
   m_ObjectHideFlags: 0
