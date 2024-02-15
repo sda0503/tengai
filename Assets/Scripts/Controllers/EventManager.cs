@@ -99,7 +99,7 @@ public class EventManager : MonoBehaviour
         switch (iNum)
         {
             case 0:
-                InfoSystem.instance.player.RegenHP();
+                InfoSystem.instance.player.SetHP(100);
                 break;
             case 1:
                 InfoSystem.instance.SetGold(175);
@@ -113,6 +113,7 @@ public class EventManager : MonoBehaviour
                 _text[2].text = "[열어본다] 유물을 획득합니다.";
                 break;
         }
+        InfoSystem.instance.ShowDate();
     }
 
     public void Skip(int iNum)

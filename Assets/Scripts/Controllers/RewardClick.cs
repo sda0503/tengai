@@ -17,6 +17,7 @@ public class RewardClick : MonoBehaviour
     private GameObject goldObj;
     public GameObject mapObj;
     public GameObject invenObj;
+    public GameObject chestObj;
     public Canvas _mainCanvas;
 
     public RelicsData[] Datas;
@@ -132,7 +133,6 @@ public class RewardClick : MonoBehaviour
     public void OnRewardCardClick(int i)
     {
         Transform container = cardRewardWindow.GetChild(0);
-        Debug.Log(container.GetChild(i).GetComponent<CardDisplay>().GetCard().CardData.cardName);
         CardManager.instance.AddCardToOriginal(container.GetChild(i).GetComponent<CardDisplay>().GetCard());
         cardRewardUIObj.SetActive(false);
         OnExitButtonClick();
@@ -147,12 +147,12 @@ public class RewardClick : MonoBehaviour
     {
         gameObject.SetActive(false);
         mapObj.SetActive(true);
+        chestObj.SetActive(false);
     }
 
     public void AddRelics(int iNum)
     {
         obj = GetClickedUIObject();
-        Debug.Log(Datas[iNum]);
         invenObj.GetComponent<Inventory>().AddItem(Datas[iNum]);
         obj.SetActive(false);
     }

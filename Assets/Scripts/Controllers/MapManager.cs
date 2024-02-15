@@ -103,6 +103,7 @@ public class MapManager : MonoBehaviour
     public void ClickArea()
     {
         obj = GetClickedUIObject();
+        Debug.Log(obj.gameObject.GetComponent<MapData>().mapData);
         if (obj.gameObject.GetComponent<MapData>().floor == InfoSystem.instance.currentFloor && 
             (obj.gameObject.GetComponent<MapData>().index == InfoSystem.instance.index -1 
             || obj.gameObject.GetComponent<MapData>().index == InfoSystem.instance.index
@@ -133,7 +134,7 @@ public class MapManager : MonoBehaviour
                     obj.GetComponent<Image>().raycastTarget = false;
                     chestObj.GetComponent<ChestManager>().iNum = obj.GetComponent<MapData>().EventNum;
                     chestObj.GetComponent<ChestManager>().chestImage.sprite = chestObj.GetComponent<ChestManager>().closeChest[chestObj.GetComponent<ChestManager>().iNum];
-                    Invoke("GoShop", 3f);
+                    Invoke("GoChest", 3f);
 
                     break;
                 case 2:
@@ -220,7 +221,7 @@ public class MapManager : MonoBehaviour
                         obj.GetComponent<Image>().raycastTarget = false;
                         chestObj.GetComponent<ChestManager>().iNum = obj.GetComponent<MapData>().EventNum;
                         chestObj.GetComponent<ChestManager>().chestImage.sprite = chestObj.GetComponent<ChestManager>().closeChest[chestObj.GetComponent<ChestManager>().iNum];
-                        Invoke("GoShop", 3f);
+                        Invoke("GoChest", 3f);
 
                         break;
                     case 2:

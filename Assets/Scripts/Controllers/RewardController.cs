@@ -39,9 +39,10 @@ public class RewardController : MonoBehaviour
 
     public void MakeReward()
     {
-        int n = Random.Range(2, 3);
+        int n = Random.Range(2, 4);
         for (int i = 0; i < n; i++)
         {
+            list[i].GetComponent<Button>().onClick = null;
             if (i == 0)
             {
                 btn = list[i].GetComponent<Button>();
