@@ -19,7 +19,7 @@ public class StatSystem : MonoBehaviour
 {
     [SerializeField] private CharacterBaseStat _stat;
     private List<Buff> _buffs = new();
-    [SerializeField] private Dictionary<string, Buff> _activeBuffs;
+    [SerializeField] private Dictionary<string, Buff> _activeBuffs = new Dictionary<string, Buff>();
     [SerializeField] private CharacterBaseStat _buffStat = new();
     private Animator _animator;
     private HPBar _bar;
@@ -139,7 +139,8 @@ public class StatSystem : MonoBehaviour
         {
             if (_activeBuffs.ContainsKey(buff.name))
             {
-                _activeBuffs[buff.name].turn = 0;
+                _activeBuffs[buff.name].maxTurn += buff.maxTurn;
+                _bar.UpdateBuffSlots();
                 return;
             }
             _activeBuffs.Add(buff.name, buff);

@@ -12098,7 +12098,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6cc3e929d65a5c4cb2708ad3bb69431, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handManager: {fileID: 0}
+  handManager: {fileID: 6720380530656161553}
   cardDatas:
   - {fileID: 11400000, guid: 5a4b7929077e44448a5b35813c497d65, type: 2}
   - {fileID: 11400000, guid: a1b52794bf53e79438ab5240efe04f46, type: 2}
@@ -12108,11 +12108,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9d5e0c982f31e1f47acf3ca5e726fa26, type: 2}
   - {fileID: 11400000, guid: c1bd4baaf5993494ea8b4d5a24f82c87, type: 2}
   - {fileID: 11400000, guid: fcbdeeb7196041442a5449f3e2627de8, type: 2}
+  - {fileID: 11400000, guid: dae253dfa924ab24eba3ff0e2360dc58, type: 2}
   cardPrefab: {fileID: 4883506622124037758, guid: b01468d7ed1dfae47b7f9928bc04864d, type: 3}
   _mainCanvas: {fileID: 1230219275}
   deckNumText: {fileID: 938821345}
   garbageNumText: {fileID: 1813159338}
-  extinguishedCardsNumText: {fileID: 0}
+  extinguishedCardsNumText: {fileID: 952401207}
 --- !u!224 &4974618358275726855
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12410,9 +12411,9 @@ MonoBehaviour:
   m_Content: {fileID: 7406693154868683489}
   m_Horizontal: 0
   m_Vertical: 1
-  m_MovementType: 1
+  m_MovementType: 2
   m_Elasticity: 0.1
-  m_Inertia: 1
+  m_Inertia: 0
   m_DecelerationRate: 0.135
   m_ScrollSensitivity: 1
   m_Viewport: {fileID: 0}
@@ -12440,7 +12441,7 @@ MonoBehaviour:
   hands: []
   drawTime: 0.3
   dropTime: 0.5
-  extinguishTime: 0
+  extinguishTime: 0.5
   drawStartSize: {x: 0.5, y: 0.5, z: 1}
   drawEndSize: {x: 1, y: 1, z: 1}
   usedCardPlace: {fileID: 4641679257807432683}
@@ -12460,7 +12461,7 @@ MonoBehaviour:
   distanceBetweenCard1: 0.08
   distanceBetweenCard2: 0.08
   cardPrefab: {fileID: 4883506622124037758, guid: b01468d7ed1dfae47b7f9928bc04864d, type: 3}
-  statusCardPrefab: {fileID: 0}
+  statusCardPrefab: {fileID: 4883506622124037758, guid: 7efbe3b654404b04cbf697ffb20bacca, type: 3}
   _mainCanvas: {fileID: 1230219275}
   addScaleValueWhenHighlight: 0.5
   addYPosValue: 100
