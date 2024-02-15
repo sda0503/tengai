@@ -16,6 +16,8 @@ public class BattleManager : MonoBehaviour
     public MonsterDataManager _monsterDataManager;
 
     [SerializeField] public GameObject canvas;
+    [SerializeField] public GameObject player;
+    private GameObject battleCanvas;
 
     private void Awake()
     {
@@ -23,18 +25,6 @@ public class BattleManager : MonoBehaviour
     }
     void Start()
     {
-        //if (_isElite)
-        //{
-        //    _monsterDataManager.CreateEliteMonster();
-        //}
-        //else if (_isBoss)
-        //{
-        //    _monsterDataManager.CreateBossMonster(0);
-        //}
-        //else
-        //{
-        //    _monsterDataManager.CreateDefalutMonster();
-        //}
         _cardManager = CardManager.instance;
         _monsterDataManager.Init(canvas.transform);
         _monsterDataManager.CreateDefalutMonster();
@@ -44,6 +34,12 @@ public class BattleManager : MonoBehaviour
 
     public void Init(MapData mapData)
     {
+        if (battleCanvas == null)
+        {
+            battleCanvas = Instantiate(battleCanvas);
+            battleCanvas.SetActive(true);
+        }
+
         switch (mapData.mapData)
         {
             case 5://일반
@@ -76,21 +72,14 @@ public class BattleManager : MonoBehaviour
     {
         _player.UpdateBuffs();
         _isPlayerTrun = false;
-        _monsterDataManager.UpdateMonsters();
         StartCoroutine(_monsterDataManager.MonstersAttack());  // 플레이어의 턴이 끝나면 적이 공격
         trunBtn.text = "적 턴";
-        
         InfoSystem.instance.ShowDate();
     }
 
     public void MyTrun()
     {
         _isPlayerTrun = true;
-        //maxCost = 3;
-        //curCost = 3;
-        //maxText.text = maxCost.ToString();
-        //curText.text = curCost.ToString();
-        //_player. 코스트 회복을 어떻게 할지 모르겠습니다.
         _cardManager.DrawCard(5); //드로우 불러오는 방법을 모르겠습니다. -> 카드 매니저에서 불러오기
 
         trunBtn.text = "턴 종료";
