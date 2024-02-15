@@ -4609,6 +4609,7 @@ GameObject:
   - component: {fileID: 1023439799}
   - component: {fileID: 1023439800}
   - component: {fileID: 1023439801}
+  - component: {fileID: 1023439802}
   m_Layer: 0
   m_Name: SoundManager
   m_TagString: Music
@@ -4656,6 +4657,8 @@ MonoBehaviour:
   isBoss: 0
   isShop: 0
   isDead: 0
+  isClear: 0
+  isEnding: 0
 --- !u!82 &1023439801
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4752,6 +4755,23 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &1023439802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1023439798}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfdd6a43411b03f4287ba8e011bf15f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: 1023439799}
+  pools:
+  - tag: SoundSource
+    prefab: {fileID: 8979378770026766684, guid: 94120aeb04761cf4aa321d7f151daca0, type: 3}
+    size: 5
 --- !u!1 &1069442248
 GameObject:
   m_ObjectHideFlags: 0

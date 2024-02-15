@@ -4,10 +4,14 @@ using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
+    public static SoundManager instance;
+
     private AudioSource _audioSource;
     private GameObject[] _musics;
 
     public AudioClip[] musicClips;
+
+    private ObjectPool objectPool;
 
     public bool isElite;
     public bool isBoss;
@@ -23,6 +27,8 @@ public class SoundManager : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
+
         _audioSource = GetComponent<AudioSource>();
         Application.targetFrameRate = 60;
         _musics = GameObject.FindGameObjectsWithTag("Music");
@@ -31,6 +37,8 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        objectPool = GetComponent<ObjectPool>();
 
         DontDestroyOnLoad(transform.gameObject);
     }
@@ -132,5 +140,15 @@ public class SoundManager : MonoBehaviour
     {
         int defaultMusicIndex = 1;
         PlayMusic(defaultMusicIndex);
+    }
+
+    public static void PlayClip(AudioClip clip)
+    {
+        Debug.Log("Playe");
+        GameObject obj = instance.objectPool.SpawnFromPool("SoundSource");
+        Debug.Log(obj.name);
+        obj.SetActive(true);
+        SoundSource soundSource = obj.GetComponent<SoundSource>();
+        soundSource.Play(clip);
     }
 }

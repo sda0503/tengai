@@ -1,14 +1,20 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 [System.Serializable]
 public class CardEffect_Stat : ICardEffect
 {
     public Buff buff;
     public Target target;
+    public AudioClip clip;
+
     public void OnUse(StatSystem statSystem = null)
     {
         Buff newBuff = new Buff(buff);
         statSystem?.AddBuff(newBuff);
+
+        if (clip != null)
+            SoundManager.PlayClip(clip);
     }
 
     public void OnUse(List<StatSystem> statSystemList)
@@ -18,5 +24,8 @@ public class CardEffect_Stat : ICardEffect
             Buff newBuff = new Buff(buff);
             statSystem?.AddBuff(newBuff);
         }
+
+        if (clip != null)
+            SoundManager.PlayClip(clip);
     }
 }

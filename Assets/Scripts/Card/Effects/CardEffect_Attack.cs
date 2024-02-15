@@ -1,10 +1,12 @@
 using System.Collections.Generic;
+using UnityEngine;
 
 [System.Serializable]
 public class CardEffect_Attack : ICardEffect
 {
     public int attackValue;
     public Target target;
+    public AudioClip clip;
 
     public void OnUse(StatSystem statSystem = null)
     {
@@ -14,6 +16,9 @@ public class CardEffect_Attack : ICardEffect
             result = attackValue * 150 / 100;
 
         statSystem?.TakeDamage(result);
+
+        if(clip != null)
+            SoundManager.PlayClip(clip);
     }
 
     public void OnUse(List<StatSystem> statSystemList)
@@ -27,5 +32,8 @@ public class CardEffect_Attack : ICardEffect
 
             statSystem?.TakeDamage(result);
         }
+
+        if (clip != null)
+            SoundManager.PlayClip(clip);
     }
 }
