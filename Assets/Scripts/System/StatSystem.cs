@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -115,15 +116,14 @@ public class StatSystem : MonoBehaviour
             }
             else if (value.maxTurn == value.turn)
             {
-                value.turn = 0;
                 remove.Add(key);
                 continue;
             }
-            
             value.turn++;
+
         }
 
-        for(int i =  remove.Count - 1; i >= 0; i--)
+        for (int i =  remove.Count - 1; i >= 0; i--)
         {
             _activeBuffs.Remove(remove[i]);
         }
@@ -137,20 +137,22 @@ public class StatSystem : MonoBehaviour
             }
             else if (_buffs[i].maxTurn == _buffs[i].turn)
             {
-                _buffs[i].turn = 0;
                 _buffs.RemoveAt(i--);
                 continue;
             }
 
             if (_buffs[i].name == "약화")
             {
-                _buffs[i].amount = -ATK * 25 / 100;
+                _buffs[i].amount = -(ATK * 25 / 100);
+                _bar.UpdateBuffSlots();
+                UpdateStats();
                 return;
             }
             _buffs[i].turn++;
         }
+        UpdateStats();
         _bar.UpdateHPBar(HP, MaxHP, DEF);
-        _bar.UpdateBuffSlots();
+        _bar.UpdateBuffSlots(); 
     }
 
     public void AddBuff(Buff buff)
@@ -166,7 +168,7 @@ public class StatSystem : MonoBehaviour
             if(buff.name == "약화")
             {
                 buff.type = StatType.ATK;
-                buff.amount = -ATK * 25 / 100;
+                buff.amount = -(ATK * 25 / 100);
                 _buffs.Add(buff);
             }
             _activeBuffs.Add(buff.name, buff);

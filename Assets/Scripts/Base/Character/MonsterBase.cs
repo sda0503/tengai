@@ -13,20 +13,27 @@ public abstract class MonsterBase : MonoBehaviour
     public StatSystem target;
 
     protected int _power;
+    private int _atk;
 
     public virtual void UpdateAttack()
     {
         if (__attackIconAnimator == null)
         {
             __attackIconAnimator = _attackIcon.transform.parent.GetComponent<Animator>();
+            _atk = statSystem.ATK;
         }
         else
         {
             __attackIconAnimator.SetTrigger("Change");
         }
         _power = statSystem.ATK;
-        _power = Random.Range(_power, _power + 2);
-        _atkText.text = $"{_power}";
+        _power = Random.Range(_atk, _atk + 2);
+        _atkText.text = $"{statSystem.ATK}";
+    }
+
+    public void UpdateText()
+    {
+        _atkText.text = $"{statSystem.ATK}";
     }
 
     public virtual void CheckATKText()

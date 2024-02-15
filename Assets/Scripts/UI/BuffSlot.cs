@@ -25,7 +25,7 @@ public class BuffSlot : MonoBehaviour
     public void UpdateSlot()
     {
         int turn = _buff.maxTurn - _buff.turn;
-        _text.text = turn > 0 ? turn.ToString() : string.Empty;
-        if (turn == 1) Destroy(gameObject);
+        _text.text = turn > 1 ? turn.ToString() : string.Empty;
+        if (turn == 0) Destroy(gameObject);
     }
 }

@@ -49,15 +49,16 @@ public class MonsterDataManager : ScriptableObject
 
     public bool CheckMonster()
     {
+        bool isMonster = false;
         foreach (var monster in activeMonster)
         {
             if (monster != null)
             {
-                return true;
+                monster.GetComponent<MonsterBase>().UpdateText();
+                isMonster = true;
             }
         }
-        activeMonster.Clear();
-        return false;
+        return isMonster;
     }
 
     public void UpdateMonsters()
