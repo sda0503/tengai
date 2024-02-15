@@ -10847,7 +10847,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6cc3e929d65a5c4cb2708ad3bb69431, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  handManager: {fileID: 0}
+  handManager: {fileID: 6720380530656161553}
   cardDatas:
   - {fileID: 11400000, guid: 5a4b7929077e44448a5b35813c497d65, type: 2}
   - {fileID: 11400000, guid: a1b52794bf53e79438ab5240efe04f46, type: 2}
