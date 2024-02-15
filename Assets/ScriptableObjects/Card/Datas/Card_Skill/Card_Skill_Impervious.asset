@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Card_Skill_Impervious
   m_EditorClassIdentifier: 
   cost: 2
-  cardSprite: {fileID: 0}
+  cardSprite: {fileID: 1003527470, guid: 27696d56011b3f5459825435bc3d39e5, type: 3}
   cardName: "\uBB34\uC801"
   description: "\uBC29\uC5B4\uB3C4\uB97C 30 \uC5BB\uC2B5\uB2C8\uB2E4.\n\uC18C\uBA78"
   useCondition: 2

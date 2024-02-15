@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ public class CardManager : MonoBehaviour
     // 카드 추가, 카드 제거, 드로우 
     public static CardManager instance;
 
+    public List<Card> originalDeck;
     public List<Card> deck;
     public List<Card> garbages;
     public List<Card> extinguishedCards;
@@ -34,6 +36,7 @@ public class CardManager : MonoBehaviour
 
     private void Awake()
     {
+        originalDeck = new List<Card>();
         deck = new List<Card>();
         garbages = new List<Card>();
         extinguishedCards = new List<Card>();
@@ -41,10 +44,7 @@ public class CardManager : MonoBehaviour
 
         for (int i = 0; i < cardDatas.Length; i++)
         {
-            for (int j = 0; j < 2; j++)
-            {
-                AddCard(cardDatas[i].CreateCard());
-            }
+            AddCardToOriginal(cardDatas[i].CreateCard());
         }
     }
 
@@ -53,10 +53,20 @@ public class CardManager : MonoBehaviour
         handManager.ConnectCardManager(this);
     }
 
+    public void AddCardToOriginal(Card card)
+    {
+        originalDeck.Add(card);
+    }
+
     public void AddCard(Card card)
     {
         deck.Add(card);
         SetDeckNumText();
+    }
+
+    public void CopyFromOriginal()
+    {
+        deck = originalDeck.ToList();
     }
 
     public void DrawCard(int drawNum)
@@ -96,30 +106,6 @@ public class CardManager : MonoBehaviour
     {
         extinguishedCards.Add(card);
         SetExtingushiedCardsNumText();
-    }
-
-    private bool IsMeetUseCondition(Card card)
-    {
-        switch (card.CardData.useCondition)
-        {
-            case UseCondition.Target:
-                RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-                
-                if(hit.collider != null)
-                {
-                    if (hit.collider.gameObject.CompareTag("Monster"))
-                        return true;
-                }
-                break;
-            case UseCondition.NonTarget:
-                if(Input.mousePosition.y > 500)
-                {
-                    return true;
-                }
-                break;
-        }
-
-        return false;
     }
 
     private void SetDeckNumText()

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Card_Attack_Hemokinesis
   m_EditorClassIdentifier: 
   cost: 1
-  cardSprite: {fileID: 0}
+  cardSprite: {fileID: 655221879, guid: 9b9507f0b562fdc4cab9c8a56a951394, type: 3}
   cardName: "\uD608\uB958"
   description: "\uCCB4\uB825\uC744 2 \uC783\uC2B5\uB2C8\uB2E4.\n\uD53C\uD574\uB97C
     15 \uC90D\uB2C8\uB2E4."

@@ -22,10 +22,12 @@ public class MonsterDataManager : ScriptableObject
 
     private WaitForSeconds wait = new WaitForSeconds(1.0f);
 
-    public void Init(Transform parent)
+    public void Init(Transform parent, StatSystem statSystem)
     {
         _objectDatas = ObjectDatas.I;
+        Debug.Log("jjj");
         spawnPivot = Instantiate(spawnObj, parent);
+        targetSystem = statSystem;
     }
 
     public IEnumerator MonstersAttack()
@@ -54,8 +56,6 @@ public class MonsterDataManager : ScriptableObject
             {
                 return true;
             }
-            else
-                activeMonster.Remove(monster);
         }
         activeMonster.Clear();
         return false;
@@ -97,6 +97,7 @@ public class MonsterDataManager : ScriptableObject
 
     public void CreateDefalutMonster()
     {
+        Debug.Log("dfd");
         int r = UnityEngine.Random.Range(0, defaultDatas.Count);
         List<string> monsters = defaultDatas[r].MonsterDatas;
         for (int i = 0; i < monsters.Count; i++)
@@ -123,7 +124,7 @@ public class MonsterDataManager : ScriptableObject
 
     public void CreateBossMonster(int number)
     {
-        var data = _objectDatas.GetData(BossDatas[number - 1]);
+        var data = _objectDatas.GetData(BossDatas[number]);
         var monster = Instantiate(data.prefab, spawnPivot.transform).GetComponent<MonsterObject>();
         monster.UpdateMonster(data, targetSystem);
         activeMonster.Add(monster);

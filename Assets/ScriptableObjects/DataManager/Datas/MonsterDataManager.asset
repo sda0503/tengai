@@ -31,8 +31,13 @@ MonoBehaviour:
     - SlimeAltS
     - SlimeAltS
     - SlimeAltS
-  EliteDatas: []
-  BossDatas: []
+  EliteDatas:
+  - MonsterDatas:
+    - Sentry
+    - Sentry
+    - Sentry
+  BossDatas:
+  - Haxaghost
   targetSystem: {fileID: 0}
   spawnObj: {fileID: 4950835499087033506, guid: 5d15c5daacd279644b9c4dd91b3e447e, type: 3}
   isTurn: 1

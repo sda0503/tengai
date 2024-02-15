@@ -15,11 +15,11 @@ MonoBehaviour:
   datas:
   - Name: Ironclad
     stat:
-      _hp: 10
-      _maxHP: 10
+      _hp: 80
+      _maxHP: 80
       _cost: 5
       _maxCost: 5
-      _power: 10
+      _power: 0
       _defense: 0
     prefab: {fileID: 6703778939175893284, guid: 43454aa6bdf2c274abd8cf387d9dd58d, type: 3}
   - Name: SlimeS
@@ -58,3 +58,21 @@ MonoBehaviour:
       _power: 7
       _defense: 0
     prefab: {fileID: 325566195651819928, guid: d1774f7c93cf7624e89ce784045d4543, type: 3}
+  - Name: Sentry
+    stat:
+      _hp: 42
+      _maxHP: 42
+      _cost: 5
+      _maxCost: 5
+      _power: 9
+      _defense: 0
+    prefab: {fileID: 4418542308630663407, guid: 1641463ce9629a541bbd2d0cfec5f43f, type: 3}
+  - Name: Haxaghost
+    stat:
+      _hp: 250
+      _maxHP: 250
+      _cost: 5
+      _maxCost: 5
+      _power: 12
+      _defense: 0
+    prefab: {fileID: 8499652573074729757, guid: 0943e271124cdb34ab57076a349be577, type: 3}

@@ -14,6 +14,7 @@ public class RewardClick : MonoBehaviour
     private Image uiImage;
     private GameObject obj;
     private GameObject cardRewardUIObj;
+    private GameObject goldObj;
     public GameObject mapObj;
     public GameObject invenObj;
     public Canvas _mainCanvas;
@@ -86,7 +87,7 @@ public class RewardClick : MonoBehaviour
     }
     public void OnPointerExit()
     {
-        if (isMouseOver && uiImage != null)
+        if (isMouseOver && uiImage != null && obj != null)
         {
             if (GetClickedUIObjectComponent<Image>() != null && GetClickedUIObjectComponent<Image>() == uiImage)
                 return;
@@ -104,11 +105,10 @@ public class RewardClick : MonoBehaviour
 
     public void AddGold()
     {
-        obj = GetClickedUIObject();
+        obj.SetActive(false);
         int gold = gameObject.transform.GetChild(1).GetChild(1).gameObject.GetOrAddComponent<Reward>().power;
         InfoSystem.instance.SetGold(gold);
         InfoSystem.instance.ShowDate();
-        obj.SetActive(false);
     }
 
     public void AddCard()
@@ -142,8 +142,6 @@ public class RewardClick : MonoBehaviour
     {
         gameObject.SetActive(false);
         mapObj.SetActive(true);
-        //Destroy(gameObject.transform.GetChild(1).GetChild(1).gameObject);
-        //Destroy(gameObject.transform.GetChild(1).GetChild(2).gameObject);
     }
 
     public void AddRelics(int iNum)

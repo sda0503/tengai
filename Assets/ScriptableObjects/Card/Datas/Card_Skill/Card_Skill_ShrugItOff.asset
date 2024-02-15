@@ -24,9 +24,12 @@ MonoBehaviour:
   - drawCardNum: 1
   statEffects:
   - buff:
+      name: 
       type: 3
       amount: 8
       turn: 0
       maxTurn: 0
       invokeTurn: 0
+      icon: {fileID: 0}
+    target: 0
   addCards: []

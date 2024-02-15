@@ -90,8 +90,6 @@ public class HandManager : MonoBehaviour
         _gr = _mainCanvas.GetComponent<GraphicRaycaster>();
         _ped = new PointerEventData(null);
         _rrList = new List<RaycastResult>(10);
-
-
     }
 
     // Update is called once per frame
@@ -465,6 +463,8 @@ public class HandManager : MonoBehaviour
             Destroy(usedCardDisplay.gameObject);
         }
 
+        InfoSystem.instance.ShowDate();
+
         SortAllCard();
         SetAllCardIndex();
 
@@ -752,6 +752,7 @@ public class HandManager : MonoBehaviour
 
     private bool CanUse(Card card)
     {
+        Debug.Log(playerStatSystem.COST);
         return card.CardData.cost <= playerStatSystem.COST;
     }
 

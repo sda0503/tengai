@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -21,19 +22,23 @@ public class MapManager : MonoBehaviour
     public GameObject shoptObj;
     public Canvas _mainCanvas;
 
+    private BattleManager _battleManager;
+
+    private MapData curMapData;
+
     private void Awake()
     {
         _gr = _mainCanvas.GetComponent<GraphicRaycaster>();
         _ped = new PointerEventData(null);
         _rrList = new List<RaycastResult>();
+
+        _battleManager = GameObject.Find("BM").GetComponent<BattleManager>();
     }
     void Update()
     {
         _ped.position = Input.mousePosition;
         OnPointerOver();
         OnPointerExit();
-
-
     }
 
     public T GetClickedUIObjectComponent<T>() where T : Component
@@ -100,10 +105,11 @@ public class MapManager : MonoBehaviour
             (obj.gameObject.GetComponent<MapData>().index == InfoSystem.instance.index -1 
             || obj.gameObject.GetComponent<MapData>().index == InfoSystem.instance.index
             || obj.gameObject.GetComponent<MapData>().index == InfoSystem.instance.index + 1
-            ) || InfoSystem.instance.currentFloor==0)
+            ) || InfoSystem.instance.currentFloor==0 || InfoSystem.instance.currentFloor == 14)
         {
             InfoSystem.instance.currentFloor++;
             InfoSystem.instance.index = obj.gameObject.GetComponent<MapData>().index;
+            curMapData = obj.gameObject.GetComponent<MapData>();
             switch (obj.gameObject.GetComponent<MapData>().mapData)
             {
                 case 0:
@@ -111,7 +117,9 @@ public class MapManager : MonoBehaviour
                     obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
                     obj.GetComponent<Image>().raycastTarget = false;
                     changeObj.SetActive(true);
+
                     chestObj.GetComponent<ChestManager>().iNum = obj.GetComponent<MapData>().EventNum;
+                    chestObj.GetComponent<ChestManager>().chestImage.sprite = chestObj.GetComponent<ChestManager>().closeChest[chestObj.GetComponent<ChestManager>().iNum];
                     Invoke("GoChest", 3f);
 
                     break;
@@ -120,6 +128,8 @@ public class MapManager : MonoBehaviour
                     obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
                     changeObj.SetActive(true);
                     obj.GetComponent<Image>().raycastTarget = false;
+                    chestObj.GetComponent<ChestManager>().iNum = obj.GetComponent<MapData>().EventNum;
+                    chestObj.GetComponent<ChestManager>().chestImage.sprite = chestObj.GetComponent<ChestManager>().closeChest[chestObj.GetComponent<ChestManager>().iNum];
                     Invoke("GoShop", 3f);
 
                     break;
@@ -156,6 +166,15 @@ public class MapManager : MonoBehaviour
                     Invoke("GoBattle", 3f);
 
                     break;
+
+                case 8:
+                    obj.transform.GetChild(1).gameObject.SetActive(true);
+                    obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
+                    changeObj.SetActive(true);
+                    obj.GetComponent<Image>().raycastTarget = false;
+                    Invoke("GoBattle", 3f);
+
+                    break;
                 default:
                     break;
             }
@@ -169,8 +188,9 @@ public class MapManager : MonoBehaviour
             tuto.SetActive(true);
             InfoSystem.instance._isTuto = true;
         }
-        gameObject.SetActive(false);
         mapObj.SetActive(true);
+        _battleManager.Init(curMapData);
+        gameObject.SetActive(false);
         changeObj.SetActive(false);
     }
 
@@ -192,13 +212,14 @@ public class MapManager : MonoBehaviour
     {
         gameObject.SetActive(false);
         chestObj.SetActive(true);
+        
         changeObj.SetActive(false);
     }
 
     public void GoShop()
     {
         gameObject.SetActive(false);
-        shoptObj.SetActive(true);
+        chestObj.SetActive(true);
         changeObj.SetActive(false);
     }
 
