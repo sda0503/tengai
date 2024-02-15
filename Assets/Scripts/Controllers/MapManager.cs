@@ -15,6 +15,10 @@ public class MapManager : MonoBehaviour
     public GameObject mapObj;
     public GameObject eventObj;
     public GameObject changeObj;
+    public GameObject tuto;
+    public GameObject restObj;
+    public GameObject chestObj;
+    public GameObject shoptObj;
     public Canvas _mainCanvas;
 
     private void Awake()

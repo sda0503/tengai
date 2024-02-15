@@ -6,6 +6,9 @@ public class InfoSystem : MonoBehaviour
     public static InfoSystem instance = null;
     public int gold = 0;
     public int currentFloor = 0;
+    public int index = 0;
+
+    public bool _isTuto = false;
 
     public Text[] text;
 
