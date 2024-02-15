@@ -2330,6 +2330,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 469682760}
     m_Modifications:
     - target: {fileID: 33590781079849417, guid: 43454aa6bdf2c274abd8cf387d9dd58d, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 33590781079849417, guid: 43454aa6bdf2c274abd8cf387d9dd58d, type: 3}
       propertyPath: monsterPivot
       value: 
       objectReference: {fileID: 0}
@@ -2429,8 +2433,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedComponents:
+    - {fileID: 33590781079849417, guid: 43454aa6bdf2c274abd8cf387d9dd58d, type: 3}
+    m_RemovedGameObjects:
+    - {fileID: 5451302262346802051, guid: 43454aa6bdf2c274abd8cf387d9dd58d, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43454aa6bdf2c274abd8cf387d9dd58d, type: 3}
