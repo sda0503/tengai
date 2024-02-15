@@ -109,67 +109,7 @@ public class MapManager : MonoBehaviour
                     obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
                     obj.GetComponent<Image>().raycastTarget = false;
                     changeObj.SetActive(true);
-                    Invoke("GoBattle", 3f);
-
-                    break;
-                case 1:
-                    obj.transform.GetChild(1).gameObject.SetActive(true);
-                    obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
-                    changeObj.SetActive(true);
-                    obj.GetComponent<Image>().raycastTarget = false;
-                    Invoke("GoShop", 3f);
-
-                    break;
-                case 2:
-                    obj.transform.GetChild(1).gameObject.SetActive(true);
-                    obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
-                    changeObj.SetActive(true);
-                    obj.GetComponent<Image>().raycastTarget = false;
-                    Invoke("GoRest", 3f);
-
-                    break;
-                case 3:
-                    obj.transform.GetChild(1).gameObject.SetActive(true);
-                    obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
-                    changeObj.SetActive(true);
-                    obj.GetComponent<Image>().raycastTarget = false;
-                    Invoke("GoBattle", 3f);
-
-                    break;
-                case 4:
-                    obj.transform.GetChild(1).gameObject.SetActive(true);
-                    obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
-                    changeObj.SetActive(true);
-                    obj.GetComponent<Image>().raycastTarget = false;
-                    Invoke("GoEvent", 3f);
-
-                    break;
-                case 5:
-                    obj.transform.GetChild(1).gameObject.SetActive(true);
-                    obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
-                    changeObj.SetActive(true);
-                    obj.GetComponent<Image>().raycastTarget = false;
-                    Invoke("GoBattle", 3f);
-
-                    break;
-                default:
-                    break;
-            }
-        }
-        else if (obj.gameObject.GetComponent<MapData>().floor == InfoSystem.instance.currentFloor &&
-            (obj.gameObject.GetComponent<MapData>().index == InfoSystem.instance.index - 2
-            || obj.gameObject.GetComponent<MapData>().index == InfoSystem.instance.index + 2
-            ) || InfoSystem.instance.currentFloor == 0)
-        {
-            InfoSystem.instance.currentFloor++;
-            InfoSystem.instance.index = obj.gameObject.GetComponent<MapData>().index;
-            switch (obj.gameObject.GetComponent<MapData>().mapData)
-            {
-                case 0:
-                    obj.transform.GetChild(1).gameObject.SetActive(true);
-                    obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
-                    obj.GetComponent<Image>().raycastTarget = false;
-                    changeObj.SetActive(true);
+                    chestObj.GetComponent<ChestManager>().iNum = obj.GetComponent<MapData>().EventNum;
                     Invoke("GoChest", 3f);
 
                     break;
@@ -202,6 +142,7 @@ public class MapManager : MonoBehaviour
                     obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
                     changeObj.SetActive(true);
                     obj.GetComponent<Image>().raycastTarget = false;
+                    eventObj.GetComponent<EventManager>().iNum = obj.GetComponent<MapData>().EventNum;
                     Invoke("GoEvent", 3f);
 
                     break;
@@ -217,7 +158,6 @@ public class MapManager : MonoBehaviour
                     break;
             }
         }
-
     }
 
     public void GoBattle()
@@ -236,7 +176,6 @@ public class MapManager : MonoBehaviour
     {
         gameObject.SetActive(false);
         eventObj.SetActive(true);
-        //eventObj.transform.GetChild(1).GetComponent<RewardController>().MakeReward();
         changeObj.SetActive(false);
     }
 

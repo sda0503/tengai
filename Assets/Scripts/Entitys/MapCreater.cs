@@ -145,6 +145,7 @@ public class MapCreater : MonoBehaviour
                 mapObj.GetComponent<MapData>().mapData = maxRooms[i][j];
                 mapObj.GetComponent<MapData>().index = j;
                 mapObj.GetComponent<MapData>().floor = i;
+                mapObj.GetComponent<MapData>().EventNum = Random.Range(0, 3);
 
                 //오브젝트 정보
                 beforeVec3.Add(mapObj);
@@ -194,6 +195,17 @@ public class MapCreater : MonoBehaviour
         for(int i=8; i< 107; i++)
         {
             if (InfoSystem.instance.currentFloor == 0)
+            {
+                if (gameObject.transform.GetChild(i).GetComponent<MapData>().floor == InfoSystem.instance.currentFloor)
+                {
+                    gameObject.transform.GetChild(i).transform.GetChild(0).GetComponent<Image>().color = new Color(0, 0, 0, 1f);
+                }
+                else
+                {
+                    gameObject.transform.GetChild(i).transform.GetChild(0).GetComponent<Image>().color = new Color(0, 0, 0, 178 / 255f);
+                }
+            }
+            else if (InfoSystem.instance.currentFloor == 14)
             {
                 if (gameObject.transform.GetChild(i).GetComponent<MapData>().floor == InfoSystem.instance.currentFloor)
                 {

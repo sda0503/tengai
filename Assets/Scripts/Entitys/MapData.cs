@@ -7,5 +7,6 @@ public class MapData : MonoBehaviour
     public int mapData;
     public int floor;
     public int index;
+    public int EventNum;
 }
 

@@ -18,11 +18,19 @@ public class ChestManager : MonoBehaviour
     public GameObject rewardObj;
     public Canvas _mainCanvas;
 
+    public Sprite[] closeChest;
+    public Sprite[] openChest;
+
+    public Image chestImage;
+
+    public int iNum = 0;
+
     public void Awake()
     {
         _gr = _mainCanvas.GetComponent<GraphicRaycaster>();
         _ped = new PointerEventData(null);
         _rrList = new List<RaycastResult>();
+        chestImage.sprite = closeChest[iNum];
     }
 
     void Update()
@@ -87,5 +95,7 @@ public class ChestManager : MonoBehaviour
     public void OpenChest()
     {
         rewardObj.SetActive(true);
+        rewardObj.transform.GetChild(1).GetComponent<RewardController>().MakeReward();
+        chestImage.sprite = openChest[iNum];
     }
 }
