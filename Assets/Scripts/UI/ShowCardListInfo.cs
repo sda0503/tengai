@@ -31,6 +31,7 @@ public class ShowCardListInfo : MonoBehaviour
     public void OnDeckButtonClick()
     {
         this.gameObject.SetActive(true);
+        this.transform.SetAsLastSibling();
         _handManager.enabled = false;
 
         if(_cardManager.deck.Count + _cardManager.garbages.Count > container.transform.childCount)
