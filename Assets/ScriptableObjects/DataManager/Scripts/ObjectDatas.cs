@@ -29,6 +29,7 @@ public class ObjectDatas : ScriptableObject
 
     public void Init()
     {
+        Debug.Log("hi");
         foreach(ObjectData data in datas)
         {
             _datas.Add(data.Name.GetHashCode(), data);
@@ -38,7 +39,7 @@ public class ObjectDatas : ScriptableObject
 
     public ObjectData GetData(string name)
     {
-        if (_datas == null)
+        if (_datas.Count == 0)
             Init();
 
         if(!_datas.TryGetValue(name.GetHashCode(), out var data))

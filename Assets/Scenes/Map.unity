@@ -10979,6 +10979,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hands: []
+  _monsterDataManager: {fileID: 11400000, guid: 7bba53f85bd88124496e39dfa58a4b8a, type: 2}
   _drawTime: 0.3
   dropTime: 0.5
   extinguishTime: 0.5
