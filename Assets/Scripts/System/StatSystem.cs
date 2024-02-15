@@ -119,6 +119,11 @@ public class StatSystem : MonoBehaviour
                 remove.Add(key);
                 continue;
             }
+            if (key == "허약")
+            {
+                value.amount = -ATK * 75 / 100;
+                AddStat(value);
+            }
             value.turn++;
         }
 
@@ -155,6 +160,11 @@ public class StatSystem : MonoBehaviour
                 _activeBuffs[buff.name].maxTurn += buff.maxTurn;
                 _bar.UpdateBuffSlots();
                 return;
+            }
+            if(buff.name == "허약")
+            {
+                buff.amount = -ATK * 75 / 100;
+                AddStat(buff);
             }
             _activeBuffs.Add(buff.name, buff);
             _bar.CreateBuffSlot(buff);
