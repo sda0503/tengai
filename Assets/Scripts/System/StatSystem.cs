@@ -11,7 +11,8 @@ public enum StatType
     ATK,
     DEF,
     MaxHP,
-    MaxCost
+    MaxCost,
+    Debuff
 }
 
 public class StatSystem : MonoBehaviour
@@ -124,7 +125,8 @@ public class StatSystem : MonoBehaviour
             return;
         }
         _buffs.Add(buff.name, buff);
-        _bar.CreateBuffSlot(buff);
+        if (buff.type == StatType.ATK || buff.type == StatType.Debuff)
+            _bar.CreateBuffSlot(buff);
     }
 
     public void RemoveBuff(Buff buff)
