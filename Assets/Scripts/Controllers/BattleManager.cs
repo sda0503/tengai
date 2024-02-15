@@ -11,7 +11,7 @@ public class BattleManager : MonoBehaviour
     bool _isEndBattle = false;   //게임 종료
 
     public Text trunBtn;
-    public Player _player;
+    public StatSystem _player;
     public CardManager _cardManager;
     public MonsterDataManager _monsterDataManager;
 
@@ -91,6 +91,8 @@ public class BattleManager : MonoBehaviour
         _cardManager.DrawCard(5); //드로우 불러오는 방법을 모르겠습니다. -> 카드 매니저에서 불러오기
 
         trunBtn.text = "턴 종료";
+        _player.RegenCost();
         InfoSystem.instance.ShowDate();
+        _monsterDataManager.CheckMonster();
     }
 }
