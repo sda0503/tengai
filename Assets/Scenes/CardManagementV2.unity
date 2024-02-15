@@ -996,6 +996,8 @@ MonoBehaviour:
   - {fileID: 1550389027}
   - {fileID: 497871223}
   - {fileID: 1350219087}
+  - {fileID: 482607823}
+  - {fileID: 783990853}
   player: {fileID: 608320837}
 --- !u!4 &328108709
 Transform:
@@ -10845,7 +10847,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e6cc3e929d65a5c4cb2708ad3bb69431, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _handManager: {fileID: 6720380530656161553}
+  handManager: {fileID: 0}
   cardDatas:
   - {fileID: 11400000, guid: 5a4b7929077e44448a5b35813c497d65, type: 2}
   - {fileID: 11400000, guid: a1b52794bf53e79438ab5240efe04f46, type: 2}
@@ -11227,7 +11229,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   container: {fileID: 7406693154868683489}
   cardPrefab: {fileID: 4883506622124037758, guid: b01468d7ed1dfae47b7f9928bc04864d, type: 3}
-  StartInstanceNum: 10
 --- !u!114 &6803665949599803564
 MonoBehaviour:
   m_ObjectHideFlags: 0
