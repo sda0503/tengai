@@ -25,14 +25,9 @@ public class GameOverManager : MonoBehaviour
         }
     }
 
-    void Update()
-    {
-
-    }
-
     public void OnClickRestart()
     {
-        SceneManager.LoadScene("");
+        SceneManager.LoadScene("IntroScene");
     }
 
     public void OnClickEnd()
