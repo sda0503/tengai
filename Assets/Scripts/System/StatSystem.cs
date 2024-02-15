@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -36,11 +37,11 @@ public class StatSystem : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    public void TestDEF(int amount)
+    public void RegenHP()
     {
-        _buffStat.DEF += amount;
-        _bar.UpdateHPBar(HP, MaxHP, DEF);
+        _stat.HP = MaxHP;
     }
+
 
     public void Attack()
     {
@@ -81,7 +82,7 @@ public class StatSystem : MonoBehaviour
         _stat.Cost -= amount;
     }
 
-    public void UpdateStats()
+    private void UpdateStats()
     {
         InitStat();
         foreach(var buff in _buffs)
@@ -129,6 +130,7 @@ public class StatSystem : MonoBehaviour
             }
             _buffs[i].turn++;
         }
+        UpdateStats();
         _bar.UpdateHPBar(HP, MaxHP, DEF);
         _bar.UpdateBuffSlots();
     }
@@ -150,6 +152,7 @@ public class StatSystem : MonoBehaviour
         {
             _buffs.Add(buff);
         }
+        UpdateStats();
     }
 
     public void RemoveBuff(Buff buff)

@@ -9,7 +9,6 @@ public class CardEffect_Stat : ICardEffect
     {
         Buff newBuff = new Buff(buff);
         statSystem?.AddBuff(newBuff);
-        statSystem?.UpdateStats();
     }
 
     public void OnUse(List<StatSystem> statSystemList)

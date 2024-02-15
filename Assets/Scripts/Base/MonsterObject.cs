@@ -11,11 +11,6 @@ public class MonsterObject : MonoBehaviour
         monsterBase.Attack();
     }
 
-    public void UpdateStat()
-    {
-        monsterBase.statSystem.UpdateStats();
-    }
-
     public void UpdateAttackIcon()
     {
         monsterBase.CheckATKText();
