@@ -6,6 +6,7 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "Relics", menuName = "New Relics")]
 
+[System.Serializable]
 public class RelicsData : ScriptableObject
 {
     [Header("Info")]

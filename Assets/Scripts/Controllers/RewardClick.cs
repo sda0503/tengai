@@ -15,8 +15,10 @@ public class RewardClick : MonoBehaviour
     private GameObject obj;
     private GameObject cardRewardUIObj;
     public GameObject mapObj;
+    public GameObject invenObj;
     public Canvas _mainCanvas;
 
+    public RelicsData[] Datas;
     public Transform cardRewardWindow;
 
     public void Awake()
@@ -144,9 +146,11 @@ public class RewardClick : MonoBehaviour
         //Destroy(gameObject.transform.GetChild(1).GetChild(2).gameObject);
     }
 
-    public void AddRelics()
+    public void AddRelics(int iNum)
     {
         obj = GetClickedUIObject();
+        Debug.Log(Datas[iNum]);
+        invenObj.GetComponent<Inventory>().AddItem(Datas[iNum]);
         obj.SetActive(false);
     }
 }

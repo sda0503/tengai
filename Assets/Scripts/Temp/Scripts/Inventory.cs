@@ -6,12 +6,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using static UnityEditor.Progress;
 
+[System.Serializable]
 public class RelcisSlot
 {
     public RelicsData relics;
 }
 public class Inventory : MonoBehaviour
 {
+    
     public RelcisSlot[] slots;
     public RelicsUI[] relicsUI;
 

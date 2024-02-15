@@ -1,5 +1,7 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
+using Random = UnityEngine.Random;
 
 public enum RewardType
 {
@@ -15,6 +17,7 @@ public class Reward : MonoBehaviour
     public Sprite[] sprites;
     Image image;
     Text text;
+    public int iNum;
     public int power;
     public RewardType rewardType;
 
@@ -46,7 +49,25 @@ public class Reward : MonoBehaviour
                 text.text = "댁에 카드를 추가";
                 break;
             case RewardType.Relic:
-                image.sprite = sprites[0];
+                switch (iNum)
+                {
+                    case 0:
+                        image.sprite = sprites[3];
+                        text.text = "불타는 혈액";
+                        break;
+                    case 1:
+                        image.sprite = sprites[4];
+                        text.text = "매끄러운 돌";
+                        break;
+                    case 2:
+                        image.sprite = sprites[5];
+                        text.text = "딸기";
+                        break;
+                    case 3:
+                        image.sprite = sprites[6];
+                        text.text = "금강저";
+                        break;
+                }
                 break;
         }
     }

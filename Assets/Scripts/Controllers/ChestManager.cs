@@ -96,6 +96,7 @@ public class ChestManager : MonoBehaviour
     {
         rewardObj.SetActive(true);
         rewardObj.transform.GetChild(1).GetComponent<RewardController>().MakeReward();
+        rewardObj.transform.GetChild(1).GetComponent<RewardController>().iNum = iNum;
         chestImage.sprite = openChest[iNum];
     }
 }
