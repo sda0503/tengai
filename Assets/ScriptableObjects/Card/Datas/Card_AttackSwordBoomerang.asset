@@ -18,3 +18,8 @@ MonoBehaviour:
   description: "\uBB34\uC791\uC704 \uC801\uB4E4\uC5D0\uAC8C \uD53C\uD574\uB97C 3\uB9CC\uD07C
     3\uBC88 \uC90D\uB2C8\uB2E4."
   condition: 1
+  attackEffects:
+  - attackValue: 3
+  drawEffects: []
+  statEffects: []
+  attackValue: 0

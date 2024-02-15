@@ -18,7 +18,7 @@ public class StatSystem : MonoBehaviour
 {
     [SerializeField] private CharacterBaseStat _stat;
     [SerializeField] private List<Buff> _buffs;
-    private CharacterBaseStat _buffStat = new();
+    [SerializeField] private CharacterBaseStat _buffStat = new();
     private Animator _animator;
     private HPBar _bar;
 
@@ -53,7 +53,13 @@ public class StatSystem : MonoBehaviour
         _stat.HP -= result;
         if (_stat.HP == 0)
         {
-            _animator.SetTrigger("Die");
+            if (TryGetComponent<MonsterBase>(out _))
+            {
+                Destroy(gameObject);
+            }
+            else
+                Debug.Log("PlayerDie");
+            //_animator.SetTrigger("Die");
         }
         else
         {
@@ -123,6 +129,7 @@ public class StatSystem : MonoBehaviour
     {
         if (_bar == null) _bar = GetComponentInChildren<HPBar>();
         _stat = stat;
+        _buffStat.MaxHP = 1;
         _bar.UpdateHPBar(HP, MaxHP, DEF);
     }
 

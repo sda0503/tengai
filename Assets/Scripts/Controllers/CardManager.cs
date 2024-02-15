@@ -12,7 +12,7 @@ public class CardManager : MonoBehaviour
     public List<Card> deck;
     public List<Card> garbages;
 
-    public HandManager _handManager;
+    public HandManager handManager;
 
     [SerializeField] private Card_Base[] cardDatas;
 
@@ -35,24 +35,19 @@ public class CardManager : MonoBehaviour
         deck = new List<Card>();
         garbages = new List<Card>();
         instance = this;
-    }
 
-    private void Start()
-    {
         for (int i = 0; i < cardDatas.Length; i++)
         {
-            for(int j = 0; j < 2; j++)
+            for (int j = 0; j < 2; j++)
             {
                 AddCard(cardDatas[i].CreateCard());
             }
         }
-
-        _handManager.ConnectCardManager(this);
     }
 
-    private void Update()
+    private void Start()
     {
-        
+        handManager.ConnectCardManager(this);
     }
 
     public void AddCard(Card card)
@@ -76,11 +71,11 @@ public class CardManager : MonoBehaviour
                 SetAllNumText();
             }
 
-            if(deck.Count >= 1 && _handManager.hands.Count < 10)
+            if(deck.Count >= 1 && handManager.hands.Count < 10)
             {
                 Card card = deck[Random.Range(0, deck.Count)];
 
-                yield return StartCoroutine(_handManager.DrawCard(card));
+                yield return StartCoroutine(handManager.DrawCard(card));
                 deck.Remove(card);
 
                 SetDeckNumText();
