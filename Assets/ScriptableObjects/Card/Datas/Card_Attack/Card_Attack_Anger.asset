@@ -21,7 +21,7 @@ MonoBehaviour:
   useCondition: 1
   extinctionType: 0
   attackEffects:
-  - attackValue: 6
+  - attackValue: 30
     target: 1
   drawEffects: []
   statEffects: []
