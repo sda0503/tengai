@@ -126,7 +126,7 @@ public class MonsterDataManager : ScriptableObject
 
     public void CreateBossMonster(int number)
     {
-        var data = _objectDatas.GetData(BossDatas[number - 1]);
+        var data = _objectDatas.GetData(BossDatas[number]);
         var monster = Instantiate(data.prefab, spawnPivot.transform).GetComponent<MonsterObject>();
         monster.UpdateMonster(data, targetSystem);
         activeMonster.Add(monster);

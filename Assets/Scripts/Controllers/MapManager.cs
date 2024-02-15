@@ -107,7 +107,7 @@ public class MapManager : MonoBehaviour
             (obj.gameObject.GetComponent<MapData>().index == InfoSystem.instance.index -1 
             || obj.gameObject.GetComponent<MapData>().index == InfoSystem.instance.index
             || obj.gameObject.GetComponent<MapData>().index == InfoSystem.instance.index + 1
-            ) || InfoSystem.instance.currentFloor==0)
+            ) || InfoSystem.instance.currentFloor==0 || InfoSystem.instance.currentFloor == 14)
         {
             InfoSystem.instance.currentFloor++;
             InfoSystem.instance.index = obj.gameObject.GetComponent<MapData>().index;
