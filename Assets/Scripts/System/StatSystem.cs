@@ -1,10 +1,7 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 public enum StatType
 {
@@ -72,7 +69,6 @@ public class StatSystem : MonoBehaviour
             }
             else
                 SceneManager.LoadScene("Ending");
-            //_animator.SetTrigger("Die");
         }
         else
         {

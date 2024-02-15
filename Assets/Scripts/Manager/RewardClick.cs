@@ -9,12 +9,12 @@ public class RewardClick : MonoBehaviour
     private GraphicRaycaster _gr;
     private PointerEventData _ped;
     private List<RaycastResult> _rrList;
-    private bool isMouseOver = false;
+    private bool _isMouseOver = false;
 
-    private Image uiImage;
-    private GameObject obj;
-    private GameObject cardRewardUIObj;
-    private GameObject goldObj;
+    private Image _uiImage;
+    private GameObject _obj;
+    private GameObject _cardRewardUIObj;
+
     public GameObject mapObj;
     public GameObject invenObj;
     public GameObject chestObj;
@@ -32,7 +32,7 @@ public class RewardClick : MonoBehaviour
 
     private void Start()
     {
-        this.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     void Update()
@@ -72,46 +72,46 @@ public class RewardClick : MonoBehaviour
 
     public void OnPointerOver()
     {
-        if (!isMouseOver)
+        if (!_isMouseOver)
         {
-            uiImage = GetClickedUIObjectComponent<Image>();
-            obj = GetClickedUIObject();
-            if (uiImage != null)
+            _uiImage = GetClickedUIObjectComponent<Image>();
+            _obj = GetClickedUIObject();
+            if (_uiImage != null)
             {
                 //Debug.Log("MouseOver");
-                isMouseOver = true;
-                if (obj.name == "List(Clone)")
+                _isMouseOver = true;
+                if (_obj.name == "List(Clone)")
                 {
-                    uiImage.color = new Color(210f / 255f, 253f / 255f, 255f / 255f, 1f);
+                    _uiImage.color = new Color(210f / 255f, 253f / 255f, 255f / 255f, 1f);
                 }
-                else if (obj.name == "nextBtn")
+                else if (_obj.name == "nextBtn")
                 {
-                    uiImage.color = new Color(1, 1, 1, 1f);
+                    _uiImage.color = new Color(1, 1, 1, 1f);
                 }
             }
         }
     }
     public void OnPointerExit()
     {
-        if (isMouseOver && uiImage != null && obj != null)
+        if (_isMouseOver && _uiImage != null && _obj != null)
         {
-            if (GetClickedUIObjectComponent<Image>() != null && GetClickedUIObjectComponent<Image>() == uiImage)
+            if (GetClickedUIObjectComponent<Image>() != null && GetClickedUIObjectComponent<Image>() == _uiImage)
                 return;
-            if (obj.name == "List(Clone)")
+            if (_obj.name == "List(Clone)")
             {
-                uiImage.color = new Color(210f / 255f, 253f / 255f, 255f / 255f, 0.31f);
+                _uiImage.color = new Color(210f / 255f, 253f / 255f, 255f / 255f, 0.31f);
             }
-            else if (obj.name == "nextBtn")
+            else if (_obj.name == "nextBtn")
             {
-                uiImage.color = new Color(1, 1, 1, 168f / 255f);
+                _uiImage.color = new Color(1, 1, 1, 168f / 255f);
             }
-            isMouseOver = false;
+            _isMouseOver = false;
         }
     }
 
     public void AddGold()
     {
-        obj.SetActive(false);
+        _obj.SetActive(false);
         int gold = gameObject.transform.GetChild(1).GetChild(1).gameObject.GetOrAddComponent<Reward>().power;
         InfoSystem.instance.SetGold(gold);
         InfoSystem.instance.ShowDate();
@@ -119,8 +119,8 @@ public class RewardClick : MonoBehaviour
 
     public void AddCard()
     {
-        obj = GetClickedUIObject();
-        cardRewardUIObj = obj;
+        _obj = GetClickedUIObject();
+        _cardRewardUIObj = _obj;
         cardRewardWindow.gameObject.SetActive(true);
         Transform container = cardRewardWindow.GetChild(0);
 
@@ -134,7 +134,7 @@ public class RewardClick : MonoBehaviour
     {
         Transform container = cardRewardWindow.GetChild(0);
         CardManager.instance.AddCardToOriginal(container.GetChild(i).GetComponent<CardDisplay>().GetCard());
-        cardRewardUIObj.SetActive(false);
+        _cardRewardUIObj.SetActive(false);
         OnExitButtonClick();
     }
 
@@ -152,8 +152,8 @@ public class RewardClick : MonoBehaviour
 
     public void AddRelics(int iNum)
     {
-        obj = GetClickedUIObject();
+        _obj = GetClickedUIObject();
         invenObj.GetComponent<Inventory>().AddItem(Datas[iNum]);
-        obj.SetActive(false);
+        _obj.SetActive(false);
     }
 }

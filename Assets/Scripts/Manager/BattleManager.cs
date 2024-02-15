@@ -71,6 +71,7 @@ public class BattleManager : MonoBehaviour
         {
             if (_isEndBattle) SceneManager.LoadScene("Ending");
             CardManager.instance.Clear();
+            canvas.SetActive(false);
             rewardCanvas.SetActive(true);
             _rewardController.Init(_mapData.EventNum);
             _player.UpdateBuffs();

@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.Tracing;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -44,23 +41,10 @@ public class GameMenuPopup : MonoBehaviour
     [SerializeField] private TextMeshProUGUI RelicsNameText;
     [SerializeField] private TextMeshProUGUI RelicsDescriptionText;
 
-
-    // Start is called before the first frame update
-
     void OnEable()
     {
         characterSelectBG = GetComponent<Image>();
         startRelics = GetComponent<Image>();
-    }
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void OnClickGameStart()

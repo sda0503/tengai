@@ -1,13 +1,11 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SoundManager : MonoBehaviour
 {
-    private AudioSource audioSource;
-
-    private GameObject[] musics;
+    private AudioSource _audioSource;
+    private GameObject[] _musics;
 
     public AudioClip[] musicClips;
 
@@ -17,24 +15,26 @@ public class SoundManager : MonoBehaviour
     public bool isDead;
     public bool isClear;
     public bool isEnding;
-    private int currentClipIndex = -1;
-    private bool wasNotDefault = false;
 
-    private WaitForSeconds waitTwoSeconds = new WaitForSeconds(2f);
+    private int _currentClipIndex = -1;
+    private bool _wasNotDefault = false;
+
+    private WaitForSeconds _waitTwoSeconds = new WaitForSeconds(2f);
 
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
+        _audioSource = GetComponent<AudioSource>();
         Application.targetFrameRate = 60;
-        musics = GameObject.FindGameObjectsWithTag("Music");
+        _musics = GameObject.FindGameObjectsWithTag("Music");
 
-        if (musics.Length >= 2)
+        if (_musics.Length >= 2)
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
 
         DontDestroyOnLoad(transform.gameObject);
     }
+
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
@@ -42,15 +42,15 @@ public class SoundManager : MonoBehaviour
 
     private void Update()
     {
-        if ((isElite || isBoss || isShop || isDead || isClear || isEnding) && !wasNotDefault)
+        if ((isElite || isBoss || isShop || isDead || isClear || isEnding) && !_wasNotDefault)
         {
             StartCoroutine(ChangeBackGroundMusic());
-            wasNotDefault = true;
+            _wasNotDefault = true;
         }
-        else if (!(isElite || isBoss || isShop || isDead || isClear || isEnding) && wasNotDefault)
+        else if (!(isElite || isBoss || isShop || isDead || isClear || isEnding) && _wasNotDefault)
         {
             //StopAllCoroutines();
-            wasNotDefault = false;
+            _wasNotDefault = false;
             PlayDefaultMusic();
         }
     }
@@ -71,59 +71,57 @@ public class SoundManager : MonoBehaviour
 
     private void PlayMusic(int musicClip)
     {
-        if (musicClip == currentClipIndex)
+        if (musicClip == _currentClipIndex)
         {
             return;
         }
 
-        //AudioSource audioSource = GetComponent<AudioSource>();
-
-        if (audioSource.isPlaying)
+        if (_audioSource.isPlaying)
         {
-            audioSource.Stop();
+            _audioSource.Stop();
         }
 
-        audioSource.clip = musicClips[musicClip];
-        audioSource.Play();
+        _audioSource.clip = musicClips[musicClip];
+        _audioSource.Play();
 
-        currentClipIndex = musicClip;
+        _currentClipIndex = musicClip;
     }
 
     private IEnumerator ChangeBackGroundMusic()
     {
-        yield return waitTwoSeconds;
+        yield return _waitTwoSeconds;
 
-        if (isElite && currentClipIndex != 2)
+        if (isElite && _currentClipIndex != 2)
         {
             int eliteMusicIndex = 2;
             PlayMusic(eliteMusicIndex);
         }
 
-        if(isBoss &&  currentClipIndex != 3)
+        if(isBoss && _currentClipIndex != 3)
         {
             int bossMusicIndex = 3;
             PlayMusic(bossMusicIndex);
         }
 
-        if(isShop && currentClipIndex != 4)
+        if(isShop && _currentClipIndex != 4)
         {
             int shopMusicIndex = 4;
             PlayMusic(shopMusicIndex);
         }
 
-        if(isDead && currentClipIndex != 5)
+        if(isDead && _currentClipIndex != 5)
         {
             int deadMusicIndex = 5;
             PlayMusic(deadMusicIndex);
         }
 
-        if(isClear && currentClipIndex != 6)
+        if(isClear && _currentClipIndex != 6)
         {
             int clearMusicIndex = 6;
             PlayMusic(clearMusicIndex);
         }
 
-        if(isEnding && currentClipIndex != 7)
+        if(isEnding && _currentClipIndex != 7)
         {
             int endingMusicIndex = 7;
             PlayMusic(endingMusicIndex);

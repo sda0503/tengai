@@ -8,27 +8,25 @@ public class RestManager : MonoBehaviour
     private GraphicRaycaster _gr;
     private PointerEventData _ped;
     private List<RaycastResult> _rrList;
-    private bool isMouseOver = false;
+    private bool _isMouseOver = false;
 
     private GameObject _obj;
     public GameObject mapObj;
     public Canvas _mainCanvas;
     public Sprite[] sprites;
 
-    // Start is called before the first frame update
     private void Awake()
     {
         _gr = _mainCanvas.GetComponent<GraphicRaycaster>();
         _ped = new PointerEventData(null);
         _rrList = new List<RaycastResult>();
     }
+
     void Update()
     {
         _ped.position = Input.mousePosition;
         OnPointerOver();
         OnPointerExit();
-
-
     }
 
     public T GetClickedUIObjectComponent<T>() where T : Component
@@ -60,19 +58,19 @@ public class RestManager : MonoBehaviour
 
     public void OnPointerOver()
     {
-        if (!isMouseOver)
+        if (!_isMouseOver)
         {
             _obj = GetClickedUIObject();
             if (_obj != null && _obj.name == "btn")
             {
-                isMouseOver = true;
+                _isMouseOver = true;
                 _obj.transform.localScale = new Vector3(1f, 1f, 1);
                 _obj.transform.GetChild(0).gameObject.SetActive(true);
                 _obj.transform.GetChild(3).gameObject.SetActive(true);
             }
             else if(_obj != null && _obj.name == "nextBtn")
             {
-                isMouseOver = true;
+                _isMouseOver = true;
                 _obj.GetComponent<Image>().color = new Color(1, 1, 1, 1f);
             }
         }
@@ -80,7 +78,7 @@ public class RestManager : MonoBehaviour
 
     public void OnPointerExit()
     {
-        if (isMouseOver && _obj != null)
+        if (_isMouseOver && _obj != null)
         {
             if (GetClickedUIObject() != null && GetClickedUIObject() == _obj)
                 return;
@@ -94,7 +92,7 @@ public class RestManager : MonoBehaviour
             {
                 _obj.GetComponent<Image>().color = new Color (1,1,1,0.5f);
             }
-            isMouseOver = false;
+            _isMouseOver = false;
         }
     }
 

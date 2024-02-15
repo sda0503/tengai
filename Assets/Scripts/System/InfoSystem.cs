@@ -14,12 +14,10 @@ public class InfoSystem : MonoBehaviour
 
     public StatSystem player;
 
-
     void Awake()
     {
         if (instance == null) instance = this;
-        else 
-         if (instance != this) Destroy(this.gameObject);
+        else if (instance != this) Destroy(this.gameObject);
     }
 
     void Start()

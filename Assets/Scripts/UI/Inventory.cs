@@ -1,10 +1,4 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.UI;
-using static UnityEditor.Progress;
 
 [System.Serializable]
 public class RelcisSlot
@@ -13,7 +7,6 @@ public class RelcisSlot
 }
 public class Inventory : MonoBehaviour
 {
-    
     public RelcisSlot[] slots;
     public RelicsUI[] relicsUI;
 
@@ -23,6 +16,7 @@ public class Inventory : MonoBehaviour
     {
         instance = this; 
     }
+
     private void Start()
     {
         slots = new RelcisSlot[relicsUI.Length];

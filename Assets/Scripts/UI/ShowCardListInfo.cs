@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -22,14 +21,14 @@ public class ShowCardListInfo : MonoBehaviour
             go.transform.localScale += new Vector3(0.3f, 0.3f, 0f);
         }
         transform.SetAsLastSibling();
-        this.gameObject.SetActive(false);
+        gameObject.SetActive(false);
     }
 
     public void OnDeckButtonClick()
     {
-        this.gameObject.SetActive(true);
-        this.transform.SetAsLastSibling();
-        this.GetComponentInChildren<ScrollRect>().verticalNormalizedPosition = 1;
+        gameObject.SetActive(true);
+        transform.SetAsLastSibling();
+        GetComponentInChildren<ScrollRect>().verticalNormalizedPosition = 1;
         _handManager.enabled = false;
 
         if(_cardManager.deck.Count + _cardManager.garbages.Count > container.transform.childCount)
@@ -58,7 +57,7 @@ public class ShowCardListInfo : MonoBehaviour
 
     public void OnGarbageButtonClick()
     {
-        this.gameObject.SetActive(true);
+        gameObject.SetActive(true);
         _handManager.enabled = false;
 
         if (_cardManager.deck.Count + _cardManager.garbages.Count > container.transform.childCount)
@@ -86,7 +85,7 @@ public class ShowCardListInfo : MonoBehaviour
 
     public void OnExtinguishCardsButtonClick()
     {
-        this.gameObject.SetActive(true);
+        gameObject.SetActive(true);
         _handManager.enabled = false;
 
         int j;
@@ -105,7 +104,7 @@ public class ShowCardListInfo : MonoBehaviour
 
     public void OnExitButtonClick()
     {
-        this.gameObject.SetActive(false);
+        gameObject.SetActive(false);
         _handManager.enabled = true;
     }
 }

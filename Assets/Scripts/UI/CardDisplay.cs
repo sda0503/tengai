@@ -3,10 +3,10 @@ using UnityEngine.UI;
 
 public class CardDisplay : MonoBehaviour
 {
-    [SerializeField] private Text costText;
-    [SerializeField] private Text cardNameText;
-    [SerializeField] private Text cardDescriptionText;
-    [SerializeField] private Image cardImage;
+    [SerializeField] private Text _costText;
+    [SerializeField] private Text _cardNameText;
+    [SerializeField] private Text _cardDescriptionText;
+    [SerializeField] private Image _cardImage;
 
     private Card card;
 
@@ -28,10 +28,10 @@ public class CardDisplay : MonoBehaviour
 
     private void InitText()
     {
-        if(costText != null)
-            costText.text = card.CardData.cost.ToString();
-        cardNameText.text = card.CardData.cardName; 
-        cardDescriptionText.text = card.CardData.description;
-        cardImage.sprite = card.CardData.cardSprite;
+        if(_costText != null)
+            _costText.text = card.CardData.cost.ToString();
+        _cardNameText.text = card.CardData.cardName;
+        _cardDescriptionText.text = card.CardData.description;
+        _cardImage.sprite = card.CardData.cardSprite;
     }
 }

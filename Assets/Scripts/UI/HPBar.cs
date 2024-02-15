@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class HPBar : MonoBehaviour
 {
-    [SerializeField] private GameObject iconObj;
-    [SerializeField] private GameObject backGroundObj;
-    [SerializeField] private TextMeshProUGUI hpText;
-    private TextMeshProUGUI defText;
+    [SerializeField] private GameObject _iconObj;
+    [SerializeField] private GameObject _backGroundObj;
+    [SerializeField] private TextMeshProUGUI _hpText;
+    private TextMeshProUGUI _defText;
     private Slider _slider;
 
     [SerializeField] private GameObject _buffSlotPrefab;
@@ -17,31 +17,31 @@ public class HPBar : MonoBehaviour
 
     private void Awake()
     {
-        defText = iconObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+        _defText = _iconObj.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
         _slider = transform.GetChild(0).GetComponent<Slider>();
     }
 
     public void UpdateHPBar(int hp, int maxHP, int def)
     {
-        hpText.text = $"{hp} / {maxHP}";
-        defText.text = $"{def}";
+        _hpText.text = $"{hp} / {maxHP}";
+        _defText.text = $"{def}";
 
         _slider.value = hp / (float)maxHP;
 
-        if (iconObj.activeSelf)
+        if (_iconObj.activeSelf)
         {
             if (def == 0)
             {
-                iconObj.SetActive(false);
-                backGroundObj.SetActive(false);
+                _iconObj.SetActive(false);
+                _backGroundObj.SetActive(false);
             }
         }
         else
         {
             if (def > 0)
             {
-                iconObj.SetActive(true);
-                backGroundObj.SetActive(true);
+                _iconObj.SetActive(true);
+                _backGroundObj.SetActive(true);
             }
         }
     }
