@@ -64,6 +64,5 @@ public class RewardController : MonoBehaviour
             list[i].GetComponent<Reward>().power = Random.Range(10, 30);
             list[i].GetComponent<Reward>().SwitchType(list[i].GetComponent<Reward>().rewardType);
         }
-        
     }
 }
