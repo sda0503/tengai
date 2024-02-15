@@ -6,7 +6,6 @@ public enum UseCondition
     None,
     Target,
     NonTarget,
-    Player,
 }
 
 public enum ExtinctionType

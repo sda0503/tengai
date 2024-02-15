@@ -703,7 +703,6 @@ public class HandManager : MonoBehaviour
                 }
                 break;
             case UseCondition.NonTarget:
-            case UseCondition.Player:
                 if (Input.mousePosition.y > 500)
                 {
                     return true;
