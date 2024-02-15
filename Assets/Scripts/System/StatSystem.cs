@@ -18,7 +18,8 @@ public enum StatType
 public class StatSystem : MonoBehaviour
 {
     [SerializeField] private CharacterBaseStat _stat;
-    [SerializeField] private Dictionary<string, Buff> _buffs;
+    private List<Buff> _buffs = new();
+    [SerializeField] private Dictionary<string, Buff> _activeBuffs;
     [SerializeField] private CharacterBaseStat _buffStat = new();
     private Animator _animator;
     private HPBar _bar;
@@ -48,7 +49,7 @@ public class StatSystem : MonoBehaviour
 
     public bool HasBuff(string name)
     {
-        return _buffs.TryGetValue(name, out _);
+        return _activeBuffs.TryGetValue(name, out _);
     }
 
     public void TakeDamage(int amount)
@@ -85,10 +86,9 @@ public class StatSystem : MonoBehaviour
         InitStat();
         foreach(var buff in _buffs)
         {
-            var value = buff.Value;
-            if(value.invokeTurn == 0)
+            if(buff.invokeTurn == 0)
             {
-                AddStat(value);
+                AddStat(buff);
             }
         }
         _bar.UpdateHPBar(HP, MaxHP, DEF);
@@ -96,7 +96,7 @@ public class StatSystem : MonoBehaviour
 
     public void UpdateBuffs()
     {
-        foreach (var buff in _buffs)
+        foreach (var buff in _activeBuffs)
         {
             var key = buff.Key;
             var value = buff.Value;
@@ -108,10 +108,26 @@ public class StatSystem : MonoBehaviour
             else if (value.maxTurn == value.turn)
             {
                 value.turn = 0;
-                _buffs.Remove(key);
+                _activeBuffs.Remove(key);
                 continue;
             }
             value.turn++;
+        }
+
+        for(int i = 0; i < _buffs.Count; i++)
+        {
+            if (_buffs[i].invokeTurn > 0)
+            {
+                --_buffs[i].invokeTurn;
+                continue;
+            }
+            else if (_buffs[i].maxTurn == _buffs[i].turn)
+            {
+                _buffs[i].turn = 0;
+                _buffs.RemoveAt(i);
+                continue;
+            }
+            _buffs[i].turn++;
         }
         _bar.UpdateHPBar(HP, MaxHP, DEF);
         _bar.UpdateBuffSlots();
@@ -119,21 +135,27 @@ public class StatSystem : MonoBehaviour
 
     public void AddBuff(Buff buff)
     {
-        if (_buffs.ContainsKey(buff.name))
+        if(buff.type == StatType.ATK || buff.type == StatType.Debuff)
         {
-            _buffs[buff.name].turn = 0;
-            return;
-        }
-        _buffs.Add(buff.name, buff);
-        if (buff.type == StatType.ATK || buff.type == StatType.Debuff)
+            if (_activeBuffs.ContainsKey(buff.name))
+            {
+                _activeBuffs[buff.name].turn = 0;
+                return;
+            }
+            _activeBuffs.Add(buff.name, buff);
             _bar.CreateBuffSlot(buff);
+        }
+        else
+        {
+            _buffs.Add(buff);
+        }
     }
 
     public void RemoveBuff(Buff buff)
     {
-        if (_buffs.ContainsKey(buff.name))
+        if (_activeBuffs.ContainsKey(buff.name))
         {
-            _buffs.Remove(buff.name);
+            _activeBuffs.Remove(buff.name);
             return;
         }
         Debug.Log($"Error Buff Name : {buff.name}");
