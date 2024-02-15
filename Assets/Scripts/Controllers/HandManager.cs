@@ -90,6 +90,8 @@ public class HandManager : MonoBehaviour
         _gr = _mainCanvas.GetComponent<GraphicRaycaster>();
         _ped = new PointerEventData(null);
         _rrList = new List<RaycastResult>(10);
+
+
     }
 
     // Update is called once per frame
@@ -472,7 +474,19 @@ public class HandManager : MonoBehaviour
     {
         for (int i = 0; i < card.CardData.attackEffects.Count; i++)
         {
-            card.CardData.attackEffects[i].OnUse(targetStatSystem);
+            switch (card.CardData.attackEffects[i].target)
+            {
+                case Target.Player:
+                    card.CardData.attackEffects[i].OnUse(playerStatSystem);
+                    break;
+                case Target.TargetEnemy:
+                    card.CardData.attackEffects[i].OnUse(targetStatSystem);
+                    break;
+                case Target.AllEnemy:
+                case Target.RandomEnemy:
+                    card.CardData.attackEffects[i].OnUse();
+                    break;
+            }
         }
 
         for(int i = 0; i < card.CardData.drawEffects.Count; i++)
@@ -482,19 +496,24 @@ public class HandManager : MonoBehaviour
 
         for(int i = 0; i < card.CardData.statEffects.Count; i++)
         {
-            if(targetStatSystem != null)
+            switch (card.CardData.statEffects[i].target)
             {
-                card.CardData.statEffects[i].OnUse(targetStatSystem);
-            }
-            else
-            {
-                card.CardData.statEffects[i].OnUse(playerStatSystem);
+                case Target.Player:
+                    card.CardData.statEffects[i].OnUse(playerStatSystem);
+                    break;
+                case Target.TargetEnemy:
+                    card.CardData.statEffects[i].OnUse(targetStatSystem);
+                    break;
+                case Target.AllEnemy:
+                case Target.RandomEnemy:
+                    card.CardData.statEffects[i].OnUse();
+                    break;
             }
         }
 
         for(int i = 0; i < card.CardData.addCards.Count; i++)
         {
-            card.CardData.addCards[i].OnUse(targetStatSystem);
+            card.CardData.addCards[i].OnUse();
         }
     }
 

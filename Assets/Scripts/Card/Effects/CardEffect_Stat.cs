@@ -4,6 +4,7 @@ using System.Collections.Generic;
 public class CardEffect_Stat : ICardEffect
 {
     public Buff buff;
+    public Target target;
     public void OnUse(StatSystem statSystem = null)
     {
         Buff newBuff = new Buff(buff);

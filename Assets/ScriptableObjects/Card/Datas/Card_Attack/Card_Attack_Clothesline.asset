@@ -21,7 +21,17 @@ MonoBehaviour:
   extinctionType: 0
   attackEffects:
   - attackValue: 12
+    target: 0
   drawEffects: []
-  statEffects: []
+  statEffects:
+  - buff:
+      name: 
+      type: 0
+      amount: 0
+      turn: 0
+      maxTurn: 0
+      invokeTurn: 0
+      icon: {fileID: 0}
+    target: 0
   addCards: []
   attackValue: 0
