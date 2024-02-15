@@ -89,7 +89,7 @@ public class StatSystem : MonoBehaviour
         _stat.Cost -= result;
     }
 
-    private void UpdateStats()
+    public void UpdateStats()
     {
         InitStat();
         foreach(var buff in _buffs)
@@ -137,7 +137,6 @@ public class StatSystem : MonoBehaviour
             }
             _buffs[i].turn++;
         }
-        UpdateStats();
         _bar.UpdateHPBar(HP, MaxHP, DEF);
         _bar.UpdateBuffSlots();
     }

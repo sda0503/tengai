@@ -74,6 +74,7 @@ public class BattleManager : MonoBehaviour
     }
     public void EndTrun()  // 엔드턴을 어디에서 호출해야 할 지 모르겠습니다. -> 버튼에서 호출
     {
+        _player.UpdateBuffs();
         _isPlayerTrun = false;
         StartCoroutine(_monsterDataManager.MonstersAttack());  // 플레이어의 턴이 끝나면 적이 공격
         trunBtn.text = "적 턴";
@@ -92,6 +93,7 @@ public class BattleManager : MonoBehaviour
 
         trunBtn.text = "턴 종료";
         _player.RegenCost();
+        _player.UpdateStats();
         InfoSystem.instance.ShowDate();
         _monsterDataManager.CheckMonster();
     }
