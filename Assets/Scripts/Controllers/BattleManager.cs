@@ -86,6 +86,7 @@ public class BattleManager : MonoBehaviour
             CardManager.instance.Clear();
             rewardCanvas.SetActive(true);
             _rewardController.Init(_mapData.EventNum);
+            _player.UpdateBuffs();
             isBattle = false;
             _isPlayerTrun = true;
             return;

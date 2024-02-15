@@ -188,7 +188,7 @@ public class GameMenuPopup : MonoBehaviour
 
     public void OnClickGameStartBtn()
     {
-        SceneManager.LoadScene("StartScene");
+        SceneManager.LoadScene("Map");
     }
 
     public void OnClickExit()
