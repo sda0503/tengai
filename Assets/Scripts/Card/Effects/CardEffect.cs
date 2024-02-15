@@ -4,7 +4,8 @@ public enum Target
 {
     Player,
     TargetEnemy,
-    AllEnemy
+    AllEnemy,
+    RandomEnemy
 }
 
 public interface ICardEffect

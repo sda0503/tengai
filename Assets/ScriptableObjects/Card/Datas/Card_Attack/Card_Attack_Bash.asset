@@ -20,6 +20,7 @@ MonoBehaviour:
   extinctionType: 0
   attackEffects:
   - attackValue: 8
+    target: 0
   drawEffects: []
   statEffects: []
   addCards: []
