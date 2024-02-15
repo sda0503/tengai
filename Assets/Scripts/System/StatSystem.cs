@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Data;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -11,13 +12,15 @@ public enum StatType
     ATK,
     DEF,
     MaxHP,
-    MaxCost
+    MaxCost,
+    Debuff
 }
 
 public class StatSystem : MonoBehaviour
 {
     [SerializeField] private CharacterBaseStat _stat;
-    [SerializeField] private Dictionary<string, Buff> _buffs;
+    private List<Buff> _buffs = new();
+    [SerializeField] private Dictionary<string, Buff> _activeBuffs = new Dictionary<string, Buff>();
     [SerializeField] private CharacterBaseStat _buffStat = new();
     private Animator _animator;
     private HPBar _bar;
@@ -34,11 +37,11 @@ public class StatSystem : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    public void TestDEF(int amount)
+    public void RegenHP()
     {
-        _buffStat.DEF += amount;
-        _bar.UpdateHPBar(HP, MaxHP, DEF);
+        _stat.HP = MaxHP;
     }
+
 
     public void Attack()
     {
@@ -47,12 +50,12 @@ public class StatSystem : MonoBehaviour
 
     public bool HasBuff(string name)
     {
-        return _buffs.TryGetValue(name, out _);
+        return _activeBuffs.TryGetValue(name, out _);
     }
 
     public void TakeDamage(int amount)
     {
-        int result = Math.Clamp(amount - DEF, 0, int.MaxValue);
+        int result = Math.Clamp(amount - _buffStat.DEF, 0, int.MaxValue);
         _buffStat.DEF -= amount;
 
         _stat.HP -= result;
@@ -76,18 +79,20 @@ public class StatSystem : MonoBehaviour
 
     public void TakeCost(int amount)
     {
-        _stat.Cost -= amount;
+        int result = Math.Clamp(amount - _buffStat.Cost, 0, int.MaxValue);
+        _buffStat.Cost -= amount;
+
+        _stat.Cost -= result;
     }
 
-    public void UpdateStats()
+    private void UpdateStats()
     {
         InitStat();
         foreach(var buff in _buffs)
         {
-            var value = buff.Value;
-            if(value.invokeTurn == 0)
+            if(buff.invokeTurn == 0)
             {
-                AddStat(value);
+                AddStat(buff);
             }
         }
         _bar.UpdateHPBar(HP, MaxHP, DEF);
@@ -95,7 +100,7 @@ public class StatSystem : MonoBehaviour
 
     public void UpdateBuffs()
     {
-        foreach (var buff in _buffs)
+        foreach (var buff in _activeBuffs)
         {
             var key = buff.Key;
             var value = buff.Value;
@@ -107,31 +112,57 @@ public class StatSystem : MonoBehaviour
             else if (value.maxTurn == value.turn)
             {
                 value.turn = 0;
-                _buffs.Remove(key);
+                _activeBuffs.Remove(key);
                 continue;
             }
             value.turn++;
         }
+
+        for(int i = 0; i < _buffs.Count; i++)
+        {
+            if (_buffs[i].invokeTurn > 0)
+            {
+                --_buffs[i].invokeTurn;
+                continue;
+            }
+            else if (_buffs[i].maxTurn == _buffs[i].turn)
+            {
+                _buffs[i].turn = 0;
+                _buffs.RemoveAt(i);
+                continue;
+            }
+            _buffs[i].turn++;
+        }
+        UpdateStats();
         _bar.UpdateHPBar(HP, MaxHP, DEF);
         _bar.UpdateBuffSlots();
     }
 
     public void AddBuff(Buff buff)
     {
-        if (_buffs.ContainsKey(buff.name))
+        if(buff.type == StatType.ATK || buff.type == StatType.Debuff)
         {
-            _buffs[buff.name].turn = 0;
-            return;
+            if (_activeBuffs.ContainsKey(buff.name))
+            {
+                _activeBuffs[buff.name].maxTurn += buff.maxTurn;
+                _bar.UpdateBuffSlots();
+                return;
+            }
+            _activeBuffs.Add(buff.name, buff);
+            _bar.CreateBuffSlot(buff);
         }
-        _buffs.Add(buff.name, buff);
-        _bar.CreateBuffSlot(buff);
+        else
+        {
+            _buffs.Add(buff);
+        }
+        UpdateStats();
     }
 
     public void RemoveBuff(Buff buff)
     {
-        if (_buffs.ContainsKey(buff.name))
+        if (_activeBuffs.ContainsKey(buff.name))
         {
-            _buffs.Remove(buff.name);
+            _activeBuffs.Remove(buff.name);
             return;
         }
         Debug.Log($"Error Buff Name : {buff.name}");

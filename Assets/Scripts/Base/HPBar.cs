@@ -49,7 +49,7 @@ public class HPBar : MonoBehaviour
     public void CreateBuffSlot(Buff buff)
     {
         _buffSlots.Add(Instantiate(_buffSlotPrefab, _buffPivot).GetComponent<BuffSlot>());
-        _buffSlots[^0].Init(buff);
+        _buffSlots[^1].Init(buff);
     }
 
     public void UpdateBuffSlots()

@@ -90,6 +90,8 @@ public class HandManager : MonoBehaviour
         _gr = _mainCanvas.GetComponent<GraphicRaycaster>();
         _ped = new PointerEventData(null);
         _rrList = new List<RaycastResult>(10);
+
+
     }
 
     // Update is called once per frame
@@ -304,7 +306,7 @@ public class HandManager : MonoBehaviour
 
     private void OnPointerDrag()
     {
-        if (isDrag && curSelectedCardDisplay != null)
+        if (isDrag && curSelectedCardDisplay != null && CanUse(curSelectedCard))
         {
             if(curSelectedCardDisplay.GetCard().CardData.useCondition == UseCondition.Target && Input.mousePosition.y > 300)
             {
@@ -402,7 +404,7 @@ public class HandManager : MonoBehaviour
             if (curSelectedCard != null)
             {
                 Debug.Log("End Click");
-                if (IsMeetUseCondition(curSelectedCard.CardData.useCondition))
+                if (IsMeetUseCondition(curSelectedCard.CardData.useCondition) && CanUse(curSelectedCard))
                 {
                     StartCoroutine(UseCard());
                     isMouseOver = false;
@@ -421,7 +423,10 @@ public class HandManager : MonoBehaviour
 
     public IEnumerator UseCard()
     {
+
         Debug.Log(curSelectedCard.CardData.cardName + " 사용");
+        playerStatSystem.TakeCost(curSelectedCard.CardData.cost);
+        InfoSystem.instance.ShowDate();
         hands.Remove(curSelectedCardDisplay);
 
         CardDisplay usedCardDisplay = curSelectedCardDisplay;
@@ -472,7 +477,19 @@ public class HandManager : MonoBehaviour
     {
         for (int i = 0; i < card.CardData.attackEffects.Count; i++)
         {
-            card.CardData.attackEffects[i].OnUse(targetStatSystem);
+            switch (card.CardData.attackEffects[i].target)
+            {
+                case Target.Player:
+                    card.CardData.attackEffects[i].OnUse(playerStatSystem);
+                    break;
+                case Target.TargetEnemy:
+                    card.CardData.attackEffects[i].OnUse(targetStatSystem);
+                    break;
+                case Target.AllEnemy:
+                case Target.RandomEnemy:
+                    card.CardData.attackEffects[i].OnUse();
+                    break;
+            }
         }
 
         for(int i = 0; i < card.CardData.drawEffects.Count; i++)
@@ -482,19 +499,24 @@ public class HandManager : MonoBehaviour
 
         for(int i = 0; i < card.CardData.statEffects.Count; i++)
         {
-            if(targetStatSystem != null)
+            switch (card.CardData.statEffects[i].target)
             {
-                card.CardData.statEffects[i].OnUse(targetStatSystem);
-            }
-            else
-            {
-                card.CardData.statEffects[i].OnUse(playerStatSystem);
+                case Target.Player:
+                    card.CardData.statEffects[i].OnUse(playerStatSystem);
+                    break;
+                case Target.TargetEnemy:
+                    card.CardData.statEffects[i].OnUse(targetStatSystem);
+                    break;
+                case Target.AllEnemy:
+                case Target.RandomEnemy:
+                    card.CardData.statEffects[i].OnUse();
+                    break;
             }
         }
 
         for(int i = 0; i < card.CardData.addCards.Count; i++)
         {
-            card.CardData.addCards[i].OnUse(targetStatSystem);
+            card.CardData.addCards[i].OnUse();
         }
     }
 
@@ -684,7 +706,6 @@ public class HandManager : MonoBehaviour
                 }
                 break;
             case UseCondition.NonTarget:
-            case UseCondition.Player:
                 if (Input.mousePosition.y > 500)
                 {
                     return true;
@@ -727,6 +748,11 @@ public class HandManager : MonoBehaviour
                 SortCard(i);
             }
         }
+    }
+
+    private bool CanUse(Card card)
+    {
+        return card.CardData.cost <= playerStatSystem.COST;
     }
 
     public void ConnectCardManager(CardManager manager)

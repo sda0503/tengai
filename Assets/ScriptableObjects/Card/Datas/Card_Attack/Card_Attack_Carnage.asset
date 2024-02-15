@@ -16,10 +16,11 @@ MonoBehaviour:
   cardSprite: {fileID: -238956276, guid: de2981234dc9f944cb16ba92c704b863, type: 3}
   cardName: "\uB300\uD559\uC0B4"
   description: "\uD53C\uD574\uB97C 20 \uC90D\uB2C8\uB2E4."
-  useCondition: 0
+  useCondition: 1
   extinctionType: 2
   attackEffects:
   - attackValue: 20
+    target: 1
   drawEffects: []
   statEffects: []
   addCards: []

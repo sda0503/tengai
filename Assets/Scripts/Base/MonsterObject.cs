@@ -11,14 +11,14 @@ public class MonsterObject : MonoBehaviour
         monsterBase.Attack();
     }
 
-    public void UpdateStat()
-    {
-        monsterBase.statSystem.UpdateStats();
-    }
-
     public void UpdateAttackIcon()
     {
         monsterBase.CheckATKText();
+    }
+
+    public StatSystem GetStat()
+    {
+        return monsterBase.statSystem;
     }
 
     public void TurnEnd()

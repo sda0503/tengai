@@ -59,6 +59,25 @@ public class MonsterDataManager : ScriptableObject
         return false;
     }
 
+    public List<StatSystem> GetStats()
+    {
+        CheckMonster();
+
+        List<StatSystem > stats = new List<StatSystem>();
+        foreach(var obj in activeMonster)
+        {
+            stats.Add(obj.GetStat());
+        }
+        return stats;
+    }
+
+    public StatSystem GetRandomMonster()
+    {
+        CheckMonster();
+        int r = UnityEngine.Random.Range(0, activeMonster.Count);
+        return activeMonster[r].GetStat();
+    }
+
     public void CreateDefalutMonster()
     {
         int r = UnityEngine.Random.Range(0, defaultDatas.Count);

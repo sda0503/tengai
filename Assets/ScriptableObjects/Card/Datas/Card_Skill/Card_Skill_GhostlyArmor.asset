@@ -9,29 +9,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4324d0bb860800c4a92d182dbf071a70, type: 3}
-  m_Name: Card_Attack_IronWave
+  m_Script: {fileID: 11500000, guid: dd819596958695b48ada7090dd1faf0b, type: 3}
+  m_Name: Card_Skill_GhostlyArmor
   m_EditorClassIdentifier: 
   cost: 1
-  cardSprite: {fileID: 1169100247, guid: 203c5694849f3b44ab612c805b7546df, type: 3}
-  cardName: "\uCCA0\uC758 \uD30C\uB3D9"
-  description: "\uBC29\uC5B4\uB3C4\uB97C 5 \uC5BB\uC2B5\uB2C8\uB2E4.\n\uD53C\uD574\uB97C
-    5 \uC90D\uB2C8\uB2E4."
-  useCondition: 1
-  extinctionType: 0
-  attackEffects:
-  - attackValue: 5
-    target: 1
+  cardSprite: {fileID: 0}
+  cardName: "\uC720\uB839 \uAC11\uC637"
+  description: "\uD718\uBC1C\uC131\n\uBC29\uC5B4\uB3C4\uB97C 10 \uC5BB\uC2B5\uB2C8\uB2E4."
+  useCondition: 2
+  extinctionType: 2
+  attackEffects: []
   drawEffects: []
   statEffects:
   - buff:
       name: 
       type: 3
-      amount: 5
+      amount: 10
       turn: 0
       maxTurn: 0
       invokeTurn: 0
       icon: {fileID: 0}
     target: 0
   addCards: []
-  attackValue: 0

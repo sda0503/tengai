@@ -10,22 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4324d0bb860800c4a92d182dbf071a70, type: 3}
-  m_Name: Card_Attack_Anger
+  m_Name: Card_Attack_Bludgeon
   m_EditorClassIdentifier: 
-  cost: 0
-  cardSprite: {fileID: -27060426, guid: de2981234dc9f944cb16ba92c704b863, type: 3}
-  cardName: "\uBD84\uB178"
-  description: "\uD53C\uD574\uB97C 6 \uC90D\uB2C8\uB2E4.\n\uC774 \uCE74\uB4DC\uB97C
-    1\uC7A5 \uBCF5\uC0AC\uD574 \uBC84\uB9B0 \uCE74\uB4DC \uB354\uBBF8\uC5D0 \uC11E\uC5B4
-    \uB123\uC2B5\uB2C8\uB2E4."
+  cost: 3
+  cardSprite: {fileID: 554547091, guid: de2981234dc9f944cb16ba92c704b863, type: 3}
+  cardName: "\uBABD\uB465\uC774\uC9C8"
+  description: "\uD53C\uD574\uB97C 32 \uC90D\uB2C8\uB2E4."
   useCondition: 1
   extinctionType: 0
   attackEffects:
-  - attackValue: 6
+  - attackValue: 32
     target: 1
   drawEffects: []
   statEffects: []
-  addCards:
-  - cardName: Card_Attack_Anger
-    cardCreatePlace: 1
+  addCards: []
   attackValue: 0

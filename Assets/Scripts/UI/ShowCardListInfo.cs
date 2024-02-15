@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ShowCardListInfo : MonoBehaviour
 {
@@ -28,6 +29,7 @@ public class ShowCardListInfo : MonoBehaviour
     {
         this.gameObject.SetActive(true);
         this.transform.SetAsLastSibling();
+        this.GetComponentInChildren<ScrollRect>().verticalNormalizedPosition = 1;
         _handManager.enabled = false;
 
         if(_cardManager.deck.Count + _cardManager.garbages.Count > container.transform.childCount)

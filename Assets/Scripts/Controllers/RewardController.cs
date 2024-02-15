@@ -24,7 +24,7 @@ public class RewardController : MonoBehaviour
         
     }
 
-    void MakeReward()
+    public void MakeReward()
     {
         for (int i = 0; i < 2; i++)
         {

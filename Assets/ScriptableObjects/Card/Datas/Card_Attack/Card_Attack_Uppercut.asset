@@ -21,6 +21,7 @@ MonoBehaviour:
   extinctionType: 0
   attackEffects:
   - attackValue: 13
+    target: 1
   drawEffects: []
   statEffects: []
   addCards: []

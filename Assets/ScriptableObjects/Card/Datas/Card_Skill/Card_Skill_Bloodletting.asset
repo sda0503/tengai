@@ -9,29 +9,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4324d0bb860800c4a92d182dbf071a70, type: 3}
-  m_Name: Card_Attack_Clothesline
+  m_Script: {fileID: 11500000, guid: dd819596958695b48ada7090dd1faf0b, type: 3}
+  m_Name: Card_Skill_Bloodletting
   m_EditorClassIdentifier: 
-  cost: 2
-  cardSprite: {fileID: 1660868715, guid: de2981234dc9f944cb16ba92c704b863, type: 3}
-  cardName: "\uD074\uB85C\uC2A4\uB77C\uC778"
-  description: "\uD53C\uD574\uB97C 12 \uC90D\uB2C8\uB2E4.\n\uC57D\uD654 \uB97C 2
-    \uBD80\uC5EC\uD569\uB2C8\uB2E4."
-  useCondition: 1
+  cost: 0
+  cardSprite: {fileID: 0}
+  cardName: "\uC0AC\uD608"
+  description: "\uCCB4\uB825\uC744 3 \uC783\uC2B5\uB2C8\uB2E4.\n\uCF54\uC2A4\uD2B8
+    2\uB97C \uC5BB\uC2B5\uB2C8\uB2E4."
+  useCondition: 2
   extinctionType: 0
   attackEffects:
-  - attackValue: 12
-    target: 1
+  - attackValue: 3
+    target: 0
   drawEffects: []
   statEffects:
   - buff:
       name: 
-      type: 0
-      amount: 0
+      type: 1
+      amount: 2
       turn: 0
       maxTurn: 0
       invokeTurn: 0
       icon: {fileID: 0}
     target: 0
   addCards: []
-  attackValue: 0

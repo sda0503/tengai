@@ -19,8 +19,18 @@ MonoBehaviour:
   useCondition: 1
   extinctionType: 0
   attackEffects:
-  - attackValue: 8
+  - attackValue: 1
+    target: 1
   drawEffects: []
-  statEffects: []
+  statEffects:
+  - buff:
+      name: "\uCDE8\uC57D"
+      type: 6
+      amount: 0
+      turn: 0
+      maxTurn: 2
+      invokeTurn: 0
+      icon: {fileID: 165204792, guid: a34ba3130a639244cba14498d415869e, type: 3}
+    target: 1
   addCards: []
   attackValue: 0
