@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4324d0bb860800c4a92d182dbf071a70, type: 3}
+  m_Name: Card_Attack_Immolate
+  m_EditorClassIdentifier: 
+  cost: 2
+  cardSprite: {fileID: -1133288632, guid: 203c5694849f3b44ab612c805b7546df, type: 3}
+  cardName: "\uD654\uD615"
+  description: "\uC801 \uC804\uCCB4\uC5D0\uAC8C \uD53C\uD574\uB97C 21 \uC90D\uB2C8\uB2E4.\n\uBC84\uB9B0
+    \uCE74\uB4DC \uB354\uBBF8\uC5D0 \uBD80\uC0C1 \uCE74\uB4DC\uB97C \uC11E\uC5B4
+    \uB123\uC2B5\uB2C8\uB2E4."
+  useCondition: 2
+  extinctionType: 0
+  attackEffects:
+  - attackValue: 21
+    target: 2
+    clip: {fileID: 8300000, guid: 8383d51d7ef49d74c92302e291c523d9, type: 3}
+  drawEffects: []
+  statEffects: []
+  addCards:
+  - cardName: Card_Status_Wound
+    cardCreatePlace: 1

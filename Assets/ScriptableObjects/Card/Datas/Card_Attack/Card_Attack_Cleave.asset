@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4324d0bb860800c4a92d182dbf071a70, type: 3}
+  m_Name: Card_Attack_Cleave
+  m_EditorClassIdentifier: 
+  cost: 1
+  cardSprite: {fileID: -1526948113, guid: de2981234dc9f944cb16ba92c704b863, type: 3}
+  cardName: "\uC808\uB2E8"
+  description: "\uC801 \uC804\uCCB4\uC5D0\uAC8C \uD53C\uD574\uB97C 8 \uC90D\uB2C8\uB2E4."
+  useCondition: 2
+  extinctionType: 0
+  attackEffects:
+  - attackValue: 8
+    target: 2
+    clip: {fileID: 8300000, guid: 786650af9e5f20a4182557bb70c0dcd5, type: 3}
+  drawEffects: []
+  statEffects: []
+  addCards: []

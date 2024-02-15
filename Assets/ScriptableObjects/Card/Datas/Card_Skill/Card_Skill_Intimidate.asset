@@ -25,8 +25,8 @@ MonoBehaviour:
       name: "\uC57D\uD654"
       type: 6
       amount: 0
-      turn: 1
-      maxTurn: 0
+      turn: 0
+      maxTurn: 1
       invokeTurn: 0
       icon: {fileID: -1996464704, guid: a34ba3130a639244cba14498d415869e, type: 3}
     target: 2
