@@ -230,7 +230,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -383.89682, y: -3113.8596}
+  m_AnchoredPosition: {x: 377.11652, y: -3083.8755}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &380093083167104371
@@ -261,7 +261,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0b5e2406942fc7748b173b9027ae3b22, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 6de9401d21bd58241b43aa08c0efdb84, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -286,6 +286,9 @@ MonoBehaviour:
   mapIcon: {fileID: 0}
   Complete: {fileID: 21300000, guid: f34f3c6ec6524c740807e9c191ea4309, type: 3}
   mapData: 0
+  floor: 0
+  index: 0
+  EventNum: 0
 --- !u!114 &8374441953654545498
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -439,6 +442,9 @@ MonoBehaviour:
   mapIcon: {fileID: 0}
   Complete: {fileID: 21300000, guid: f34f3c6ec6524c740807e9c191ea4309, type: 3}
   mapData: 0
+  floor: 0
+  index: 0
+  EventNum: 0
 --- !u!114 &818052445384640850
 MonoBehaviour:
   m_ObjectHideFlags: 0
