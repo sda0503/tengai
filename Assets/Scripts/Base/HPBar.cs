@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,10 @@ public class HPBar : MonoBehaviour
     [SerializeField] private TextMeshProUGUI hpText;
     private TextMeshProUGUI defText;
     private Slider _slider;
+
+    [SerializeField] private GameObject _buffSlotPrefab;
+    [SerializeField] private Transform _buffPivot;
+    private List<BuffSlot> _buffSlots = new();
 
     private void Awake()
     {
@@ -38,6 +43,20 @@ public class HPBar : MonoBehaviour
                 iconObj.SetActive(true);
                 backGroundObj.SetActive(true);
             }
+        }
+    }
+
+    public void CreateBuffSlot(Buff buff)
+    {
+        _buffSlots.Add(Instantiate(_buffSlotPrefab, _buffPivot).GetComponent<BuffSlot>());
+        _buffSlots[^0].Init(buff);
+    }
+
+    public void UpdateBuffSlots()
+    {
+        foreach(var slot in _buffSlots)
+        {
+            slot.UpdateSlot();
         }
     }
 }

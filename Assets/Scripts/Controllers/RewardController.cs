@@ -43,7 +43,7 @@ public class RewardController : MonoBehaviour
             //else if (i == 2) rewarObj.GetComponent<Reward>().rewardType = RewardType.SCard;
 
             if(i==0) reList.GetComponent<Button>().onClick.AddListener(() => mapManager.AddGold());
-            else if (i == 1) reList.GetComponent<Button>().onClick.AddListener(() => mapManager.AddGold());
+            else if (i == 1) reList.GetComponent<Button>().onClick.AddListener(() => mapManager.AddCard());
         }
     }
 }

@@ -14,9 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cost: 1
   cardSprite: {fileID: 1749338142, guid: bc71ee05dbdaf47449b30fa684e65497, type: 3}
-  name: "\uC218\uBE44"
+  cardName: "\uC218\uBE44"
   description: "\uBC29\uC5B4\uB3C4\uB97C 5 \uC5BB\uC2B5\uB2C8\uB2E4."
-  condition: 1
+  useCondition: 2
+  extinctionType: 0
   attackEffects: []
   drawEffects: []
   statEffects:
@@ -26,3 +27,4 @@ MonoBehaviour:
       turn: 0
       maxTurn: 0
       invokeTurn: 0
+  addCards: []

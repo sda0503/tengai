@@ -11,8 +11,9 @@ public class CardManager : MonoBehaviour
 
     public List<Card> deck;
     public List<Card> garbages;
+    public List<Card> extinguishedCards;
 
-    public HandManager _handManager;
+    public HandManager handManager;
 
     [SerializeField] private Card_Base[] cardDatas;
 
@@ -22,6 +23,7 @@ public class CardManager : MonoBehaviour
 
     [SerializeField] private Text deckNumText;
     [SerializeField] private Text garbageNumText;
+    [SerializeField] private Text extinguishedCardsNumText;
 
     private GraphicRaycaster _gr;
     private PointerEventData _ped;
@@ -34,25 +36,21 @@ public class CardManager : MonoBehaviour
     {
         deck = new List<Card>();
         garbages = new List<Card>();
+        extinguishedCards = new List<Card>();
         instance = this;
-    }
 
-    private void Start()
-    {
         for (int i = 0; i < cardDatas.Length; i++)
         {
-            for(int j = 0; j < 2; j++)
+            for (int j = 0; j < 2; j++)
             {
                 AddCard(cardDatas[i].CreateCard());
             }
         }
-
-        _handManager.ConnectCardManager(this);
     }
 
-    private void Update()
+    private void Start()
     {
-        
+        handManager.ConnectCardManager(this);
     }
 
     public void AddCard(Card card)
@@ -76,11 +74,11 @@ public class CardManager : MonoBehaviour
                 SetAllNumText();
             }
 
-            if(deck.Count >= 1 && _handManager.hands.Count < 10)
+            if(deck.Count >= 1 && handManager.hands.Count < 10)
             {
                 Card card = deck[Random.Range(0, deck.Count)];
 
-                yield return StartCoroutine(_handManager.DrawCard(card));
+                yield return StartCoroutine(handManager.DrawCard(card));
                 deck.Remove(card);
 
                 SetDeckNumText();
@@ -92,12 +90,17 @@ public class CardManager : MonoBehaviour
     {
         garbages.Add(card);
         SetGarbageNumText();
-        Destroy(curSelectedCardUI);
+    }
+
+    public void ExtingushCard(Card card)
+    {
+        extinguishedCards.Add(card);
+        SetExtingushiedCardsNumText();
     }
 
     private bool IsMeetUseCondition(Card card)
     {
-        switch (card.CardData.condition)
+        switch (card.CardData.useCondition)
         {
             case UseCondition.Target:
                 RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
@@ -129,10 +132,16 @@ public class CardManager : MonoBehaviour
         garbageNumText.text = garbages.Count.ToString();
     }
 
+    private void SetExtingushiedCardsNumText()
+    {
+        extinguishedCardsNumText.text = extinguishedCards.Count.ToString();
+    }
+
     private void SetAllNumText()
     {
         SetDeckNumText();
         SetGarbageNumText();
+        SetExtingushiedCardsNumText();
     }
 
     private void ReloadAllCard()

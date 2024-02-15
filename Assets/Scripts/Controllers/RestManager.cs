@@ -104,7 +104,7 @@ public class RestManager : MonoBehaviour
         gameObject.transform.GetChild(6).gameObject.SetActive(true);
         Invoke("ObjActive",2f);
 
-        InfoSystem.instance.currentHp = InfoSystem.instance.currentHp + (InfoSystem.instance.maxHp / 3) <= InfoSystem.instance.maxHp ? InfoSystem.instance.currentHp + (InfoSystem.instance.maxHp / 3) : InfoSystem.instance.maxHp;
+        //InfoSystem.instance.currentHp = InfoSystem.instance.currentHp + (InfoSystem.instance.maxHp / 3) <= InfoSystem.instance.maxHp ? InfoSystem.instance.currentHp + (InfoSystem.instance.maxHp / 3) : InfoSystem.instance.maxHp;
         InfoSystem.instance.ShowDate();
     }
 

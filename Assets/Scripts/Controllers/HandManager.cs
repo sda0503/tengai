@@ -12,6 +12,7 @@ public class HandManager : MonoBehaviour
     [Header("Card Movement Value")]
     [SerializeField] private float drawTime;
     public float dropTime;
+    public float extinguishTime;
     public Vector3 drawStartSize;
     public Vector3 drawEndSize;
     public Transform usedCardPlace;
@@ -36,6 +37,7 @@ public class HandManager : MonoBehaviour
     public float distanceBetweenCard2;
 
     public GameObject cardPrefab;
+    public GameObject statusCardPrefab;
 
     private CardManager _cardManager;
 
@@ -113,7 +115,15 @@ public class HandManager : MonoBehaviour
 
     public IEnumerator DrawCard(Card card)
     {
-        GameObject go = Instantiate(cardPrefab, this.transform);
+        GameObject go;
+        if(card is StatusCard)
+        {
+            go = Instantiate(statusCardPrefab, this.transform);
+        }
+        else
+        {
+            go = Instantiate(cardPrefab, this.transform);
+        }
 
         CardDisplay cardDisplay = go.GetComponent<CardDisplay>();
 
@@ -287,7 +297,7 @@ public class HandManager : MonoBehaviour
 
             if (curSelectedCard != null)
             {
-                Debug.Log(curSelectedCard.CardData.name);
+                Debug.Log(curSelectedCard.CardData.cardName);
             }
         }
     }
@@ -296,7 +306,7 @@ public class HandManager : MonoBehaviour
     {
         if (isDrag && curSelectedCardDisplay != null)
         {
-            if(curSelectedCardDisplay.GetCard().CardData.condition == UseCondition.Target && Input.mousePosition.y > 300)
+            if(curSelectedCardDisplay.GetCard().CardData.useCondition == UseCondition.Target && Input.mousePosition.y > 300)
             {
                 if(!lineGO.activeSelf)
                     lineGO.SetActive(true);
@@ -392,7 +402,7 @@ public class HandManager : MonoBehaviour
             if (curSelectedCard != null)
             {
                 Debug.Log("End Click");
-                if (IsMeetUseCondition(curSelectedCard.CardData.condition))
+                if (IsMeetUseCondition(curSelectedCard.CardData.useCondition))
                 {
                     StartCoroutine(UseCard());
                     isMouseOver = false;
@@ -411,7 +421,7 @@ public class HandManager : MonoBehaviour
 
     public IEnumerator UseCard()
     {
-        Debug.Log(curSelectedCard.CardData.name + " 사용");
+        Debug.Log(curSelectedCard.CardData.cardName + " 사용");
         hands.Remove(curSelectedCardDisplay);
 
         CardDisplay usedCardDisplay = curSelectedCardDisplay;
@@ -428,21 +438,31 @@ public class HandManager : MonoBehaviour
 
         UseCardEffect(usedCard);
 
-        float angle = Quaternion.FromToRotation(Vector3.up, GarbagePos.localPosition - usedCardDisplay.transform.localPosition).eulerAngles.z;
+        if(usedCard.CardData.extinctionType == ExtinctionType.Extinction)
+        {
+            yield return StartCoroutine(ExtinguishCardC(usedCardDisplay.transform));
 
-        Debug.Log(angle);
+            _cardManager.ExtingushCard(usedCard);
+        }
+        else
+        {
+            float angle = Quaternion.FromToRotation(Vector3.up, GarbagePos.localPosition - usedCardDisplay.transform.localPosition).eulerAngles.z;
 
-        StartCoroutine(RotationObjLeftC(usedCardDisplay.transform, angle, dropTime / 2));
-        StartCoroutine(ChangeSizeCardC(usedCardDisplay.transform, usedCardDisplay.transform.localScale, new Vector3(0.2f, 0.2f, 1f), dropTime / 2));
-        yield return StartCoroutine(MoveObjFollowCurve4C(usedCardDisplay.transform, usedCardPlace.localPosition,
-            GarbageMid1Pos.localPosition, GarbageMid2Pos.localPosition, GarbagePos.localPosition, dropTime));
+            Debug.Log(angle);
 
-        Destroy(usedCardDisplay.gameObject);
+            StartCoroutine(RotationObjLeftC(usedCardDisplay.transform, angle, dropTime / 2));
+            StartCoroutine(ChangeSizeCardC(usedCardDisplay.transform, usedCardDisplay.transform.localScale, new Vector3(0.2f, 0.2f, 1f), dropTime / 2));
+            yield return StartCoroutine(MoveObjFollowCurve4C(usedCardDisplay.transform, usedCardPlace.localPosition,
+                GarbageMid1Pos.localPosition, GarbageMid2Pos.localPosition, GarbagePos.localPosition, dropTime));
+
+            _cardManager.DropCard(usedCard);
+
+            Destroy(usedCardDisplay.gameObject);
+        }
 
         SortAllCard();
         SetAllCardIndex();
 
-        _cardManager.DropCard(usedCard);
         isUsing = false;
         isMouseOver = false;
         targetStatSystem = null;
@@ -471,6 +491,80 @@ public class HandManager : MonoBehaviour
                 card.CardData.statEffects[i].OnUse(playerStatSystem);
             }
         }
+
+        for(int i = 0; i < card.CardData.addCards.Count; i++)
+        {
+            card.CardData.addCards[i].OnUse(targetStatSystem);
+        }
+    }
+
+    IEnumerator ExtinguishCardC(Transform obj)
+    {
+        Image[] images = obj.GetComponentsInChildren<Image>();
+        foreach (Image image in images)
+        {
+            image.DOFade(0f, extinguishTime);
+        }
+        yield return StartCoroutine(MoveObjC(obj, obj.localPosition, obj.localPosition + new Vector3(0f, 100f, 0f), extinguishTime));
+
+        Destroy(obj.gameObject);
+    }
+
+    public void CreateCard(Card card, CardCreatePlace cardCreatePlace)
+    {
+        StartCoroutine(CreateCardC(card, cardCreatePlace));
+    }
+
+    IEnumerator CreateCardC(Card card, CardCreatePlace cardCreatePlace)
+    {
+        GameObject go;
+        if (card is StatusCard)
+        {
+            go = Instantiate(statusCardPrefab, this.transform);
+        }
+        else
+        {
+            go = Instantiate(cardPrefab, this.transform);
+        }
+
+        CardDisplay cardDisplay = go.GetComponent<CardDisplay>();
+
+        cardDisplay.SetCard(card);
+        go.transform.localPosition = usedCardPlace.localPosition;
+        go.transform.localScale  = new Vector3(1f + addScaleValueWhenHighlight, 1f + addScaleValueWhenHighlight, 0);
+
+        yield return new WaitForSeconds(0.3f);
+
+        if(cardCreatePlace == CardCreatePlace.Garbage)
+        {
+            float angle = Quaternion.FromToRotation(Vector3.up, GarbagePos.localPosition - go.transform.localPosition).eulerAngles.z;
+
+            Debug.Log(angle);
+
+            StartCoroutine(RotationObjLeftC(go.transform, angle, dropTime / 2));
+            StartCoroutine(ChangeSizeCardC(go.transform, go.transform.localScale, new Vector3(0.2f, 0.2f, 1f), dropTime / 2));
+            yield return StartCoroutine(MoveObjFollowCurve4C(go.transform, usedCardPlace.localPosition,
+                GarbageMid1Pos.localPosition, GarbageMid2Pos.localPosition, GarbagePos.localPosition, dropTime));
+
+            _cardManager.DropCard(card);
+
+            Destroy(go.gameObject);
+        }
+        else
+        {
+            float angle = Quaternion.FromToRotation(Vector3.up, DeckPos.localPosition - go.transform.localPosition).eulerAngles.z;
+
+            Debug.Log(angle);
+
+            StartCoroutine(RotationObjLeftC(go.transform, angle, dropTime / 2));
+            StartCoroutine(ChangeSizeCardC(go.transform, go.transform.localScale, new Vector3(0.2f, 0.2f, 1f), dropTime / 2));
+            yield return StartCoroutine(MoveObjFollowCurve4C(go.transform, usedCardPlace.localPosition,
+                DeckMid1Pos.localPosition, DeckMid2Pos.localPosition, DeckPos.localPosition, dropTime));
+
+            _cardManager.AddCard(card);
+
+            Destroy(go.gameObject);
+        }
     }
 
     public void EndTurn()
@@ -482,12 +576,21 @@ public class HandManager : MonoBehaviour
     {
         for(int i = hands.Count - 1; i >= 0; i--)
         {
-            float angle = Quaternion.FromToRotation(Vector3.up, GarbagePos.localPosition - hands[i].transform.localPosition).eulerAngles.z - 180;
-            StartCoroutine(RotationObjLeftC(hands[i].transform, angle, dropTime / 2));
-            StartCoroutine(ChangeSizeCardC(hands[i].transform, hands[i].transform.localScale, new Vector3(0.2f, 0.2f, 1f), dropTime / 2));
-            StartCoroutine(DropCardC(hands[i].transform));
+            if (hands[i].GetCard().CardData.extinctionType == ExtinctionType.Volatilization)
+            {
+                StartCoroutine(ExtinguishCardC(hands[i].transform));
 
-            _cardManager.DropCard(hands[i].GetCard());
+                _cardManager.ExtingushCard(hands[i].GetCard());
+            }
+            else
+            {
+                float angle = Quaternion.FromToRotation(Vector3.up, GarbagePos.localPosition - hands[i].transform.localPosition).eulerAngles.z - 180;
+                StartCoroutine(RotationObjLeftC(hands[i].transform, angle, dropTime / 2));
+                StartCoroutine(ChangeSizeCardC(hands[i].transform, hands[i].transform.localScale, new Vector3(0.2f, 0.2f, 1f), dropTime / 2));
+                StartCoroutine(DropCardC(hands[i].transform));
+
+                _cardManager.DropCard(hands[i].GetCard());
+            }
 
             hands.Remove(hands[i]);
 
@@ -497,8 +600,6 @@ public class HandManager : MonoBehaviour
 
     IEnumerator DropCardC(Transform obj)
     {
-        //yield retrun StartCoroutine(MoveObjFollowCurve3C(obj, obj.localPosition, obj.transform.localPosition + new Vector3(50f, 50f, 0f), GarbagePos.localPosition, dropTime));
-
         yield return StartCoroutine(MoveObjFollowCurve3C(obj, obj.localPosition, obj.transform.localPosition + new Vector3(50f, 50f, 0f), GarbagePos.localPosition, dropTime));
 
         Destroy(obj.gameObject);
@@ -506,17 +607,8 @@ public class HandManager : MonoBehaviour
 
     IEnumerator MoveObjC(Transform obj, Vector3 startPos, Vector3 endPos, float time)
     {
-        float startTime = 0;
         Vector3 velocity = Vector3.zero;
         obj.localPosition = startPos;
-
-        //while (startTime < time)
-        //{
-        //    obj.localPosition = Vector3.Lerp(startPos, endPos, startTime / time);
-        //    //obj.localPosition = Vector3.SmoothDamp(obj.localPosition, endPos, ref velocity, time);
-        //    startTime += Time.deltaTime;
-        //    yield return null;
-        //}
 
         obj.DOLocalMove(endPos, time).SetEase(Ease.OutQuad);
         yield return new WaitForSeconds(time);

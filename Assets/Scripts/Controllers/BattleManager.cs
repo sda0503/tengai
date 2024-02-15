@@ -1,12 +1,15 @@
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class BattleManager : MonoBehaviour
 {
     bool _isPlayerTrun = true;
-    public Text trunBtn;
-    
     bool _isEndBattle = false;   //게임 종료 
+    public Text trunBtn;
+    public Player _player;
+    public HandManager _handManager;
+    public MonsterDataManager _monsterDataManager;
 
     void Start()
     {
@@ -23,8 +26,6 @@ public class BattleManager : MonoBehaviour
     {
         _isPlayerTrun = true;
         trunBtn.text = "턴 종료";
-        InfoSystem.instance.playerPoint = 3;
-        InfoSystem.instance.playerHand = 5;
         InfoSystem.instance.ShowDate();
     }
 }

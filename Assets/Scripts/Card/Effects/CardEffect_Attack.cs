@@ -4,6 +4,8 @@ using System.Collections.Generic;
 public class CardEffect_Attack : ICardEffect
 {
     public int attackValue;
+    public Target target;
+
     public void OnUse(StatSystem statSystem = null)
     {
         statSystem?.TakeDamage(attackValue);

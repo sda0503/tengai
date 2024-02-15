@@ -17,8 +17,8 @@ public enum StatType
 public class StatSystem : MonoBehaviour
 {
     [SerializeField] private CharacterBaseStat _stat;
-    [SerializeField] private List<Buff> _buffs;
-    private CharacterBaseStat _buffStat = new();
+    [SerializeField] private Dictionary<string, Buff> _buffs;
+    [SerializeField] private CharacterBaseStat _buffStat = new();
     private Animator _animator;
     private HPBar _bar;
 
@@ -45,6 +45,11 @@ public class StatSystem : MonoBehaviour
         _animator.SetTrigger("Attack");
     }
 
+    public bool HasBuff(string name)
+    {
+        return _buffs.TryGetValue(name, out _);
+    }
+
     public void TakeDamage(int amount)
     {
         int result = Math.Clamp(amount - DEF, 0, int.MaxValue);
@@ -53,7 +58,13 @@ public class StatSystem : MonoBehaviour
         _stat.HP -= result;
         if (_stat.HP == 0)
         {
-            _animator.SetTrigger("Die");
+            if (TryGetComponent<MonsterBase>(out _))
+            {
+                Destroy(gameObject);
+            }
+            else
+                Debug.Log("PlayerDie");
+            //_animator.SetTrigger("Die");
         }
         else
         {
@@ -71,11 +82,12 @@ public class StatSystem : MonoBehaviour
     public void UpdateStats()
     {
         InitStat();
-        for (int i = 0; i < _buffs.Count; i++)
+        foreach(var buff in _buffs)
         {
-            if (_buffs[i].invokeTurn == 0)
+            var value = buff.Value;
+            if(value.invokeTurn == 0)
             {
-                AddStat(_buffs[i]);
+                AddStat(value);
             }
         }
         _bar.UpdateHPBar(HP, MaxHP, DEF);
@@ -83,40 +95,46 @@ public class StatSystem : MonoBehaviour
 
     public void UpdateBuffs()
     {
-        for (int i = 0; i < _buffs.Count; i++)
+        foreach (var buff in _buffs)
         {
-            if (_buffs[i].invokeTurn > 0)
+            var key = buff.Key;
+            var value = buff.Value;
+            if (value.invokeTurn > 0)
             {
-                --_buffs[i].invokeTurn;
+                --value.invokeTurn;
                 continue;
             }
-            else if (_buffs[i].maxTurn == _buffs[i].turn)
+            else if (value.maxTurn == value.turn)
             {
-                _buffs[i].turn = 0;
-                _buffs.RemoveAt(i--);
+                value.turn = 0;
+                _buffs.Remove(key);
                 continue;
             }
-            _buffs[i].turn++;
+            value.turn++;
         }
         _bar.UpdateHPBar(HP, MaxHP, DEF);
+        _bar.UpdateBuffSlots();
     }
 
     public void AddBuff(Buff buff)
     {
-        if (_buffs.Contains(buff))
+        if (_buffs.ContainsKey(buff.name))
         {
-            _buffs[_buffs.IndexOf(buff)].turn = 0;
+            _buffs[buff.name].turn = 0;
             return;
         }
-        _buffs.Add(buff);
+        _buffs.Add(buff.name, buff);
+        _bar.CreateBuffSlot(buff);
     }
 
     public void RemoveBuff(Buff buff)
     {
-        if (_buffs.Contains(buff))
+        if (_buffs.ContainsKey(buff.name))
         {
-            _buffs.RemoveAt(_buffs.IndexOf(buff));
+            _buffs.Remove(buff.name);
+            return;
         }
+        Debug.Log($"Error Buff Name : {buff.name}");
     }
 
     public void SettingStat(CharacterBaseStat stat)
@@ -178,26 +196,32 @@ public class StatSystem : MonoBehaviour
 [System.Serializable]
 public class Buff
 {
+    public string name;
     public StatType type;
     public int amount;
     public int turn = 0;
     public int maxTurn;
     public int invokeTurn;
+    public Sprite icon;
 
-    public Buff(StatType type, int amount, int maxTurn = 1, int invokeTurn = 0)
+    public Buff(string name, StatType type, int amount, Sprite icon, int maxTurn = 1, int invokeTurn = 0)
     {
+        this.name = name;
         this.type = type;
         this.amount = amount;
         this.maxTurn = maxTurn;
         this.invokeTurn = invokeTurn;
+        this.icon = icon;
     }
 
     public Buff(Buff buff)
     {
+        this.name = buff.name;
         this.type = buff.type;
         this.amount = buff.amount;
         this.turn = buff.turn;
         this.maxTurn = buff.maxTurn;
         this.invokeTurn = buff.invokeTurn;
+        this.icon = buff.icon;
     }
 }
