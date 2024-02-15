@@ -33,7 +33,7 @@ public class MapManager : MonoBehaviour
         _ped = new PointerEventData(null);
         _rrList = new List<RaycastResult>();
 
-        _battleManager = GameObject.Find("BM").GetComponent<BattleManager>();
+        _battleManager = GameObject.Find("BattleManager").GetComponent<BattleManager>();
     }
     void Update()
     {
