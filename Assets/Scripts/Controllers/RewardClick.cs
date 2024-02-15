@@ -117,6 +117,7 @@ public class RewardClick : MonoBehaviour
 
     public void AddRelics()
     {
-
+        obj = GetClickedUIObject();
+        obj.SetActive(false);
     }
 }
