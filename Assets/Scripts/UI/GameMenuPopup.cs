@@ -19,6 +19,7 @@ public class GameMenuPopup : MonoBehaviour
     [SerializeField] private GameObject gameStartPopup;
     [SerializeField] private GameObject characterSelectPopup;
     [SerializeField] private GameObject gameStartBtn;
+    [SerializeField] private GameObject gameSettingPopup;
 
     [Header("CharacterPortrait")]
     [SerializeField] private Image characterSelectBG;
@@ -76,6 +77,13 @@ public class GameMenuPopup : MonoBehaviour
         characterSelectPopup.SetActive(true);
     }
 
+    public void OnClickSetting()
+    {
+        gameSettingPopup.SetActive(true);
+
+        gameMenuPopup.SetActive(false);
+    }
+
     public void OnClickCancel_a()
     {
         gameMenuPopup.SetActive(true);
@@ -92,6 +100,13 @@ public class GameMenuPopup : MonoBehaviour
 
         gameStartBtn.SetActive(false);
         RefreshBG();
+    }
+
+    public void OnClickCancel_c()
+    {
+        gameMenuPopup.SetActive(true);
+
+        gameSettingPopup.SetActive(false);
     }
 
 
@@ -174,6 +189,11 @@ public class GameMenuPopup : MonoBehaviour
     public void OnClickGameStartBtn()
     {
         SceneManager.LoadScene("StartScene");
+    }
+
+    public void OnClickExit()
+    {
+        UnityEditor.EditorApplication.isPlaying = false;
     }
 
     public void RefreshBG()
