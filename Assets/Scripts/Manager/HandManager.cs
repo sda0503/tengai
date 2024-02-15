@@ -72,6 +72,9 @@ public class HandManager : MonoBehaviour
     [SerializeField] private Color onTargetLineColor;
     [SerializeField] private Color defaultLineColor;
 
+    [Header("Clip")]
+    public AudioClip drawCardClip;
+
     private StatSystem _playerStatSystem;
 
     private void Awake()
@@ -129,6 +132,8 @@ public class HandManager : MonoBehaviour
 
         cardDisplay.SetCard(card);
         cardDisplay.transform.localPosition = DeckPos.transform.localPosition;
+
+        SoundManager.PlayClip(drawCardClip);
 
         hands.Add(cardDisplay);
 
@@ -295,6 +300,7 @@ public class HandManager : MonoBehaviour
 
             if (_curSelectedCard != null)
             {
+                SoundManager.PlayClip(drawCardClip);
                 Debug.Log(_curSelectedCard.CardData.cardName);
             }
         }
@@ -304,7 +310,7 @@ public class HandManager : MonoBehaviour
     {
         if (_isDrag && _curSelectedCardDisplay != null && CanUse(_curSelectedCard))
         {
-            if(_curSelectedCardDisplay.GetCard().CardData.useCondition == UseCondition.Target && Input.mousePosition.y > 300)
+            if (_curSelectedCardDisplay.GetCard().CardData.useCondition == UseCondition.Target && Input.mousePosition.y > 300)
             {
                 if (!_lineGO.activeSelf)
                 {

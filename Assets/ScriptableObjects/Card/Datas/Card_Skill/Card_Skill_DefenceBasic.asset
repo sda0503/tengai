@@ -22,9 +22,13 @@ MonoBehaviour:
   drawEffects: []
   statEffects:
   - buff:
+      name: 
       type: 3
       amount: 5
       turn: 0
       maxTurn: 0
       invokeTurn: 0
+      icon: {fileID: 0}
+    target: 0
+    clip: {fileID: 8300000, guid: 8fa6391f1c8d270469331ed5d574b402, type: 3}
   addCards: []

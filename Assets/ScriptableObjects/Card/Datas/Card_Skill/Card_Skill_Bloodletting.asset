@@ -22,6 +22,7 @@ MonoBehaviour:
   attackEffects:
   - attackValue: 3
     target: 0
+    clip: {fileID: 8300000, guid: b807b0240cd217748854e2645d05683e, type: 3}
   drawEffects: []
   statEffects:
   - buff:
@@ -33,4 +34,5 @@ MonoBehaviour:
       invokeTurn: 0
       icon: {fileID: 0}
     target: 0
+    clip: {fileID: 0}
   addCards: []

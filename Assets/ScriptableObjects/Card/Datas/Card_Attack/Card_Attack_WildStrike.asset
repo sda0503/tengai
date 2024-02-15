@@ -22,6 +22,7 @@ MonoBehaviour:
   attackEffects:
   - attackValue: 12
     target: 1
+    clip: {fileID: 8300000, guid: 786650af9e5f20a4182557bb70c0dcd5, type: 3}
   drawEffects: []
   statEffects: []
   addCards:

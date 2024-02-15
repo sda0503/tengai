@@ -30,4 +30,5 @@ MonoBehaviour:
       invokeTurn: 0
       icon: {fileID: -1996464704, guid: a34ba3130a639244cba14498d415869e, type: 3}
     target: 2
+    clip: {fileID: 8300000, guid: 315300b41eafa2944ad4b8ad7278e64f, type: 3}
   addCards: []

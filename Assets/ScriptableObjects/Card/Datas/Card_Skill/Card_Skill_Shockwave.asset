@@ -31,6 +31,7 @@ MonoBehaviour:
       invokeTurn: 0
       icon: {fileID: -1996464704, guid: a34ba3130a639244cba14498d415869e, type: 3}
     target: 2
+    clip: {fileID: 8300000, guid: 4402136e1462ce745b9a5782d198c558, type: 3}
   - buff:
       name: "\uCDE8\uC57D"
       type: 6
@@ -40,4 +41,5 @@ MonoBehaviour:
       invokeTurn: 0
       icon: {fileID: 165204792, guid: a34ba3130a639244cba14498d415869e, type: 3}
     target: 2
+    clip: {fileID: 0}
   addCards: []

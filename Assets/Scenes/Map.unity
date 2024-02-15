@@ -11004,6 +11004,7 @@ MonoBehaviour:
   _lineGO: {fileID: 562849739}
   onTargetLineColor: {r: 0.7058824, g: 0.23529412, b: 0.23529412, a: 1}
   defaultLineColor: {r: 1, g: 1, b: 1, a: 1}
+  drawCardClip: {fileID: 8300000, guid: eaa6b5893b32ae6409a120e764cc405b, type: 3}
 --- !u!224 &1380128051
 RectTransform:
   m_ObjectHideFlags: 0
