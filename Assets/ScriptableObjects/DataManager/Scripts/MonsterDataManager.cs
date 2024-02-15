@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "MonsterManager", menuName = "Data/Manager/MonsterManager")]
@@ -35,13 +36,14 @@ public class MonsterDataManager : ScriptableObject
             monster?.Attack();
             yield return wait;
         }
+        isTurn = true;
         foreach (var monster in activeMonster)
         {
             monster?.TurnEnd();
             yield return wait;
             monster?.UpdateAttackIcon();
         }
-        isTurn = true;
+        
     }
 
     public bool CheckMonster()
@@ -57,6 +59,21 @@ public class MonsterDataManager : ScriptableObject
         }
         activeMonster.Clear();
         return false;
+    }
+
+    public void UpdateMonsters()
+    {
+        //foreach (var monster in activeMonster)
+        //{
+        //    if (monster == null)
+        //        activeMonster.Remove(monster);
+        //}
+
+        for(int i = 0; i < activeMonster.Count; i++)
+        {
+            if (activeMonster[i] == null)
+                activeMonster.RemoveAt(i--);
+        }
     }
 
     public List<StatSystem> GetStats()

@@ -23,11 +23,6 @@ public struct CharacterBaseStat
     public int MaxHP { get { return _maxHP; } set { _maxHP = Math.Clamp(value, 1, MAX_HP); } }
     public int Cost { get { return _cost; } set 
         {
-            if(_cost < value)
-            {
-                Debug.Log($"Cost Change fail : {_cost - value} / Cost Check Please");
-                return;
-            }
             _cost = Math.Clamp(value, 0, MaxCost);
         }
     }

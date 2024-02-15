@@ -7087,17 +7087,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1357841793}
   m_CullTransparentMesh: 1
---- !u!114 &1455530885 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 33590781079849417, guid: 43454aa6bdf2c274abd8cf387d9dd58d, type: 3}
-  m_PrefabInstance: {fileID: 608320834}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d08c697e13b75b9438681140d0ebbf5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1459977236
 GameObject:
   m_ObjectHideFlags: 0
@@ -7240,7 +7229,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   trunBtn: {fileID: 1459977240}
-  _player: {fileID: 1455530885}
+  _player: {fileID: 608320837}
   _cardManager: {fileID: 0}
   _monsterDataManager: {fileID: 11400000, guid: 7bba53f85bd88124496e39dfa58a4b8a, type: 2}
   canvas: {fileID: 1230219272}
@@ -12977,7 +12966,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 600, y: -414.85608}
+  m_AnchoredPosition: {x: 600, y: -415}
   m_SizeDelta: {x: 1200, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &7508500230466660916

@@ -76,8 +76,10 @@ public class BattleManager : MonoBehaviour
     {
         _player.UpdateBuffs();
         _isPlayerTrun = false;
+        _monsterDataManager.UpdateMonsters();
         StartCoroutine(_monsterDataManager.MonstersAttack());  // 플레이어의 턴이 끝나면 적이 공격
         trunBtn.text = "적 턴";
+        
         InfoSystem.instance.ShowDate();
     }
 

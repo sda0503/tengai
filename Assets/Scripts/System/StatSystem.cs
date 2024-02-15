@@ -19,7 +19,7 @@ public enum StatType
 public class StatSystem : MonoBehaviour
 {
     [SerializeField] private CharacterBaseStat _stat;
-    private List<Buff> _buffs = new();
+    [SerializeField] private List<Buff> _buffs = new();
     [SerializeField] private Dictionary<string, Buff> _activeBuffs = new Dictionary<string, Buff>();
     [SerializeField] private CharacterBaseStat _buffStat = new();
     private Animator _animator;
@@ -39,12 +39,12 @@ public class StatSystem : MonoBehaviour
 
     public void RegenHP()
     {
-        _stat.HP = _stat.HP;
+        _stat.HP = _stat.MaxHP;
     }
 
     public void RegenCost()
     {
-        _stat.Cost = _stat.Cost;
+        _stat.Cost = _stat.MaxCost;
     }
 
     public void Attack()
@@ -132,7 +132,7 @@ public class StatSystem : MonoBehaviour
             else if (_buffs[i].maxTurn == _buffs[i].turn)
             {
                 _buffs[i].turn = 0;
-                _buffs.RemoveAt(i);
+                _buffs.RemoveAt(i--);
                 continue;
             }
             _buffs[i].turn++;
