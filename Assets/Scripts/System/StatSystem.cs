@@ -39,9 +39,13 @@ public class StatSystem : MonoBehaviour
 
     public void RegenHP()
     {
-        _stat.HP = MaxHP;
+        _stat.HP = _stat.HP;
     }
 
+    public void RegenCost()
+    {
+        _stat.Cost = _stat.Cost;
+    }
 
     public void Attack()
     {
