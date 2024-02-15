@@ -19,10 +19,11 @@ public class BattleManager : MonoBehaviour
 
     private void Awake()
     {
-        
+        ObjectDatas.I.Init(); 
     }
     void Start()
     {
+        _player.SettingStat(ObjectDatas.I.GetData("Ironclad").stat);
         //if (_isElite)
         //{
         //    _monsterDataManager.CreateEliteMonster();
@@ -36,10 +37,8 @@ public class BattleManager : MonoBehaviour
         //    _monsterDataManager.CreateDefalutMonster();
         //}
         _cardManager = CardManager.instance;
-        _monsterDataManager.Init(canvas.transform);
-        _monsterDataManager.CreateDefalutMonster();
-
-        MyTrun();
+        _monsterDataManager.Init(canvas.transform, _player);
+        canvas.SetActive(false);
     }
 
     public void Init(MapData mapData)
@@ -62,6 +61,8 @@ public class BattleManager : MonoBehaviour
                 }
                 break;
         }
+
+        MyTrun();
     }
 
     void Update()

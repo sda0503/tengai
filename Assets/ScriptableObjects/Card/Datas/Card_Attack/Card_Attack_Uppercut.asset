@@ -23,6 +23,24 @@ MonoBehaviour:
   - attackValue: 13
     target: 1
   drawEffects: []
-  statEffects: []
+  statEffects:
+  - buff:
+      name: "\uC57D\uD654"
+      type: 6
+      amount: 0
+      turn: 0
+      maxTurn: 1
+      invokeTurn: 0
+      icon: {fileID: -1996464704, guid: a34ba3130a639244cba14498d415869e, type: 3}
+    target: 1
+  - buff:
+      name: "\uCDE8\uC57D"
+      type: 6
+      amount: 0
+      turn: 0
+      maxTurn: 1
+      invokeTurn: 0
+      icon: {fileID: 165204792, guid: a34ba3130a639244cba14498d415869e, type: 3}
+    target: 1
   addCards: []
   attackValue: 0

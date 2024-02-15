@@ -17,7 +17,7 @@ MonoBehaviour:
   cardName: "\uBB34\uBAA8\uD55C \uB3CC\uC9C4"
   description: "\uD53C\uD574\uB97C 7 \uC90D\uB2C8\uB2E4.\n\uBF51\uC744 \uCE74\uB4DC
     \uB354\uBBF8\uC5D0 \uC5B4\uC9C0\uB7EC\uC6C0 \uCE74\uB4DC\uB97C \uC11E\uC5B4 \uB123\uC2B5\uB2C8\uB2E4."
-  useCondition: 0
+  useCondition: 1
   extinctionType: 0
   attackEffects:
   - attackValue: 7

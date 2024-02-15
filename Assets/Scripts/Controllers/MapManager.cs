@@ -21,11 +21,17 @@ public class MapManager : MonoBehaviour
     public GameObject shoptObj;
     public Canvas _mainCanvas;
 
+    private BattleManager _battleManager;
+
+    private MapData curMapData;
+
     private void Awake()
     {
         _gr = _mainCanvas.GetComponent<GraphicRaycaster>();
         _ped = new PointerEventData(null);
         _rrList = new List<RaycastResult>();
+
+        _battleManager = GameObject.Find("BM").GetComponent<BattleManager>();
     }
     void Update()
     {
@@ -104,6 +110,7 @@ public class MapManager : MonoBehaviour
         {
             InfoSystem.instance.currentFloor++;
             InfoSystem.instance.index = obj.gameObject.GetComponent<MapData>().index;
+            curMapData = obj.gameObject.GetComponent<MapData>();
             switch (obj.gameObject.GetComponent<MapData>().mapData)
             {
                 case 0:
@@ -169,8 +176,9 @@ public class MapManager : MonoBehaviour
             tuto.SetActive(true);
             InfoSystem.instance._isTuto = true;
         }
-        gameObject.SetActive(false);
         mapObj.SetActive(true);
+        _battleManager.Init(curMapData);
+        gameObject.SetActive(false);
         changeObj.SetActive(false);
     }
 

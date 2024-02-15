@@ -15,11 +15,11 @@ MonoBehaviour:
   datas:
   - Name: Ironclad
     stat:
-      _hp: 10
-      _maxHP: 10
+      _hp: 80
+      _maxHP: 80
       _cost: 5
       _maxCost: 5
-      _power: 10
+      _power: 0
       _defense: 0
     prefab: {fileID: 6703778939175893284, guid: 43454aa6bdf2c274abd8cf387d9dd58d, type: 3}
   - Name: SlimeS

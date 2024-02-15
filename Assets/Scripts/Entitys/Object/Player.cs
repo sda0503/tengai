@@ -14,8 +14,6 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        _dataManager.Init(transform.parent);
-        _dataManager.CreateDefalutMonster();
     }
 
     public void TEST_Attack()

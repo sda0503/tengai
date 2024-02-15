@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4324d0bb860800c4a92d182dbf071a70, type: 3}
   m_Name: Card_Attack_PommelStrike
   m_EditorClassIdentifier: 
-  cost: 0
+  cost: 1
   cardSprite: {fileID: 56886870, guid: 9b9507f0b562fdc4cab9c8a56a951394, type: 3}
   cardName: "\uD3FC\uBA5C \uD0C0\uACA9"
   description: "\uD53C\uD574\uB97C 9 \uC90D\uB2C8\uB2E4.\n\uCE74\uB4DC\uB97C 1\uC7A5

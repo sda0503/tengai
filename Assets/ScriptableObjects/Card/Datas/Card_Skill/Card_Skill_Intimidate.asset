@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Card_Skill_Intimidate
   m_EditorClassIdentifier: 
   cost: 0
-  cardSprite: {fileID: 0}
+  cardSprite: {fileID: 282150994, guid: 27696d56011b3f5459825435bc3d39e5, type: 3}
   cardName: "\uC704\uC555"
   description: "\uC801 \uC804\uCCB4\uC5D0\uAC8C \uC57D\uD654\uB97C 1 \uBD80\uC5EC\uD569\uB2C8\uB2E4.\n\uC18C\uBA78"
   useCondition: 0
@@ -28,6 +28,6 @@ MonoBehaviour:
       turn: 0
       maxTurn: 0
       invokeTurn: 0
-      icon: {fileID: 0}
+      icon: {fileID: -1996464704, guid: a34ba3130a639244cba14498d415869e, type: 3}
     target: 2
   addCards: []
