@@ -12,13 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4324d0bb860800c4a92d182dbf071a70, type: 3}
   m_Name: Card_Attack_Bludgeon
   m_EditorClassIdentifier: 
-  cost: 0
-  cardSprite: {fileID: 0}
-  cardName: 
-  description: 
-  useCondition: 0
+  cost: 3
+  cardSprite: {fileID: 554547091, guid: de2981234dc9f944cb16ba92c704b863, type: 3}
+  cardName: "\uBABD\uB465\uC774\uC9C8"
+  description: "\uD53C\uD574\uB97C 32 \uC90D\uB2C8\uB2E4."
+  useCondition: 1
   extinctionType: 0
-  attackEffects: []
+  attackEffects:
+  - attackValue: 32
+    target: 1
   drawEffects: []
   statEffects: []
   addCards: []

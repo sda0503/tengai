@@ -306,7 +306,7 @@ public class HandManager : MonoBehaviour
 
     private void OnPointerDrag()
     {
-        if (isDrag && curSelectedCardDisplay != null)
+        if (isDrag && curSelectedCardDisplay != null && CanUse(curSelectedCard))
         {
             if(curSelectedCardDisplay.GetCard().CardData.useCondition == UseCondition.Target && Input.mousePosition.y > 300)
             {
@@ -404,7 +404,7 @@ public class HandManager : MonoBehaviour
             if (curSelectedCard != null)
             {
                 Debug.Log("End Click");
-                if (IsMeetUseCondition(curSelectedCard.CardData.useCondition))
+                if (IsMeetUseCondition(curSelectedCard.CardData.useCondition) && CanUse(curSelectedCard))
                 {
                     StartCoroutine(UseCard());
                     isMouseOver = false;
@@ -423,7 +423,10 @@ public class HandManager : MonoBehaviour
 
     public IEnumerator UseCard()
     {
+
         Debug.Log(curSelectedCard.CardData.cardName + " 사용");
+        playerStatSystem.TakeCost(curSelectedCard.CardData.cost);
+        InfoSystem.instance.ShowDate();
         hands.Remove(curSelectedCardDisplay);
 
         CardDisplay usedCardDisplay = curSelectedCardDisplay;
@@ -745,6 +748,11 @@ public class HandManager : MonoBehaviour
                 SortCard(i);
             }
         }
+    }
+
+    private bool CanUse(Card card)
+    {
+        return card.CardData.cost <= playerStatSystem.COST;
     }
 
     public void ConnectCardManager(CardManager manager)

@@ -31,7 +31,7 @@ public struct CharacterBaseStat
             _cost = Math.Clamp(value, 0, MaxCost);
         }
     }
-    public int MaxCost { get { return _maxCost; } set { _maxCost = Math.Clamp(value, 1, MAX_COST); } }
+    public int MaxCost { get { return _maxCost; } set { _maxCost = Math.Clamp(value, 0, MAX_COST); } }
     public int ATK { get { return _power; } set { _power = Math.Clamp(value, 0, MAX_ATK); } }
     public int DEF { get { return _defense; } set { _defense = Math.Clamp(value, 0, MAX_DEF); } }
     #endregion

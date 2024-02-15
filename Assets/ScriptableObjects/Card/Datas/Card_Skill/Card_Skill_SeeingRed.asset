@@ -12,13 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd819596958695b48ada7090dd1faf0b, type: 3}
   m_Name: Card_Skill_SeeingRed
   m_EditorClassIdentifier: 
-  cost: 0
+  cost: 1
   cardSprite: {fileID: 0}
-  cardName: 
-  description: 
-  useCondition: 0
-  extinctionType: 0
+  cardName: "\uD608\uC548"
+  description: "\uCF54\uC2A4\uD2B8 2 \uC5BB\uC2B5\uB2C8\uB2E4.\n\uC18C\uBA78"
+  useCondition: 2
+  extinctionType: 1
   attackEffects: []
   drawEffects: []
-  statEffects: []
+  statEffects:
+  - buff:
+      name: 
+      type: 1
+      amount: 2
+      turn: 0
+      maxTurn: 0
+      invokeTurn: 0
+      icon: {fileID: 0}
+    target: 0
   addCards: []

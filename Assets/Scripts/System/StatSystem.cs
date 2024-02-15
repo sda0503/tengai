@@ -55,7 +55,7 @@ public class StatSystem : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        int result = Math.Clamp(amount - DEF, 0, int.MaxValue);
+        int result = Math.Clamp(amount - _buffStat.DEF, 0, int.MaxValue);
         _buffStat.DEF -= amount;
 
         _stat.HP -= result;
@@ -79,7 +79,10 @@ public class StatSystem : MonoBehaviour
 
     public void TakeCost(int amount)
     {
-        _stat.Cost -= amount;
+        int result = Math.Clamp(amount - _buffStat.Cost, 0, int.MaxValue);
+        _buffStat.Cost -= amount;
+
+        _stat.Cost -= result;
     }
 
     private void UpdateStats()

@@ -12,13 +12,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd819596958695b48ada7090dd1faf0b, type: 3}
   m_Name: Card_Skill_Impervious
   m_EditorClassIdentifier: 
-  cost: 0
+  cost: 2
   cardSprite: {fileID: 0}
-  cardName: 
-  description: 
-  useCondition: 0
-  extinctionType: 0
+  cardName: "\uBB34\uC801"
+  description: "\uBC29\uC5B4\uB3C4\uB97C 30 \uC5BB\uC2B5\uB2C8\uB2E4.\n\uC18C\uBA78"
+  useCondition: 2
+  extinctionType: 1
   attackEffects: []
   drawEffects: []
-  statEffects: []
+  statEffects:
+  - buff:
+      name: 
+      type: 3
+      amount: 30
+      turn: 0
+      maxTurn: 0
+      invokeTurn: 0
+      icon: {fileID: 0}
+    target: 0
   addCards: []
