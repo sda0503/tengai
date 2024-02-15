@@ -25,7 +25,7 @@ public class SoundManager : MonoBehaviour
     private void Awake()
     {
         audioSource = GetComponent<AudioSource>();
-
+        Application.targetFrameRate = 60;
         musics = GameObject.FindGameObjectsWithTag("Music");
 
         if (musics.Length >= 2)
