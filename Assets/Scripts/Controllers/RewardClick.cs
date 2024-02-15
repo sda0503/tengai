@@ -143,4 +143,10 @@ public class RewardClick : MonoBehaviour
         //Destroy(gameObject.transform.GetChild(1).GetChild(1).gameObject);
         //Destroy(gameObject.transform.GetChild(1).GetChild(2).gameObject);
     }
+
+    public void AddRelics()
+    {
+        obj = GetClickedUIObject();
+        obj.SetActive(false);
+    }
 }

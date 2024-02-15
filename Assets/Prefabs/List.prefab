@@ -140,6 +140,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 6452f8a99a90eb44390053a23aeb3ec1, type: 3}
   - {fileID: 21300000, guid: 008ea6f2e6a392f4db591e9ab5c9fbe9, type: 3}
   - {fileID: 21300000, guid: ca82a072e5b863a4ea2fec0467cdd7e6, type: 3}
+  - {fileID: 21300000, guid: c0cf2d27999a6ea4fade73ce5936fc77, type: 3}
   power: 0
   rewardType: 0
 --- !u!1 &6130635643408871115
