@@ -103,6 +103,7 @@ public class MapManager : MonoBehaviour
     {
         _obj = GetClickedUIObject();
         Debug.Log(_obj.gameObject.GetComponent<MapData>().mapData);
+        Debug.Log(_obj.gameObject.GetComponent<MapData>().EventNum);
         if (_obj.gameObject.GetComponent<MapData>().floor == InfoSystem.instance.currentFloor && 
             (_obj.gameObject.GetComponent<MapData>().index == InfoSystem.instance.index -1 
             || _obj.gameObject.GetComponent<MapData>().index == InfoSystem.instance.index
@@ -157,7 +158,7 @@ public class MapManager : MonoBehaviour
                     _obj.transform.GetChild(0).gameObject.GetComponent<Image>().sprite = _obj.transform.GetChild(0).gameObject.GetComponent<MapData>().Complete;
                     changeObj.SetActive(true);
                     _obj.GetComponent<Image>().raycastTarget = false;
-                    eventObj.GetComponent<EventManager>().iNum = _obj.GetComponent<MapData>().EventNum;
+                    eventObj.GetComponent<EventManager>().EventSet(_obj.GetComponent<MapData>().EventNum);
                     Invoke("GoEvent", 3f);
 
                     break;

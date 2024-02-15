@@ -38,7 +38,6 @@ public class RewardController : MonoBehaviour
             if (i == 0)
             {
                 //btn = list[i].GetComponent<Button>();//
-                _list[i].GetComponent<Button>().onClick.AddListener(_mapManager.AddGold);
                 _list[i].GetComponent<Reward>().rewardType = RewardType.Gold;
                 _list[i].GetComponent<Button>().onClick.AddListener(() => _mapManager.AddGold());
             }
