@@ -69,7 +69,7 @@ public class BattleManager : MonoBehaviour
     {
         if (isBattle && !_monsterDataManager.CheckMonster())
         {
-            if (isBattle) SceneManager.LoadScene("Ending");
+            if (_isEndBattle) SceneManager.LoadScene("Ending");
             CardManager.instance.Clear();
             rewardCanvas.SetActive(true);
             _rewardController.Init(_mapData.EventNum);
