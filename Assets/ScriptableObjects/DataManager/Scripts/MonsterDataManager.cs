@@ -94,7 +94,7 @@ public class MonsterDataManager : ScriptableObject
 
     public StatSystem GetRandomMonster()
     {
-        CheckMonster();
+        UpdateMonsters();
         int r = UnityEngine.Random.Range(0, activeMonster.Count);
         return activeMonster[r].GetStat();
     }

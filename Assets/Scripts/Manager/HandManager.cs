@@ -9,6 +9,8 @@ public class HandManager : MonoBehaviour
 {
     public List<CardDisplay> hands;
 
+    public MonsterDataManager _monsterDataManager;
+
     [Header("Card Movement Value")]
     [SerializeField] private float _drawTime;
     public float dropTime;
@@ -480,8 +482,10 @@ public class HandManager : MonoBehaviour
                     card.CardData.attackEffects[i].OnUse(_targetStatSystem);
                     break;
                 case Target.AllEnemy:
+                    card.CardData.attackEffects[i].OnUse(_monsterDataManager.GetAllMonster());
+                    break;
                 case Target.RandomEnemy:
-                    card.CardData.attackEffects[i].OnUse();
+                    card.CardData.attackEffects[i].OnUse(_monsterDataManager.GetRandomMonster());
                     break;
             }
         }
@@ -502,8 +506,10 @@ public class HandManager : MonoBehaviour
                     card.CardData.statEffects[i].OnUse(_targetStatSystem);
                     break;
                 case Target.AllEnemy:
+                    card.CardData.statEffects[i].OnUse(_monsterDataManager.GetAllMonster());
+                    break;
                 case Target.RandomEnemy:
-                    card.CardData.statEffects[i].OnUse();
+                    card.CardData.statEffects[i].OnUse(_monsterDataManager.GetRandomMonster());
                     break;
             }
         }

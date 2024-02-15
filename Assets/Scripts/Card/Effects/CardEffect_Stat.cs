@@ -13,6 +13,10 @@ public class CardEffect_Stat : ICardEffect
 
     public void OnUse(List<StatSystem> statSystemList)
     {
-        throw new System.NotImplementedException();
+        foreach (StatSystem statSystem in statSystemList)
+        {
+            Buff newBuff = new Buff(buff);
+            statSystem?.AddBuff(newBuff);
+        }
     }
 }
