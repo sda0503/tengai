@@ -145,6 +145,7 @@ public class StatSystem : MonoBehaviour
             if (_buffs[i].name == "약화")
             {
                 _buffs[i].amount = -ATK * 25 / 100;
+                return;
             }
             _buffs[i].turn++;
         }
