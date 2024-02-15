@@ -1,6 +1,7 @@
 using JetBrains.Annotations;
 using System.Xml.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using static UnityEditor.Experimental.GraphView.GraphView;
 using static UnityEditor.PlayerSettings;
@@ -66,6 +67,7 @@ public class BattleManager : MonoBehaviour
             case 8://보스
                 {
                     _monsterDataManager.CreateBossMonster(mapData.floor);
+                    _isEndBattle = true;
                 }
                 break;
         }
@@ -83,12 +85,15 @@ public class BattleManager : MonoBehaviour
     {
         if (isBattle && !_monsterDataManager.CheckMonster())
         {
+            if (_isEndBattle) SceneManager.LoadScene("Ending");
+
             CardManager.instance.Clear();
             rewardCanvas.SetActive(true);
             _rewardController.Init(_mapData.EventNum);
             _player.UpdateBuffs();
             isBattle = false;
             _isPlayerTrun = true;
+
             return;
         }
 
