@@ -18,6 +18,12 @@ public class RewardController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+       
+    }
+
+    public void Init(int num)
+    {
+        iNum = num;
         MakeReward();
     }
 
@@ -29,12 +35,11 @@ public class RewardController : MonoBehaviour
 
     public void MakeReward()
     {
-        int n =3;
+        int n = Random.Range(2,3);
         for (int i = 0; i < n; i++)
         {
             float y = i * -120 + 640;
             float x = 960;
-
             if (i == 0)
             {
                 btn = rewarObj.GetComponent<Button>();
