@@ -119,11 +119,7 @@ public class StatSystem : MonoBehaviour
                 remove.Add(key);
                 continue;
             }
-            if (key == "허약")
-            {
-                value.amount = -ATK * 75 / 100;
-                AddStat(value);
-            }
+            
             value.turn++;
         }
 
@@ -145,6 +141,11 @@ public class StatSystem : MonoBehaviour
                 _buffs.RemoveAt(i--);
                 continue;
             }
+
+            if (_buffs[i].name == "약화")
+            {
+                _buffs[i].amount = -ATK * 25 / 100;
+            }
             _buffs[i].turn++;
         }
         _bar.UpdateHPBar(HP, MaxHP, DEF);
@@ -161,10 +162,11 @@ public class StatSystem : MonoBehaviour
                 _bar.UpdateBuffSlots();
                 return;
             }
-            if(buff.name == "허약")
+            if(buff.name == "약화")
             {
-                buff.amount = -ATK * 75 / 100;
-                AddStat(buff);
+                buff.type = StatType.ATK;
+                buff.amount = -ATK * 25 / 100;
+                _buffs.Add(buff);
             }
             _activeBuffs.Add(buff.name, buff);
             _bar.CreateBuffSlot(buff);

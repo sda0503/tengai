@@ -10,12 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dd819596958695b48ada7090dd1faf0b, type: 3}
-  m_Name: Card_Skill_Intimidate
+  m_Name: Card_Skill_Shockwave
   m_EditorClassIdentifier: 
-  cost: 0
-  cardSprite: {fileID: 282150994, guid: 27696d56011b3f5459825435bc3d39e5, type: 3}
-  cardName: "\uC704\uC555"
-  description: "\uC801 \uC804\uCCB4\uC5D0\uAC8C \uC57D\uD654\uB97C 1 \uBD80\uC5EC\uD569\uB2C8\uB2E4.\n\uC18C\uBA78"
+  cost: 2
+  cardSprite: {fileID: -181852440, guid: 27696d56011b3f5459825435bc3d39e5, type: 3}
+  cardName: "\uCDA9\uACA9\uD30C"
+  description: "\uC801 \uC804\uCCB4\uC5D0\uAC8C \uC57D\uD654\uC640 \uCDE8\uC57D\uC744
+    3 \uBD80\uC5EC\uD569\uB2C8\uB2E4.\n\uC18C\uBA78"
   useCondition: 2
   extinctionType: 1
   attackEffects: []
@@ -25,9 +26,18 @@ MonoBehaviour:
       name: "\uC57D\uD654"
       type: 6
       amount: 0
-      turn: 1
+      turn: 3
       maxTurn: 0
       invokeTurn: 0
       icon: {fileID: -1996464704, guid: a34ba3130a639244cba14498d415869e, type: 3}
+    target: 2
+  - buff:
+      name: "\uCDE8\uC57D"
+      type: 6
+      amount: 0
+      turn: 3
+      maxTurn: 0
+      invokeTurn: 0
+      icon: {fileID: 165204792, guid: a34ba3130a639244cba14498d415869e, type: 3}
     target: 2
   addCards: []

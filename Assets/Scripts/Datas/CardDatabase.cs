@@ -33,7 +33,7 @@ public class CardDatabase : MonoBehaviour
             _cardDatasDictionary.Add(defaultCardData.name.GetHashCode(), defaultCardData);
         }
 
-        InitPlayerDeck();
+        //InitPlayerDeck();
     }
 
     private void InitPlayerDeck()

@@ -6434,17 +6434,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handManager: {fileID: 1376901942}
   cardDatas:
-  - {fileID: 11400000, guid: faaba148560f3494eba7ba61336d8887, type: 2}
-  - {fileID: 11400000, guid: 41241ecb8ee941245abb41a7b2bd04a2, type: 2}
-  - {fileID: 11400000, guid: 48155d8769930bb4a95466ea5851970f, type: 2}
-  - {fileID: 11400000, guid: fcbdeeb7196041442a5449f3e2627de8, type: 2}
+  - {fileID: 11400000, guid: 167447c477e7f0b468697f78a466f7f7, type: 2}
   - {fileID: 11400000, guid: 5a4b7929077e44448a5b35813c497d65, type: 2}
   - {fileID: 11400000, guid: a1b52794bf53e79438ab5240efe04f46, type: 2}
-  - {fileID: 11400000, guid: 7501b19676cad764889e71afb24d0d69, type: 2}
-  - {fileID: 11400000, guid: bf5e8a040507aeb4cbe77cc90f46be71, type: 2}
-  - {fileID: 11400000, guid: a4969887c529e984681095b456ad7a3b, type: 2}
-  - {fileID: 11400000, guid: dae253dfa924ab24eba3ff0e2360dc58, type: 2}
-  - {fileID: 11400000, guid: dc99630ab5e12c148ac8a3439bc18138, type: 2}
   deckNumText: {fileID: 172372660}
   garbageNumText: {fileID: 1636602448}
   extinguishedCardsNumText: {fileID: 1493269887}
