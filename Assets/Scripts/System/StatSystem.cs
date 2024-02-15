@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public enum StatType
@@ -70,7 +71,7 @@ public class StatSystem : MonoBehaviour
                 Destroy(gameObject);
             }
             else
-                Debug.Log("PlayerDie");
+                SceneManager.LoadScene("Ending");
             //_animator.SetTrigger("Die");
         }
         else
@@ -97,7 +98,7 @@ public class StatSystem : MonoBehaviour
             if (_buffs[i].invokeTurn == 0)
             {
                 AddStat(_buffs[i]);
-                if (_buffs[i].type == StatType.Cost)
+                if (_buffs[i].type == StatType.Cost || _buffs[i].type == StatType.DEF)
                 {
                     _buffs.RemoveAt(i--);
                 }

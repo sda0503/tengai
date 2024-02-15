@@ -4723,7 +4723,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa3233558a86f1f43bab308fbf5506d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isDead: 0
+  isDead: 1
   bannerText: {fileID: 1704917568}
   gameOverPopup: {fileID: 1442437898}
 --- !u!4 &1881950754
