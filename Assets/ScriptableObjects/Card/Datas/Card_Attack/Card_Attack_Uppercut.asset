@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4324d0bb860800c4a92d182dbf071a70, type: 3}
+  m_Name: Card_Attack_Uppercut
+  m_EditorClassIdentifier: 
+  cost: 2
+  cardSprite: {fileID: -1350287810, guid: 203c5694849f3b44ab612c805b7546df, type: 3}
+  cardName: "\uC5B4\uD37C\uCEF7"
+  description: "\uD53C\uD574\uB97C 13 \uC90D\uB2C8\uB2E4.\n\uC57D\uD654\uB97C 1 \uBD80\uC5EC\uD569\uB2C8\uB2E4.\n\uCDE8\uC57D\uC744
+    1 \uBD80\uC5EC\uD569\uB2C8\uB2E4."
+  useCondition: 1
+  extinctionType: 0
+  attackEffects:
+  - attackValue: 13
+  drawEffects: []
+  statEffects: []
+  addCards: []
+  attackValue: 0

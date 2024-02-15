@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66641169781d3ca45a3d52c5244dbe84, type: 3}
+  m_Name: Card_Status_Wound
+  m_EditorClassIdentifier: 
+  cost: 0
+  cardSprite: {fileID: -425702037, guid: de2981234dc9f944cb16ba92c704b863, type: 3}
+  cardName: "\uBD80\uC0C1"
+  description: "\uC0AC\uC6A9\uBD88\uAC00"
+  useCondition: 0
+  extinctionType: 0
+  attackEffects: []
+  drawEffects: []
+  statEffects: []
+  addCards: []

@@ -27,6 +27,7 @@ public class ShowCardListInfo : MonoBehaviour
     public void OnDeckButtonClick()
     {
         this.gameObject.SetActive(true);
+        this.transform.SetAsLastSibling();
         _handManager.enabled = false;
 
         if(_cardManager.deck.Count + _cardManager.garbages.Count > container.transform.childCount)
@@ -42,6 +43,7 @@ public class ShowCardListInfo : MonoBehaviour
 
         for(j = 0; j < _cardManager.deck.Count; j++)
         {
+            Debug.Log(j);
             container.transform.GetChild(j).GetComponent<CardDisplay>().SetCard(_cardManager.deck[j]);
             container.transform.GetChild(j).gameObject.SetActive(true);
         }
@@ -71,6 +73,25 @@ public class ShowCardListInfo : MonoBehaviour
         for (j = 0; j < _cardManager.garbages.Count; j++)
         {
             container.transform.GetChild(j).GetComponent<CardDisplay>().SetCard(_cardManager.garbages[j]);
+            container.transform.GetChild(j).gameObject.SetActive(true);
+        }
+
+        for (; j < container.transform.childCount; j++)
+        {
+            container.transform.GetChild(j).gameObject.SetActive(false);
+        }
+    }
+
+    public void OnExtinguishCardsButtonClick()
+    {
+        this.gameObject.SetActive(true);
+        _handManager.enabled = false;
+
+        int j;
+
+        for (j = 0; j < _cardManager.extinguishedCards.Count; j++)
+        {
+            container.transform.GetChild(j).GetComponent<CardDisplay>().SetCard(_cardManager.extinguishedCards[j]);
             container.transform.GetChild(j).gameObject.SetActive(true);
         }
 
