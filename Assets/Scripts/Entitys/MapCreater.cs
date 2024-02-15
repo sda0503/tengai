@@ -25,8 +25,6 @@ public class MapCreater : MonoBehaviour
     void Awake()
     {
         mapManager = transform.parent.parent.parent.gameObject.GetComponent<MapManager>();
-        Debug.Log(transform.parent.parent.parent.gameObject.name);
-        Debug.Log(mapManager);
     }
 
     // Start is called before the first frame update
@@ -119,7 +117,17 @@ public class MapCreater : MonoBehaviour
             }
         }
 
-        for (int i = 0; i <= maxFloor; i++)
+        mapObject.SetActive(true);
+        mapObject.GetComponent<Image>().sprite = mapSpriteHover[8];
+        mapObject.transform.GetChild(0).GetComponent<Image>().sprite = mapSpriteIcon[8];
+        var boss = Instantiate(mapObject, new Vector3(0, -350, 0), Quaternion.identity, gameObject.transform);
+        boss.transform.localScale = new Vector3(2, 2, 1);
+        boss.GetComponent<Button>().onClick.AddListener((mapManager.ClickArea));
+        boss.GetComponent<MapData>().mapData = 6;
+        boss.GetComponent<MapData>().index = 15;
+        boss.GetComponent<MapData>().floor = 0;
+
+        for (int i = maxFloor; i >= 0; i--)
         {
             ShuffleArray(maxRooms[i]);
             for(int j=0; j< 7; j++) 
@@ -129,22 +137,21 @@ public class MapCreater : MonoBehaviour
                 mapObject.transform.position = new Vector3(x, y, 0);
                 mapObject.GetComponent<Image>().sprite = mapSpriteHover[maxRooms[i][j]];
                 mapObject.transform.GetChild(0).GetComponent<Image>().sprite = mapSpriteIcon[maxRooms[i][j]];
-                
 
                 if (i >= 0 && maxRooms[i][j] != 7) mapObject.SetActive(true);
                 else mapObject.SetActive(false);
                 var mapObj = Instantiate(mapObject, new Vector3(x, y, 0), Quaternion.identity, gameObject.transform);
                 mapObj.GetComponent<Button>().onClick.AddListener((mapManager.ClickArea));
                 mapObj.GetComponent<MapData>().mapData = maxRooms[i][j];
-
-
-
+                mapObj.GetComponent<MapData>().index = j;
+                mapObj.GetComponent<MapData>().floor = i;
+                mapObj.GetComponent<MapData>().EventNum = Random.Range(0, 3);
 
                 //오브젝트 정보
-                beforeVec3.Add(mapObject);
+                beforeVec3.Add(mapObj);
             }
         }
-
+        
 
     }
 
@@ -159,8 +166,9 @@ public class MapCreater : MonoBehaviour
                 isStart = true;
             }
         }
+       ColorCheck();
 
-        
+
     }
 
 
@@ -180,5 +188,52 @@ public class MapCreater : MonoBehaviour
         }
 
         return array;
+    }
+
+    void ColorCheck()
+    {
+        for(int i=8; i< 107; i++)
+        {
+            if (InfoSystem.instance.currentFloor == 0)
+            {
+                if (gameObject.transform.GetChild(i).GetComponent<MapData>().floor == InfoSystem.instance.currentFloor)
+                {
+                    gameObject.transform.GetChild(i).transform.GetChild(0).GetComponent<Image>().color = new Color(0, 0, 0, 1f);
+                }
+                else
+                {
+                    gameObject.transform.GetChild(i).transform.GetChild(0).GetComponent<Image>().color = new Color(0, 0, 0, 178 / 255f);
+                }
+            }
+            else if (InfoSystem.instance.currentFloor == 14)
+            {
+                if (gameObject.transform.GetChild(i).GetComponent<MapData>().floor == InfoSystem.instance.currentFloor)
+                {
+                    gameObject.transform.GetChild(i).transform.GetChild(0).GetComponent<Image>().color = new Color(0, 0, 0, 1f);
+                }
+                else
+                {
+                    gameObject.transform.GetChild(i).transform.GetChild(0).GetComponent<Image>().color = new Color(0, 0, 0, 178 / 255f);
+                }
+            }
+            else
+            {
+                if (gameObject.transform.GetChild(i).GetComponent<MapData>().floor == InfoSystem.instance.currentFloor 
+                    &&( gameObject.transform.GetChild(i).GetComponent<MapData>().index == InfoSystem.instance.index -1
+                    || gameObject.transform.GetChild(i).GetComponent<MapData>().index == InfoSystem.instance.index
+                    || gameObject.transform.GetChild(i).GetComponent<MapData>().index == InfoSystem.instance.index +1
+                    ))
+                {
+                    gameObject.transform.GetChild(i).transform.GetChild(0).GetComponent<Image>().color = new Color(0, 0, 0, 1f);
+                    
+                }
+                else
+                {
+                    gameObject.transform.GetChild(i).transform.GetChild(0).GetComponent<Image>().color = new Color(0, 0, 0, 178 / 255f);
+                }
+            }
+        }
+
+
     }
 }

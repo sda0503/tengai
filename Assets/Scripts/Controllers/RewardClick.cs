@@ -140,7 +140,10 @@ public class RewardClick : MonoBehaviour
     {
         gameObject.SetActive(false);
         mapObj.SetActive(true);
-        //Destroy(gameObject.transform.GetChild(1).GetChild(1).gameObject);
-        //Destroy(gameObject.transform.GetChild(1).GetChild(2).gameObject);
+    }
+
+    public void AddRelics()
+    {
+
     }
 }
