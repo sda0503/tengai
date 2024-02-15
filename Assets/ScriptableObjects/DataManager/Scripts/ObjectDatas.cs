@@ -10,19 +10,30 @@ public class ObjectDatas : ScriptableObject
         get 
         {
             if (_i == null)
+            {
                 _i = Resources.Load<ObjectDatas>("ObjectDatas");
+            }
             return _i; 
         } 
     }
 
     [SerializeField] private List<ObjectData> datas = new List<ObjectData>();
     private Dictionary<int, ObjectData> _datas = new();
+
+    private bool _isDatas = false;
+
+    public bool HasData()
+    {
+        return _isDatas;
+    }
+
     public void Init()
     {
         foreach(ObjectData data in datas)
         {
             _datas.Add(data.Name.GetHashCode(), data);
         }
+        _isDatas = true;
     }
 
     public ObjectData GetData(string name)

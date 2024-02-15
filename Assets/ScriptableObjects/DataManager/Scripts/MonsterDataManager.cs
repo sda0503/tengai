@@ -81,6 +81,17 @@ public class MonsterDataManager : ScriptableObject
         return stats;
     }
 
+    public List<StatSystem> GetAllMonster()
+    {
+        UpdateMonsters();
+       List<StatSystem> stats = new(activeMonster.Count);
+        foreach(var obj in activeMonster)
+        {
+            stats.Add(obj.GetStat());
+        }
+        return stats;
+    }
+
     public StatSystem GetRandomMonster()
     {
         CheckMonster();

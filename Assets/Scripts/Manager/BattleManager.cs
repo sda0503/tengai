@@ -22,7 +22,7 @@ public class BattleManager : MonoBehaviour
 
     private void Awake()
     {
-        ObjectDatas.I.Init();
+        if(!ObjectDatas.I.HasData()) ObjectDatas.I.Init();
     }
     void Start()
     {
