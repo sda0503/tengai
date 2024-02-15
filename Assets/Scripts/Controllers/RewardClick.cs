@@ -29,6 +29,11 @@ public class RewardClick : MonoBehaviour
         _rrList = new List<RaycastResult>();
     }
 
+    private void Start()
+    {
+        this.gameObject.SetActive(false);
+    }
+
     void Update()
     {
         _ped.position = Input.mousePosition;
@@ -128,7 +133,7 @@ public class RewardClick : MonoBehaviour
     {
         Transform container = cardRewardWindow.GetChild(0);
         Debug.Log(container.GetChild(i).GetComponent<CardDisplay>().GetCard().CardData.cardName);
-        CardManager.instance.AddCard(container.GetChild(i).GetComponent<CardDisplay>().GetCard());
+        CardManager.instance.AddCardToOriginal(container.GetChild(i).GetComponent<CardDisplay>().GetCard());
         cardRewardUIObj.SetActive(false);
         OnExitButtonClick();
     }

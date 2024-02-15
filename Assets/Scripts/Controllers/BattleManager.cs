@@ -14,10 +14,14 @@ public class BattleManager : MonoBehaviour
     public StatSystem _player;
     public CardManager _cardManager;
     public MonsterDataManager _monsterDataManager;
+    public RewardController _rewardController;
 
     [SerializeField] public GameObject canvas;
-    [SerializeField] public GameObject player;
-    private GameObject battleCanvas;
+    [SerializeField] private GameObject rewardCanvas;
+
+    private MapData _mapData;
+
+    private bool isBattle;
 
     private void Awake()
     {
@@ -41,6 +45,8 @@ public class BattleManager : MonoBehaviour
         _cardManager = CardManager.instance;
         _monsterDataManager.Init(canvas.transform, _player);
         canvas.SetActive(false);
+
+        isBattle = false;
     }
 
     public void Init(MapData mapData)
@@ -70,13 +76,27 @@ public class BattleManager : MonoBehaviour
                 break;
         }
 
+        _mapData = mapData;
+
         _cardManager.CopyFromOriginal();
+
+        isBattle = true;
 
         MyTrun();
     }
 
     void Update()
     {
+        if (isBattle && !_monsterDataManager.CheckMonster())
+        {
+            CardManager.instance.Clear();
+            rewardCanvas.SetActive(true);
+            _rewardController.Init(_mapData.EventNum);
+            isBattle = false;
+            _isPlayerTrun = true;
+            return;
+        }
+
         if (!_isPlayerTrun && _monsterDataManager.isTurn)  // 적 턴이 아니면 플레이어의 턴
         {
             MyTrun();

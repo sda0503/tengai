@@ -44,7 +44,8 @@ public class CardManager : MonoBehaviour
 
         for (int i = 0; i < cardDatas.Length; i++)
         {
-            AddCardToOriginal(cardDatas[i].CreateCard());
+            for (int j = 0; j < 10; j++)
+                AddCardToOriginal(cardDatas[i].CreateCard());
         }
     }
 
@@ -106,6 +107,25 @@ public class CardManager : MonoBehaviour
     {
         extinguishedCards.Add(card);
         SetExtingushiedCardsNumText();
+    }
+
+    public void Clear()
+    {
+        deck.Clear();
+        garbages.Clear();
+        extinguishedCards.Clear();
+
+        SetAllNumText();
+
+        handManager.hands.Clear();
+        handManager.StopAllCoroutines();
+
+        Transform hand = handManager.transform;
+
+        foreach(Transform child in hand)
+        {
+            Destroy(child.gameObject);
+        }
     }
 
     private void SetDeckNumText()

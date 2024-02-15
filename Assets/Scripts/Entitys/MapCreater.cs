@@ -117,14 +117,15 @@ public class MapCreater : MonoBehaviour
             }
         }
 
+        
         mapObject.SetActive(true);
         mapObject.GetComponent<Image>().sprite = mapSpriteHover[8];
         mapObject.transform.GetChild(0).GetComponent<Image>().sprite = mapSpriteIcon[8];
         var boss = Instantiate(mapObject, new Vector3(0, -350, 0), Quaternion.identity, gameObject.transform);
         boss.transform.localScale = new Vector3(2, 2, 1);
         boss.GetComponent<Button>().onClick.AddListener((mapManager.ClickArea));
-        boss.GetComponent<MapData>().mapData = 6;
-        boss.GetComponent<MapData>().index = 15;
+        boss.GetComponent<MapData>().mapData = 8;
+        boss.GetComponent<MapData>().index = 14;
         boss.GetComponent<MapData>().floor = 0;
 
         for (int i = maxFloor; i >= 0; i--)
