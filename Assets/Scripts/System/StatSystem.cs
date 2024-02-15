@@ -37,9 +37,9 @@ public class StatSystem : MonoBehaviour
         _animator = GetComponent<Animator>();
     }
 
-    public void RegenHP()
+    public void SetHP(int amount)
     {
-        _stat.HP = _stat.MaxHP;
+        _stat.HP += _stat.MaxHP * amount / 100;
     }
 
     public void RegenCost()
