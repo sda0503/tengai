@@ -29,6 +29,7 @@ public class EventManager : MonoBehaviour
         _gr = _mainCanvas.GetComponent<GraphicRaycaster>();
         _ped = new PointerEventData(null);
         _rrList = new List<RaycastResult>();
+        EventSet(iNum);
     }
 
     // Update is called once per frame
@@ -98,14 +99,14 @@ public class EventManager : MonoBehaviour
         switch (iNum)
         {
             case 0:
-                _text[2].text = "[들어간다] 체력을 모두 회복합니다.";
+                InfoSystem.instance.player.RegenHP();
                 break;
             case 1:
-                _text[2].text = "[승낙] 골드를 175 획득합니다.";
+                InfoSystem.instance.SetGold(175);
                 break;
 
             case 2:
-                _text[2].text = "[골드를 챙긴다] 골드를 75 획득합니다.";
+                InfoSystem.instance.SetGold(75);
                 break;
 
             case 3:
@@ -126,7 +127,7 @@ public class EventManager : MonoBehaviour
                 break;
 
             case 2:
-                _text[3].text = "[건드리지 않는다] 골드를 33 잃습니다.";
+                InfoSystem.instance.SetGold(-33);
                 break;
 
             case 3:
@@ -139,7 +140,7 @@ public class EventManager : MonoBehaviour
         switch (iNum)
         {
             case 0:
-                eventImage.sprite = _sprite[45];
+                eventImage.sprite = _sprite[48];
                 _text[0].text = "밝은 빛";
                 _text[1].text = "당신은 방 한가운데에서 일렁이는 빛의 덩어리 를 발견했습니다.\r\n\r\n따스한 빛과  황홀한 문양이 당신을 향해 손짓합니다.";
                 _text[2].text = "[들어간다] 체력을 모두 회복합니다.";
@@ -147,7 +148,7 @@ public class EventManager : MonoBehaviour
 
                 break;
             case 1:
-                eventImage.sprite = _sprite[31];
+                eventImage.sprite = _sprite[32];
                 _text[0].text = "배에에에엠";
                 _text[1].text = "당신은 땅에 뚤린 큰 구멍을 보고 방으로 들어갔습니다. 구멍앞에 도달하자 갑자기 커다란 뱀이 튀어나왔습니다.\r\n\r\n\"하 하하! 안녕안녕? 무엇이 우리를 여기로 이끌었을까? 안녕 모험가, 간단한 질문을 하나 할게.\n인생의 가장 좋은 점은 바로 뭐든지 살 수 있다는 것 아니겠어?\n너도 그렇게 생각하지?\"";
                 _text[2].text = "[승낙] 골드를 175 획득합니다.";
@@ -163,7 +164,7 @@ public class EventManager : MonoBehaviour
                 break;
 
             case 3:
-                eventImage.sprite = _sprite[35];
+                eventImage.sprite = _sprite[37];
                 _text[0].text = "영묘";
                 _text[1].text = "일련의 무덤 사이를 지나가던 중, 원형방의 중심에 놓인 보석으로 가득한 커다란 석관과 마주쳤습니다.\n관에 적혀있는 글을 알아볼 수는 없지만, 검은 안개가 옆에서 스며나오는 것을 볼 수 있습니다.";
                 _text[2].text = "[열어본다] 유물을 획득합니다.";

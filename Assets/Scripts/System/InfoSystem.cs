@@ -32,6 +32,7 @@ public class InfoSystem : MonoBehaviour
     public void SetGold(int addGold)
     {
         gold += addGold;
+        if(gold < 0) gold = 0;
     }
 
     public void ShowDate()
