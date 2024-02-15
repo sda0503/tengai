@@ -42,11 +42,11 @@ public class RewardController : MonoBehaviour
         int n = Random.Range(2, 4);
         for (int i = 0; i < n; i++)
         {
-            list[i].GetComponent<Button>().onClick = null;
+            list[i].GetComponent<Button>().onClick.RemoveAllListeners();
             if (i == 0)
             {
-                btn = list[i].GetComponent<Button>();
-                btn.onClick.AddListener(mapManager.AddGold);
+                //btn = list[i].GetComponent<Button>();//
+                list[i].GetComponent<Button>().onClick.AddListener(mapManager.AddGold);
                 list[i].GetComponent<Reward>().rewardType = RewardType.Gold;
                 list[i].GetComponent<Button>().onClick.AddListener(() => mapManager.AddGold());
             }
