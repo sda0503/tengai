@@ -126,7 +126,7 @@ public class RewardClick : MonoBehaviour
 
         for(int i = 0; i < container.childCount; i++)
         {
-            container.GetChild(i).GetComponent<CardDisplay>().SetCard(CardDatabase.instance.GetRandomCard());
+            container.GetChild(i).GetComponent<CardDisplay>().SetCard(CardDatabase.instance.GetRandomRewardCard());
         }
     }
 

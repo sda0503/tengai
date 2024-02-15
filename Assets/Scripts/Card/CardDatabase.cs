@@ -5,6 +5,7 @@ using UnityEngine;
 public class CardDatabase : MonoBehaviour
 {
     [SerializeField] private Card_Base[] cardDatas;
+    [SerializeField] private Card_Base[] statusCardDatas;
     Dictionary<int, Card_Base> cardDatasDictionary;
 
     public static CardDatabase instance;
@@ -21,19 +22,24 @@ public class CardDatabase : MonoBehaviour
         {
             cardDatasDictionary.Add(cardData.name.GetHashCode(), cardData);
         }
+
+        foreach (var statusCardData in statusCardDatas)
+        {
+            cardDatasDictionary.Add(statusCardData.name.GetHashCode(), statusCardData);
+        }
     }
 
-    public Card GetCard(int index)
-    {
-        return cardDatas[index].CreateCard();
-    }
+    //public Card GetCard(int index)
+    //{
+    //    return cardDatas[index].CreateCard();
+    //}
 
     public Card GetCard(string name)
     {
         return cardDatasDictionary[name.GetHashCode()].CreateCard();
     }
 
-    public Card GetRandomCard()
+    public Card GetRandomRewardCard()
     {
         return cardDatas[Random.Range(0, cardDatas.Length)].CreateCard();
     }
