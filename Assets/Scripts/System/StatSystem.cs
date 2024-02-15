@@ -204,7 +204,7 @@ public class StatSystem : MonoBehaviour
                 break;
             case StatType.DEF:
                 {
-                    _buffStat.DEF += data.amount;
+                    _stat.DEF += data.amount;
                 }
                 break;
             case StatType.Cost:
