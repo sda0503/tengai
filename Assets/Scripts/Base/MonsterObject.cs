@@ -21,6 +21,11 @@ public class MonsterObject : MonoBehaviour
         monsterBase.CheckATKText();
     }
 
+    public StatSystem GetStat()
+    {
+        return monsterBase.statSystem;
+    }
+
     public void TurnEnd()
     {
         monsterBase.statSystem.UpdateBuffs();
