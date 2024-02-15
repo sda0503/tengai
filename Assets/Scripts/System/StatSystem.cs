@@ -43,6 +43,7 @@ public class StatSystem : MonoBehaviour
     public void RegenCost()
     {
         _stat.Cost = _stat.MaxCost;
+        _stat.DEF = 0;
     }
 
     public void Attack()
@@ -57,8 +58,8 @@ public class StatSystem : MonoBehaviour
 
     public void TakeDamage(int amount)
     {
-        int result = Math.Clamp(amount - _buffStat.DEF, 0, int.MaxValue);
-        _buffStat.DEF -= amount;
+        int result = Math.Clamp(amount - _stat.DEF, 0, int.MaxValue);
+        _stat.DEF -= amount;
 
         _stat.HP -= result;
         if (_stat.HP == 0)
@@ -80,10 +81,7 @@ public class StatSystem : MonoBehaviour
 
     public void TakeCost(int amount)
     {
-        int result = Math.Clamp(amount - _buffStat.Cost, 0, int.MaxValue);
-        _buffStat.Cost -= amount;
-
-        _stat.Cost -= result;
+        _stat.Cost -= amount;
     }
 
     public void UpdateStats()
