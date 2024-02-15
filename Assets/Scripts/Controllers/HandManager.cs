@@ -600,8 +600,6 @@ public class HandManager : MonoBehaviour
 
     IEnumerator DropCardC(Transform obj)
     {
-        //yield retrun StartCoroutine(MoveObjFollowCurve3C(obj, obj.localPosition, obj.transform.localPosition + new Vector3(50f, 50f, 0f), GarbagePos.localPosition, dropTime));
-
         yield return StartCoroutine(MoveObjFollowCurve3C(obj, obj.localPosition, obj.transform.localPosition + new Vector3(50f, 50f, 0f), GarbagePos.localPosition, dropTime));
 
         Destroy(obj.gameObject);
@@ -609,17 +607,8 @@ public class HandManager : MonoBehaviour
 
     IEnumerator MoveObjC(Transform obj, Vector3 startPos, Vector3 endPos, float time)
     {
-        float startTime = 0;
         Vector3 velocity = Vector3.zero;
         obj.localPosition = startPos;
-
-        //while (startTime < time)
-        //{
-        //    obj.localPosition = Vector3.Lerp(startPos, endPos, startTime / time);
-        //    //obj.localPosition = Vector3.SmoothDamp(obj.localPosition, endPos, ref velocity, time);
-        //    startTime += Time.deltaTime;
-        //    yield return null;
-        //}
 
         obj.DOLocalMove(endPos, time).SetEase(Ease.OutQuad);
         yield return new WaitForSeconds(time);
