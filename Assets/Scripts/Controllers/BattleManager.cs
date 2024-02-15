@@ -15,7 +15,7 @@ public class BattleManager : MonoBehaviour
     public CardManager _cardManager;
     public MonsterDataManager _monsterDataManager;
 
-    [SerializeField] public GameObject canvas;
+    // [SerializeField] public GameObject canvas;
 
     private void Awake()
     {
@@ -35,6 +35,7 @@ public class BattleManager : MonoBehaviour
         //{
         //    _monsterDataManager.CreateDefalutMonster();
         //}
+        
         MyTrun();
     }
 
@@ -54,7 +55,7 @@ public class BattleManager : MonoBehaviour
                 break;
             case 8://보스
                 {
-                    _monsterDataManager.CreateBossMonster(0);
+                    _monsterDataManager.CreateBossMonster(mapData.floor);
                 }
                 break;
         }
