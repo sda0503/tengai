@@ -29,11 +29,6 @@ public class CardManager : MonoBehaviour
         garbages = new List<Card>();
         extinguishedCards = new List<Card>();
         instance = this;
-
-        for(int i = 0;  i < cardDatas.Length; i++)
-        {
-            AddCardToOriginal(cardDatas[i].CreateCard());
-        }
     }
 
     private void Start()
