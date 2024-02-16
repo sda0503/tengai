@@ -1,10 +1,13 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MonsterObject : MonoBehaviour
 {
     public TextMeshProUGUI nameText;
     private MonsterBase monsterBase;
+
+    private GameObject monsterObject;
 
     public void Attack()
     {
@@ -14,6 +17,11 @@ public class MonsterObject : MonoBehaviour
     public void UpdateAttackIcon()
     {
         monsterBase.CheckATKText();
+    }
+
+    public bool HasMonster()
+    {
+        return monsterObject.activeSelf;
     }
 
     public StatSystem GetStat()
@@ -34,6 +42,7 @@ public class MonsterObject : MonoBehaviour
 
     public void UpdateMonster(ObjectData data, StatSystem target)
     {
+        monsterObject = transform.GetChild(0).gameObject;
         nameText.text = data.Name;
         monsterBase.statSystem = GetComponent<StatSystem>();
         monsterBase.statSystem.SettingStat(data.stat);

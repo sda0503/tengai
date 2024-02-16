@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.Data;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public enum StatType
 {
@@ -67,7 +67,8 @@ public class StatSystem : MonoBehaviour
         {
             if (TryGetComponent<MonsterBase>(out _))
             {
-                Destroy(gameObject);
+                transform.GetChild(1).gameObject.SetActive(false);
+                transform.GetChild(0).gameObject.SetActive(false);
             }
             else
                 SceneManager.LoadScene("Ending");

@@ -35,8 +35,6 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 5533770205470759502}
-  - {fileID: 493620443534271535}
-  - {fileID: 4674776591485964012}
   - {fileID: 2089954655626218910}
   m_Father: {fileID: 0}
   m_RootOrder: -1
@@ -102,6 +100,7 @@ MonoBehaviour:
     _maxCost: 0
     _power: 0
     _defense: 0
+  _buffs: []
   _buffStat:
     _hp: 0
     _maxHP: 0
@@ -329,12 +328,12 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3137024790400644285}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 8380025267422823651}
+  m_Father: {fileID: 5533770205470759502}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -736,8 +735,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 4674776591485964012}
   - {fileID: 8099739702854485030}
   - {fileID: 8685121964815575477}
+  - {fileID: 493620443534271535}
   m_Father: {fileID: 8380025267422823651}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -982,7 +983,7 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 8380025267422823651}
+    m_TransformParent: {fileID: 5533770205470759502}
     m_Modifications:
     - target: {fileID: 2352736023789549378, guid: e591ccbb9b0939a4ea98fd1ef30f4e19, type: 3}
       propertyPath: m_fontSize

@@ -15,6 +15,7 @@ public class MonsterDataManager : ScriptableObject
     private GameObject spawnPivot;
 
     [NonSerialized] public List<MonsterObject> activeMonster = new();
+    private List<MonsterObject> destoryMonster = new();
     public bool isTurn;
 
     private ObjectDatas _objectDatas;
@@ -33,15 +34,15 @@ public class MonsterDataManager : ScriptableObject
         isTurn = false;
         foreach (var monster in activeMonster)
         {
-            if (monster != null) monster.Attack();
+            if (monster.HasMonster()) monster.Attack();
             yield return wait;
         }
         isTurn = true;
         foreach (var monster in activeMonster)
         {
-            if (monster != null) monster.TurnEnd();
+            if (monster.HasMonster()) monster.TurnEnd();
             yield return wait;
-            if (monster != null) monster.UpdateAttackIcon();
+            if (monster.HasMonster()) monster.UpdateAttackIcon();
         }
         
     }
@@ -51,7 +52,7 @@ public class MonsterDataManager : ScriptableObject
         bool isMonster = false;
         foreach (var monster in activeMonster)
         {
-            if (monster != null)
+            if (monster.HasMonster())
             {
                 monster.GetComponent<MonsterBase>().UpdateText();
                 isMonster = true;
@@ -60,12 +61,25 @@ public class MonsterDataManager : ScriptableObject
         return isMonster;
     }
 
+    public void DestoryMonsters()
+    {
+        UpdateMonsters();
+        foreach (var monster in destoryMonster)
+        {
+            Destroy(monster.gameObject);
+        }
+        destoryMonster.Clear();
+    }
+
     public void UpdateMonsters()
     {
         for(int i = 0; i < activeMonster.Count; i++)
         {
-            if (activeMonster[i] == null)
+            if (!activeMonster[i].HasMonster())
+            {
+                destoryMonster.Add(activeMonster[i]);
                 activeMonster.RemoveAt(i--);
+            }
         }
     }
 

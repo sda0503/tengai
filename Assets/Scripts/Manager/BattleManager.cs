@@ -74,6 +74,7 @@ public class BattleManager : MonoBehaviour
                 SceneManager.LoadScene("Ending");
                 return;
             }
+            _monsterDataManager.DestoryMonsters();
             CardManager.instance.Clear();
             canvas.SetActive(false);
             rewardCanvas.SetActive(true);
