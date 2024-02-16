@@ -24,7 +24,6 @@ public class MonsterDataManager : ScriptableObject
     public void Init(Transform parent, StatSystem statSystem)
     {
         _objectDatas = ObjectDatas.I;
-        Debug.Log("jjj");
         spawnPivot = Instantiate(spawnObj, parent);
         targetSystem = statSystem;
     }
@@ -34,15 +33,15 @@ public class MonsterDataManager : ScriptableObject
         isTurn = false;
         foreach (var monster in activeMonster)
         {
-            monster?.Attack();
+            if (monster != null) monster.Attack();
             yield return wait;
         }
         isTurn = true;
         foreach (var monster in activeMonster)
         {
-            monster?.TurnEnd();
+            if (monster != null) monster.TurnEnd();
             yield return wait;
-            monster?.UpdateAttackIcon();
+            if (monster != null) monster.UpdateAttackIcon();
         }
         
     }
@@ -102,7 +101,6 @@ public class MonsterDataManager : ScriptableObject
 
     public void CreateDefalutMonster()
     {
-        Debug.Log("dfd");
         int r = UnityEngine.Random.Range(0, defaultDatas.Count);
         List<string> monsters = defaultDatas[r].MonsterDatas;
         for (int i = 0; i < monsters.Count; i++)

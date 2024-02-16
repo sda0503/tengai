@@ -102,8 +102,6 @@ public class MapManager : MonoBehaviour
     public void ClickArea()
     {
         _obj = GetClickedUIObject();
-        Debug.Log(_obj.gameObject.GetComponent<MapData>().mapData);
-        Debug.Log(_obj.gameObject.GetComponent<MapData>().EventNum);
         if (_obj.gameObject.GetComponent<MapData>().floor == InfoSystem.instance.currentFloor && 
             (_obj.gameObject.GetComponent<MapData>().index == InfoSystem.instance.index -1 
             || _obj.gameObject.GetComponent<MapData>().index == InfoSystem.instance.index

@@ -1306,7 +1306,6 @@ GameObject:
   - component: {fileID: 1746289888614303274}
   - component: {fileID: 2705893678197533259}
   - component: {fileID: 3610052174132677670}
-  - component: {fileID: 33590781079849417}
   m_Layer: 0
   m_Name: Ironclad
   m_TagString: Untagged
@@ -1382,6 +1381,7 @@ MonoBehaviour:
     _maxCost: 0
     _power: 0
     _defense: 0
+  _buffs: []
   _buffStat:
     _hp: 0
     _maxHP: 0
@@ -1389,19 +1389,6 @@ MonoBehaviour:
     _maxCost: 0
     _power: 0
     _defense: 0
---- !u!114 &33590781079849417
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6703778939175893284}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d08c697e13b75b9438681140d0ebbf5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _dataManager: {fileID: 11400000, guid: 7bba53f85bd88124496e39dfa58a4b8a, type: 2}
 --- !u!1 &7006307314363652212
 GameObject:
   m_ObjectHideFlags: 0

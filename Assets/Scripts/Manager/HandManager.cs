@@ -257,7 +257,6 @@ public class HandManager : MonoBehaviour
 
             if (_curMouseOverCard != null)
             {
-                Debug.Log("MouseOver");
                 _isMouseOver = true;
                 HighlightCard();
                 _curMouseOverCard.transform.SetAsLastSibling();
@@ -272,7 +271,6 @@ public class HandManager : MonoBehaviour
         {
             if (GetClickedUIObjectComponent<CardDisplay>() != null && GetClickedUIObjectComponent<CardDisplay>() == _curMouseOverCard)
                 return;
-            Debug.Log("OnExit");
             SortAllCard();
             _curMouseOverCard.transform.localRotation = Quaternion.Euler(new Vector3(0, 0, _curMouseOverCard.angle));
             _curMouseOverCard.transform.localScale = new Vector3(1f, 1f, 0f);
@@ -296,12 +294,9 @@ public class HandManager : MonoBehaviour
             if(_curSelectedCardDisplay != null)
                 _curSelectedCardDisplay.GetComponent<Image>().raycastTarget = false;
 
-            Debug.Log("OnClick");
-
             if (_curSelectedCard != null)
             {
                 SoundManager.PlayClip(drawCardClip);
-                Debug.Log(_curSelectedCard.CardData.cardName);
             }
         }
     }
@@ -407,7 +402,6 @@ public class HandManager : MonoBehaviour
 
             if (_curSelectedCard != null)
             {
-                Debug.Log("End Click");
                 if (IsMeetUseCondition(_curSelectedCard.CardData.useCondition) && CanUse(_curSelectedCard))
                 {
                     StartCoroutine(UseCard());

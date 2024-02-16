@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundSource : MonoBehaviour
@@ -11,7 +9,6 @@ public class SoundSource : MonoBehaviour
         if (_audioSource == null)
             _audioSource = GetComponent<AudioSource>();
 
-        Debug.Log("play");
         CancelInvoke();
         _audioSource.clip = clip;
         _audioSource.volume = 1f;

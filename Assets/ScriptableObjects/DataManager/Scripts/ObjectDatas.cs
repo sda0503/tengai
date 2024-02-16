@@ -29,7 +29,6 @@ public class ObjectDatas : ScriptableObject
 
     public void Init()
     {
-        Debug.Log("hi");
         foreach(ObjectData data in datas)
         {
             _datas.Add(data.Name.GetHashCode(), data);

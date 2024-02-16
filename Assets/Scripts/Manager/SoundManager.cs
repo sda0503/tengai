@@ -57,7 +57,6 @@ public class SoundManager : MonoBehaviour
         }
         else if (!(isElite || isBoss || isShop || isDead || isClear || isEnding) && _wasNotDefault)
         {
-            //StopAllCoroutines();
             _wasNotDefault = false;
             PlayDefaultMusic();
         }
@@ -144,9 +143,7 @@ public class SoundManager : MonoBehaviour
 
     public static void PlayClip(AudioClip clip)
     {
-        Debug.Log("Playe");
         GameObject obj = instance.objectPool.SpawnFromPool("SoundSource");
-        Debug.Log(obj.name);
         obj.SetActive(true);
         SoundSource soundSource = obj.GetComponent<SoundSource>();
         soundSource.Play(clip);
