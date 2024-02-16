@@ -34,13 +34,9 @@ public class MonsterObject : MonoBehaviour
         monsterBase.UpdateAttack();
     }
 
-    private void OnEnable()
-    {
-        monsterBase = GetComponent<MonsterBase>();
-    }
-
     public void UpdateMonster(ObjectData data, StatSystem target)
     {
+        monsterBase = GetComponent<MonsterBase>();
         monsterObject = transform.GetChild(0).gameObject;
         nameText.text = data.Name;
         monsterBase.statSystem = GetComponent<StatSystem>();
