@@ -20,13 +20,12 @@ MonoBehaviour:
   useCondition: 1
   extinctionType: 0
   attackEffects:
-  - attackValue: 15
-    target: 1
-    clip: {fileID: 0}
   - attackValue: 2
     target: 0
+    clip: {fileID: 0}
+  - attackValue: 15
+    target: 1
     clip: {fileID: 0}
   drawEffects: []
   statEffects: []
   addCards: []
-  attackValue: 0
