@@ -20,6 +20,7 @@ public class MonsterObject : MonoBehaviour
 
     public bool HasMonster()
     {
+        if (monsterObject == null) return false;
         return monsterObject.activeSelf;
     }
 

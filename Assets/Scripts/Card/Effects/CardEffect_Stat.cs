@@ -11,7 +11,7 @@ public class CardEffect_Stat : ICardEffect
     public void OnUse(StatSystem statSystem = null)
     {
         Buff newBuff = new Buff(buff);
-        statSystem?.AddBuff(newBuff);
+        if (statSystem != null) statSystem.AddBuff(newBuff);
 
         if (clip != null)
             SoundManager.PlayClip(clip);
@@ -22,7 +22,7 @@ public class CardEffect_Stat : ICardEffect
         foreach (StatSystem statSystem in statSystemList)
         {
             Buff newBuff = new Buff(buff);
-            statSystem?.AddBuff(newBuff);
+            if (statSystem != null) statSystem.AddBuff(newBuff);
         }
 
         if (clip != null)
