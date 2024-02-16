@@ -18,6 +18,7 @@ public class BuffSlot : MonoBehaviour
 
     public void Init(Buff buff)
     {
+        if (_img == null) return;
         _img.sprite = buff.icon;
         int turn = buff.maxTurn - buff.turn;
         _text.text = turn > 1 ? turn.ToString() : string.Empty;
