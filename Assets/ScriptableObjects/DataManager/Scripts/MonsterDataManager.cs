@@ -15,7 +15,7 @@ public class MonsterDataManager : ScriptableObject
     private GameObject spawnPivot;
 
     [NonSerialized] public List<MonsterObject> activeMonster = new();
-    private List<MonsterObject> destoryMonster = new();
+    [SerializeField] private List<MonsterObject> destoryMonster = new();
     public bool isTurn;
 
     private ObjectDatas _objectDatas;
@@ -117,6 +117,7 @@ public class MonsterDataManager : ScriptableObject
     {
         int r = UnityEngine.Random.Range(0, defaultDatas.Count);
         List<string> monsters = defaultDatas[r].MonsterDatas;
+        destoryMonster.Clear();
         for (int i = 0; i < monsters.Count; i++)
         {
             var data = _objectDatas.GetData(monsters[i]);
@@ -130,6 +131,7 @@ public class MonsterDataManager : ScriptableObject
     {
         int r = UnityEngine.Random.Range(0, EliteDatas.Count);
         List<string> monsters = EliteDatas[r].MonsterDatas;
+        destoryMonster.Clear();
         for (int i = 0; i < monsters.Count; i++)
         {
             var data = _objectDatas.GetData(monsters[i]);
@@ -141,6 +143,7 @@ public class MonsterDataManager : ScriptableObject
 
     public void CreateBossMonster(int number)
     {
+        destoryMonster.Clear();
         var data = _objectDatas.GetData(BossDatas[number]);
         var monster = Instantiate(data.prefab, spawnPivot.transform).GetComponent<MonsterObject>();
         monster.UpdateMonster(data, targetSystem);
